@@ -43,32 +43,54 @@
 //}
 
 //3.
+//int main()
+//{
+//	int x{}, N{};
+//	int max = -1000000;
+//	int min = 1000000;
+//	std::cin >> N;	
+//
+//	for (int i = 0; i < N;i++)
+//	{
+//		std::cin >> x;
+//		if (x > max)
+//		{
+//			max = x;
+//		}
+//		if (x < min)
+//		{
+//			min = x;
+//		}
+//	}
+//	std::cout << min << " " << max << std::endl;	
+//}
+
+//4.
+//int main()
+//{
+//	int A[9]{};
+//	int x{}, y{}, max{};
+//
+//	for (int i = 0; i < 9;i++)
+//	{
+//		std::cin >> x;
+//		A[i] = x;
+//	}	
+//	for (int i = 0;i < 9;i++)
+//	{
+//		if (A[i] >max )
+//		{
+//			max = A[i];
+//			y = i;
+//		}		
+//	}
+//
+//	std::cout << A[y] << std::endl;
+//	std::cout << y+1 << std::endl;
+//}
+
+//5.
 int main()
 {
-	int x{}, N{};
-	std::cin >> N;
 
-	int* Array = new int[N];
-
-	for (int i = 0; i < N;i++)
-	{
-		std::cin >> x;
-		Array[i] = x;
-	}
-
-	for (int i = 0; i < N;i++)
-	{
-		for (int j = i+1; j < N;j++)
-		{
-			if (Array[i] > Array[j])
-			{
-				int temp = Array[i];
-				Array[i] = Array[j];
-				Array[j] = temp;
-			}
-		}		
-	}
-	std::cout << Array[0] << " " << Array[N - 1] << std::endl;
-
-	delete[] Array;
 }
