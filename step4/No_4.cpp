@@ -90,7 +90,61 @@
 //}
 
 //5.
-int main()
-{
+//int main()
+//{
+//	
+//	int N{}, M{}, i{}, j{}, k{};
+//	std::cin >> N >> M;
+//	
+//	int* array = new int[N] {};
+//
+//	for (int a = 0; a < M;a++)
+//	{
+//		std::cin >> i >> j >> k;
+//		i = i - 1;
+//		j = j - 1;
+//		for (int b = 0; b < abs(j-i)+1 ; b++)
+//		{
+//			array[i+b] = k;
+//		}
+//	}
+//
+//	for (int a = 0; a < N;a++)
+//	{
+//		std::cout << array[a] << " ";
+//	}std::cout << std::endl;
+//
+//	delete array;
+//}
 
-}
+//6.
+//int main()
+//{
+//	
+//	int N{}, M{}, i{}, j{}, k{};
+//	std::cin >> N >> M;
+//	
+//	int* array = new int[N] {};
+//
+//	for (int a = 0; a < N;a++)
+//	{
+//		array[a] = a + 1;
+//	}
+//
+//	for (int a = 0; a < M;a++)
+//	{
+//		std::cin >> i >> j;
+//		i = i - 1;
+//		j = j - 1;		
+//		int temp = array[i];
+//		array[i] = array[j];
+//		array[j] = temp;
+//	}
+//
+//	for (int a = 0; a < N;a++)
+//	{
+//		std::cout << array[a] << " ";
+//	}std::cout << std::endl;
+//
+//	delete array;
+//}
