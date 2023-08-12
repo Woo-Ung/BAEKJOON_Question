@@ -148,3 +148,36 @@
 //
 //	delete array;
 //}
+
+//6.
+//int main()
+//{
+//	int array[30]{};
+//	int x;
+//	for (int i = 0;i < 30;i++)
+//	{
+//		array[i] = i + 1;
+//	}
+//
+//	for (int i = 0; i < 28;i++)
+//	{
+//		std::cin >> x;
+//		for (int j = 0;j < 30;j++)
+//		{
+//			if (array[j] == x)
+//			{
+//				array[j] = 0;
+//			}
+//		}
+//	}
+//
+//	for (int i = 0;i < 30;i++)
+//	{
+//		if (array[i] != 0)
+//		{
+//			std::cout << array[i] << std::endl;
+//		}
+//	}
+//}
+
+//7.
