@@ -149,7 +149,7 @@
 //	delete array;
 //}
 
-//6.
+//7.
 //int main()
 //{
 //	int array[30]{};
@@ -180,4 +180,79 @@
 //	}
 //}
 
-//7.
+//8.
+//int main()
+//{
+//	int A{}, x{}, count{};
+//
+//	int array[10]{}, empty[10]{};
+//
+//	for (int i = 0; i < 10;i++)
+//	{
+//		std::cin >> x;
+//		array[i] = x;
+//	}
+//	for (int i = 0; i < 10;i++)
+//	{
+//		empty[i] = array[i] % 42;
+//	}
+//
+//	for (int i = 0; i < 10;i++)
+//	{
+//		for (int j = i + 1; j < 10;j++)
+//		{
+//			if (empty[i] == empty[j])
+//			{
+//				empty[j] = -1;
+//			}		
+//		}
+//	}
+//	for (int i = 0; i < 10;i++)
+//	{
+//		if (empty[i] == -1)
+//		{
+//			count++;
+//		}
+//	}
+//
+//
+//	std::cout << 10-count << std::endl;
+//}
+
+//9.
+int main()
+{
+	int N{}, M{}, x{}, y{};
+	std::cin >> N >> M;
+	
+	int* array = new int[N] {};;
+
+	for (int i = 0; i < N;i++)
+	{
+		array[i] = i + 1;
+	}
+
+	for (int i = 0; i < M;i++)
+	{
+		std::cin >> x >> y;
+		x -= 1;
+		y -= 1;
+		for (int j = x; j < y; j++)
+		{
+			int k = y;
+			if (j > k)			
+				break;			
+			int temp = array[j];
+			array[j] = array[k];
+			array[k] = temp;
+			y--;
+		}
+	}
+
+	for (int i = 0; i < N;i++)
+	{
+		std::cout << array[i] << " ";
+	}std::cout << std::endl;
+
+	delete array;
+}
