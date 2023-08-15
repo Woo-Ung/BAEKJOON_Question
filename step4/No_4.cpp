@@ -220,39 +220,72 @@
 //}
 
 //9.
-int main()
-{
-	int N{}, M{}, x{}, y{};
-	std::cin >> N >> M;
-	
-	int* array = new int[N] {};;
+//int main()
+//{
+//	int N{}, M{}, x{}, y{};
+//	std::cin >> N >> M;
+//	
+//	int* array = new int[N] {};;
+//
+//	for (int i = 0; i < N;i++)
+//	{
+//		array[i] = i + 1;
+//	}
+//
+//	for (int i = 0; i < M;i++)
+//	{
+//		std::cin >> x >> y;
+//		x -= 1;
+//		y -= 1;
+//		for (int j = x; j < y; j++)
+//		{
+//			int k = y;
+//			if (j > k)			
+//				break;			
+//			int temp = array[j];
+//			array[j] = array[k];
+//			array[k] = temp;
+//			y--;
+//		}
+//	}
+//
+//	for (int i = 0; i < N;i++)
+//	{
+//		std::cout << array[i] << " ";
+//	}std::cout << std::endl;
+//
+//	delete array;
+//}
 
-	for (int i = 0; i < N;i++)
-	{
-		array[i] = i + 1;
-	}
-
-	for (int i = 0; i < M;i++)
-	{
-		std::cin >> x >> y;
-		x -= 1;
-		y -= 1;
-		for (int j = x; j < y; j++)
-		{
-			int k = y;
-			if (j > k)			
-				break;			
-			int temp = array[j];
-			array[j] = array[k];
-			array[k] = temp;
-			y--;
-		}
-	}
-
-	for (int i = 0; i < N;i++)
-	{
-		std::cout << array[i] << " ";
-	}std::cout << std::endl;
-
-	delete array;
-}
+//10.
+//int main()
+//{
+//	int N{}, x{};
+//	double  M{ 0 }, SUM{};
+//
+//	std::cin >> N;
+//
+//	double* array = new double[N];
+//
+//	for (int i = 0; i < N;i++)
+//	{
+//		std::cin >> x;
+//		array[i] = x;
+//		if (array[i] > M)
+//		{
+//			M = array[i];
+//		}
+//	}
+//
+//	for (int i = 0; i < N;i++)
+//	{
+//		array[i] = (array[i] / M) * 100;
+//		SUM += array[i];
+//	}
+//
+//	SUM = SUM / N;
+//
+//	std::cout << SUM << std::endl;
+// 
+//	delete array;
+//}
