@@ -114,3 +114,28 @@
 //		std::cout << (int)abc[i] << " ";
 //	}std::cout << std::endl;
 //}
+
+//7.
+//int main()
+//{
+//	std::string S{};
+//	int R{}, T{};
+//	std::cin >> T;	
+//	
+//	
+//
+//	for (int k = 0; k < T;k++)
+//	{
+//		std::cin >> R;
+//		std::cin >> S;
+//
+//		for (int i = 0; i < size(S);i++)
+//		{
+//			for (int j = 0; j < R;j++)
+//			{
+//				std::cout << S[i];
+//			}
+//		}std::cout << std::endl;
+//	}
+//}
+
