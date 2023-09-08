@@ -203,19 +203,8 @@ int main()
 	std::string AB;
 	int sum{};
 
-	enum CALL
-	{
-		A, B, C = 3,
-		D, E, F = 4,
-		G, H, I = 5,
-		J, K, L = 6,
-		M, N, O = 7,
-		P, Q , R ,S = 8,
-		T, U, V = 9,
-		W, X, Y, Z = 10
-	};
-
-		
+	std::cin >> AB;
+	
 	while (true)
 	{
 		static int i{};
@@ -224,7 +213,39 @@ int main()
 		{
 			break;
 		}
-		sum += (int)AB[i]-48;
+		
+		if ('A' <= AB[i] && 'C' >= AB[i])
+		{
+			sum += 3;
+		}
+		if ('D' <= AB[i] && 'F' >= AB[i])
+		{
+			sum += 4;
+		}
+		if ('G' <= AB[i] && 'I' >= AB[i])
+		{
+			sum += 5;
+		}
+		if ('J' <= AB[i] && 'L' >= AB[i])
+		{
+			sum += 6;
+		}
+		if ('M' <= AB[i] && 'O' >= AB[i])
+		{
+			sum += 7;
+		}
+		if ('P' <= AB[i] && 'S' >= AB[i])
+		{
+			sum += 8;
+		}
+		if ('T' <= AB[i] && 'V' >= AB[i])
+		{
+			sum += 9;
+		}
+		if ('W' <= AB[i] && 'Z' >= AB[i])
+		{
+			sum += 10;
+		}
 		i++;
 	}
 	std::cout << sum << std::endl;
