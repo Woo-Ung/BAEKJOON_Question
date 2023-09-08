@@ -1,4 +1,6 @@
 #include <iostream>
+#include <vector>
+#include <string>
 
 //1.
 //int main()
@@ -139,3 +141,91 @@
 //	}
 //}
 
+//8.
+//int main()
+//{
+//	int count{};	
+//	std::string S{};
+//	std::getline(std::cin,S);
+//
+//	for (int i = 0; i < size(S);i++)
+//	{		
+//		if (S[i] == ' ')
+//		{			
+//			count++;
+//		}
+//	}	
+//
+//	if (S[0] == ' ')
+//	{
+//		count--;
+//	}
+//
+//	if (S[size(S) - 1] == ' ')
+//	{
+//		count--;
+//	}
+//
+//	std::cout << count+1 << std::endl;
+//}
+
+//9.
+//int main()
+//{
+//	std::string A, B;
+//	std::cin >> A >> B;
+//	
+//	char temp = A[0];
+//	A[0] = A[2];
+//	A[2] = temp;
+//
+//	char temp2 = B[0];
+//	B[0] = B[2];
+//	B[2] = temp2;
+//
+//	for (int i = 0;i < 3;i++)
+//	{
+//		if (A > B)
+//		{
+//			std::cout << (int)A[i]-48;
+//		}
+//		else
+//		{
+//			std::cout << (int)B[i]-48;
+//		}
+//		
+//	}std::cout << std::endl;
+//}
+
+//10.
+int main()
+{
+	std::string AB;
+	int sum{};
+
+	enum CALL
+	{
+		A, B, C = 3,
+		D, E, F = 4,
+		G, H, I = 5,
+		J, K, L = 6,
+		M, N, O = 7,
+		P, Q , R ,S = 8,
+		T, U, V = 9,
+		W, X, Y, Z = 10
+	};
+
+		
+	while (true)
+	{
+		static int i{};
+
+		if (AB[i] == NULL)
+		{
+			break;
+		}
+		sum += (int)AB[i]-48;
+		i++;
+	}
+	std::cout << sum << std::endl;
+}
