@@ -198,55 +198,68 @@
 //}
 
 //10.
-int main()
-{
-	std::string AB;
-	int sum{};
+//int main()
+//{
+//	std::string AB;
+//	int sum{};
+//
+//	std::cin >> AB;
+//	
+//	while (true)
+//	{
+//		static int i{};
+//
+//		if (AB[i] == NULL)
+//		{
+//			break;
+//		}
+//		
+//		if ('A' <= AB[i] && 'C' >= AB[i])
+//		{
+//			sum += 3;
+//		}
+//		if ('D' <= AB[i] && 'F' >= AB[i])
+//		{
+//			sum += 4;
+//		}
+//		if ('G' <= AB[i] && 'I' >= AB[i])
+//		{
+//			sum += 5;
+//		}
+//		if ('J' <= AB[i] && 'L' >= AB[i])
+//		{
+//			sum += 6;
+//		}
+//		if ('M' <= AB[i] && 'O' >= AB[i])
+//		{
+//			sum += 7;
+//		}
+//		if ('P' <= AB[i] && 'S' >= AB[i])
+//		{
+//			sum += 8;
+//		}
+//		if ('T' <= AB[i] && 'V' >= AB[i])
+//		{
+//			sum += 9;
+//		}
+//		if ('W' <= AB[i] && 'Z' >= AB[i])
+//		{
+//			sum += 10;
+//		}
+//		i++;
+//	}
+//	std::cout << sum << std::endl;
+//}
 
-	std::cin >> AB;
-	
-	while (true)
-	{
-		static int i{};
-
-		if (AB[i] == NULL)
-		{
-			break;
-		}
-		
-		if ('A' <= AB[i] && 'C' >= AB[i])
-		{
-			sum += 3;
-		}
-		if ('D' <= AB[i] && 'F' >= AB[i])
-		{
-			sum += 4;
-		}
-		if ('G' <= AB[i] && 'I' >= AB[i])
-		{
-			sum += 5;
-		}
-		if ('J' <= AB[i] && 'L' >= AB[i])
-		{
-			sum += 6;
-		}
-		if ('M' <= AB[i] && 'O' >= AB[i])
-		{
-			sum += 7;
-		}
-		if ('P' <= AB[i] && 'S' >= AB[i])
-		{
-			sum += 8;
-		}
-		if ('T' <= AB[i] && 'V' >= AB[i])
-		{
-			sum += 9;
-		}
-		if ('W' <= AB[i] && 'Z' >= AB[i])
-		{
-			sum += 10;
-		}
-		i++;
-	}
-	std::cout << sum << std::endl;
-}
+//11.
+//int main()
+//{
+//	char X[101];
+//
+//	for (int i = 0;i < 100;i++)
+//	{
+//		std::cin.getline(X, 101, '\n');
+//
+//		std::cout << X << std::endl;
+//	}
+//}
