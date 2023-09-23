@@ -93,3 +93,36 @@
 //		}
 //	}
 //}
+
+//5.
+//int main()
+//{
+//	int max{};
+//	int word[26]{};
+//	char correct{};
+//	std::string A{};
+//	std::cin >> A;
+//
+//	for (int i = 0; i < size(A);i++)
+//	{		
+//		if (A[i] >= 97)
+//		{
+//			A[i] -= 32;
+//		}
+//		word[A[i] - 65] += 1;		
+//	}
+//	for (int j = 0; j < 26;j++)
+//	{
+//		if (word[j] == max)
+//		{
+//			correct = '?';
+//		}
+//
+//		if (word[j] > max)
+//		{
+//			max = word[j];
+//			correct = (char)(j + 65);
+//		}
+//	}
+//	std::cout << correct << std::endl;
+//}
