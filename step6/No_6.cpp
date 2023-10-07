@@ -129,21 +129,56 @@
 
 //6.
 int main()
-{
-	static int i{};
-	std::string word[8]{ "c=","c-" ,"dz=","d-","lj","nj","s=","z=" };
+{		
 	std::string W;
 
 	std::cin >> W;
 
 	int count = size(W);
 
-	for (int i = 0; size(W) > i;i++);
-	{
-		if (W[i] == 'c' && W[i + 1] == '=' || '-');
+	for (static int i = 0; size(W) > i;i++)
+	{		
+		if (W[i] == 'c' && W[i + 1] == '=' || W[i + 1] == '-')
 		{
-			count = -1;
+			count--;
+			i++;
 		}
-	}
 
+		if (W[i] == 'd' && W[i + 1] == '-')
+		{
+			count --;
+			i++;
+		}
+
+		if (W[i] == 'd' && W[i + 1] == 'z' && W[i+2]=='=')
+		{
+			count -= 2;
+			i += 2;
+		}
+
+		if (W[i] == 'l' && W[i + 1] == 'j')
+		{
+			count--;
+			i++;
+		}
+
+		if (W[i] == 'n' && W[i + 1] == 'j')
+		{
+			count--;
+			i++;
+		}
+
+		if (W[i] == 's' && W[i + 1] == '=')
+		{
+			count--;
+			i++;
+		}
+
+		if (W[i] == 'z' && W[i + 1] == '=')
+		{
+			count--;
+			i++;
+		}		
+	}
+	std::cout << count << std::endl;
 }
