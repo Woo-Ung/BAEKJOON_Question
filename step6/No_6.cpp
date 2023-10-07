@@ -126,3 +126,24 @@
 //	}
 //	std::cout << correct << std::endl;
 //}
+
+//6.
+int main()
+{
+	static int i{};
+	std::string word[8]{ "c=","c-" ,"dz=","d-","lj","nj","s=","z=" };
+	std::string W;
+
+	std::cin >> W;
+
+	int count = size(W);
+
+	for (int i = 0; size(W) > i;i++);
+	{
+		if (W[i] == 'c' && W[i + 1] == '=' || '-');
+		{
+			count = -1;
+		}
+	}
+
+}
