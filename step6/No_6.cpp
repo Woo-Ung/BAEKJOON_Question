@@ -128,56 +128,91 @@
 //}
 
 //6.
+//int main()
+//{		
+//	std::string W;
+//
+//	std::cin >> W;
+//
+//	int count = size(W);
+//
+//	for (static int i = 0; size(W) > i;i++)
+//	{		
+//		if (W[i] == 'c' && W[i + 1] == '=' || W[i + 1] == '-')
+//		{
+//			count--;
+//			i++;
+//		}
+//
+//		if (W[i] == 'd' && W[i + 1] == '-')
+//		{
+//			count --;
+//			i++;
+//		}
+//
+//		if (W[i] == 'd' && W[i + 1] == 'z' && W[i+2]=='=')
+//		{
+//			count -= 2;
+//			i += 2;
+//		}
+//
+//		if (W[i] == 'l' && W[i + 1] == 'j')
+//		{
+//			count--;
+//			i++;
+//		}
+//
+//		if (W[i] == 'n' && W[i + 1] == 'j')
+//		{
+//			count--;
+//			i++;
+//		}
+//
+//		if (W[i] == 's' && W[i + 1] == '=')
+//		{
+//			count--;
+//			i++;
+//		}
+//
+//		if (W[i] == 'z' && W[i + 1] == '=')
+//		{
+//			count--;
+//			i++;
+//		}		
+//	}
+//	std::cout << count << std::endl;
+//}
+
+//7.
 int main()
-{		
-	std::string W;
+{
+	int N{}, count{};
+	
+	std::string word;
 
-	std::cin >> W;
+	std::cin >> N;
 
-	int count = size(W);
+	count = N;
 
-	for (static int i = 0; size(W) > i;i++)
-	{		
-		if (W[i] == 'c' && W[i + 1] == '=' || W[i + 1] == '-')
-		{
-			count--;
-			i++;
-		}
+	for (int i = 0; i < N; i++)
+	{
+		std::cin >> word;
 
-		if (W[i] == 'd' && W[i + 1] == '-')
-		{
-			count --;
-			i++;
-		}
+		int check[26]{};
 
-		if (W[i] == 'd' && W[i + 1] == 'z' && W[i+2]=='=')
-		{
-			count -= 2;
-			i += 2;
-		}
-
-		if (W[i] == 'l' && W[i + 1] == 'j')
-		{
-			count--;
-			i++;
-		}
-
-		if (W[i] == 'n' && W[i + 1] == 'j')
-		{
-			count--;
-			i++;
-		}
-
-		if (W[i] == 's' && W[i + 1] == '=')
-		{
-			count--;
-			i++;
-		}
-
-		if (W[i] == 'z' && W[i + 1] == '=')
-		{
-			count--;
-			i++;
+		for (int j = 0; j < size(word);j++)
+		{			
+			check[word[j] - 97]++;
+			if (j > 0 && word[j] == word[j - 1])
+			{
+				check[word[j] - 97] --;
+			}
+			
+			if (check[word[j] - 97] > 1)
+			{
+				count--;
+				break;
+			}				
 		}		
 	}
 	std::cout << count << std::endl;
