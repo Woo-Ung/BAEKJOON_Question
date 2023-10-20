@@ -184,36 +184,103 @@
 //}
 
 //7.
+//int main()
+//{
+//	int N{}, count{};
+//	
+//	std::string word;
+//
+//	std::cin >> N;
+//
+//	count = N;
+//
+//	for (int i = 0; i < N; i++)
+//	{
+//		std::cin >> word;
+//
+//		int check[26]{};
+//
+//		for (int j = 0; j < size(word);j++)
+//		{			
+//			check[word[j] - 97]++;
+//			if (j > 0 && word[j] == word[j - 1])
+//			{
+//				check[word[j] - 97] --;
+//			}
+//			
+//			if (check[word[j] - 97] > 1)
+//			{
+//				count--;
+//				break;
+//			}				
+//		}		
+//	}
+//	std::cout << count << std::endl;
+//}
+
+//8.
 int main()
 {
-	int N{}, count{};
-	
-	std::string word;
+	std::string subject{}, ABC{};
+	double score{}, scoreA{}, scoreB{};
 
-	std::cin >> N;
+	double sum{}, avg{};
 
-	count = N;
+	std::cout << std::fixed;
+	std::cout.precision(6);
 
-	for (int i = 0; i < N; i++)
+	for (int i = 0;i < 20;i++)
 	{
-		std::cin >> word;
+		std::cin >> subject;
+		std::cin >> score;
+		std::cin >> ABC;
 
-		int check[26]{};
+		if (ABC == "A+")
+		{
+			scoreA = 4.5;
+		}
+		if (ABC == "A0")
+		{
+			scoreA = 4.0;
+		}
+		if (ABC == "B+")
+		{
+			scoreA = 3.5;
+		}
+		if (ABC == "B0")
+		{
+			scoreA = 3.0;
+		}
+		if (ABC == "C+")
+		{
+			scoreA = 2.5;
+		}
+		if (ABC == "C0")
+		{
+			scoreA = 2.0;
+		}
+		if (ABC == "D+")
+		{
+			scoreA = 1.5;
+		}
+		if (ABC == "D0")
+		{
+			scoreA = 1.0;
+		}
+		if (ABC == "F")
+		{
+			scoreA = 0.0;
+		}
+		if (ABC == "P")
+		{
+			continue;
+		}
 
-		for (int j = 0; j < size(word);j++)
-		{			
-			check[word[j] - 97]++;
-			if (j > 0 && word[j] == word[j - 1])
-			{
-				check[word[j] - 97] --;
-			}
-			
-			if (check[word[j] - 97] > 1)
-			{
-				count--;
-				break;
-			}				
-		}		
+		scoreB += score;
+		sum += (score * scoreA);
 	}
-	std::cout << count << std::endl;
+
+	avg = sum / scoreB;
+
+	std::cout << avg << std::endl;
 }
