@@ -14,15 +14,21 @@ int main()
 		array[i] = new int[m];		
 	}
 
-	for (int i = 0;i < n;i++)
+	for (int i = 0;i < 2 *n;i++)
 	{
 		for (int j = 0;j < m;j++)
 		{			
 			int x{};
 			std::cin >> x;
-						
-			array[i][j] = x;
-			
+
+			if (i >= n) 
+			{				
+				array[i%n][j] += x;
+			}
+			else
+			{
+				array[i][j] = x;
+			}
 		}
 		
 	}
@@ -40,5 +46,4 @@ int main()
 		delete array[i];
 	}
 	delete array;
-
 }
