@@ -49,28 +49,58 @@
 //}
 
 //2.
+//int main()
+//{
+//	int array[9][9]{};
+//	int max{}, a{}, b{};
+//
+//
+//	for (int i = 0;i < 9;i++)
+//	{
+//		for (int j = 0;j < 9;j++)
+//		{
+//			int x{};
+//			std::cin >> x;
+//			array[i][j] = x;
+//			if (max < x)
+//			{
+//				max = x;
+//				a = i;
+//				b = j;
+//			}			
+//		}
+//	}
+//
+//	std::cout << max << std::endl;
+//	std::cout << a+1 << " " << b + 1 << std::endl;
+//}
+
+//3.
 int main()
 {
-	int array[9][9]{};
-	int max{}, a{}, b{};
-
-
-	for (int i = 0;i < 9;i++)
-	{
-		for (int j = 0;j < 9;j++)
+	char array[5][16]{};
+	std::string x{};
+	for (int i = 0;i < 5;i++)
+	{			
+		std::cin >> x;
+		for (int j = 0;i < 16;j++)
 		{
-			int x{};
-			std::cin >> x;
-			array[i][j] = x;
-			if (max < x)
+			if (x[j] == '\0')
 			{
-				max = x;
-				a = i;
-				b = j;
-			}			
+				break;
+			}
+			array[i][j] = x[j];
 		}
 	}
 
-	std::cout << max << std::endl;
-	std::cout << a+1 << " " << b + 1 << std::endl;
+	for (int i = 0;i < 16;i++)
+	{
+		for (int j = 0;j < 5;j++)
+		{
+			if(array[j][i] != '\0')
+			{
+				std::cout << array[j][i];
+			}
+		}
+	}	
 }
