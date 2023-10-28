@@ -76,31 +76,57 @@
 //}
 
 //3.
-int main()
-{
-	char array[5][16]{};
-	std::string x{};
-	for (int i = 0;i < 5;i++)
-	{			
-		std::cin >> x;
-		for (int j = 0;i < 16;j++)
-		{
-			if (x[j] == '\0')
-			{
-				break;
-			}
-			array[i][j] = x[j];
-		}
-	}
+//int main()
+//{
+//	char array[5][16]{};
+//	std::string x{};
+//	for (int i = 0;i < 5;i++)
+//	{			
+//		std::cin >> x;
+//		for (int j = 0;i < 16;j++)
+//		{
+//			if (x[j] == '\0')
+//			{
+//				break;
+//			}
+//			array[i][j] = x[j];
+//		}
+//	}
+//
+//	for (int i = 0;i < 16;i++)
+//	{
+//		for (int j = 0;j < 5;j++)
+//		{
+//			if(array[j][i] != '\0')
+//			{
+//				std::cout << array[j][i];
+//			}
+//		}
+//	}	
+//}
 
-	for (int i = 0;i < 16;i++)
-	{
-		for (int j = 0;j < 5;j++)
-		{
-			if(array[j][i] != '\0')
-			{
-				std::cout << array[j][i];
-			}
-		}
-	}	
-}
+//4.
+//int main()
+//{
+//	int N{}, count{}, x{}, y{};
+//	int array[100][100]{};	
+//	std::cin >> N;
+//
+//	for (int k = 0; k < N;k++)
+//	{
+//		std::cin >> x >> y;
+//
+//		for (int i = x; i<x+10;i++)
+//		{
+//			for (int j = y; j < y + 10;j++)
+//			{
+//				if (array[i][j] == 0)
+//				{
+//					array[i][j] = 1;
+//					count++;
+//				}
+//			}
+//		}
+//	}
+//	std::cout << count << std::endl;
+//}
