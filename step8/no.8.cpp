@@ -1,30 +1,105 @@
 #include <iostream>
+#include <algorithm>
 #include <cmath>
 
 //1.
+//int main()
+//{
+//	long long int B{}, sum{};
+//	std::string x{};
+//
+//	std::cin >> x >> B;
+//
+//	for (int i = 0; i < size(x);i++)
+//	{
+//		if (x[i] > 64)
+//		{
+//			x[i] -= 55;
+//		}
+//		else if (x[i] > 47)
+//		{
+//			x[i] -= 48;
+//		}		
+//	}
+//
+//	for (int i = 0; i < size(x);i++)
+//	{
+//		sum += pow(B, i) * x[size(x) - (i + 1)];
+//	}
+//
+//	std::cout << sum << std::endl;
+//}
+
+//2.
+char convert(int a)
+{	
+	
+	if (a>9)
+	{
+		a += 55;
+	}
+	else
+	{
+		a += 48;
+	}
+
+	return (char)a;
+}
+
 int main()
 {
-	long long int B{}, sum{};
+	int Number{}, share{}, div{};
+
 	std::string x{};
 
-	std::cin >> x >> B;
+	std::cin >> Number >> share;
 
-	for (int i = 0; i < size(x);i++)
+	div = Number;
+
+	for(int i = 0; ;i++)
 	{
-		if (x[i] > 64)
-		{
-			x[i] -= 55;
+		if (div < share)
+		{			
+			x += convert(div);
+			
+			break;
 		}
-		else if (x[i] > 47)
+
+		if (i == 0)
 		{
-			x[i] -= 48;
-		}		
+			if (div % share == 0)
+			{
+				if (div / share >= share)
+				{
+					x += '0';
+				}
+				else
+				{
+					x += convert(div / share);
+				}
+				if (div / share < share)
+				{
+					if (share > 1)
+					{
+						x += '0';
+						reverse(x.begin(), x.end());
+					}
+					break;
+				}
+			}
+			else
+			{
+				x += convert(div % share);
+			}
+		}
+		else
+		{
+			x += convert(div % share);
+		}
+		div = div / share;		
 	}
 
-	for (int i = 0; i < size(x);i++)
-	{
-		sum += pow(B, i) * x[size(x) - (i + 1)];
-	}
+	reverse(x.begin(), x.end());
 
-	std::cout << sum << std::endl;
+	std::cout << x << std::endl;
 }
