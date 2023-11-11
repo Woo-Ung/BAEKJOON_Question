@@ -127,17 +127,34 @@
 //}
 
 //4.
+//int main()
+//{
+//	int x{}, first{ 2 }, count{};
+//
+//	std::cin >> x;
+//
+//	for (int i = 0; i < x;i++)
+//	{
+//		first += (first - 1);
+//	}
+//
+//	count = first * first;
+//	std::cout << count << std::endl;
+//}
+
+//5.
 int main()
 {
-	int x{}, first{ 2 }, count{};
+	int N{};
+	int count{1}, num{1};
 
-	std::cin >> x;
-
-	for (int i = 0; i < x;i++)
+	std::cin >> N;
+	
+	while (N > count)
 	{
-		first += (first - 1);
+		count += 6 * num;
+		num++;
 	}
 
-	count = first * first;
-	std::cout << count << std::endl;
+	std::cout << num << std::endl;
 }
