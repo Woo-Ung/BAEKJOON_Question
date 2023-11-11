@@ -105,23 +105,39 @@
 //}
 
 //3.
+//int main()
+//{
+//	int T{}, C{};
+//	int array[4]{25,10,5,1};
+//	int x[4]{};
+//
+//	std::cin >> T;
+//
+//	for (int i = 0;i < T;i++)
+//	{
+//		std::cin >> C;		
+//
+//		for (int j = 0;j < 4;j++)
+//		{
+//			x[j] = C / array[j];
+//			C = C % array[j];
+//			std::cout << x[j] << " ";
+//		}std::cout << std::endl;		
+//	}
+//}
+
+//4.
 int main()
 {
-	int T{}, C{};
-	int array[4]{25,10,5,1};
-	int x[4]{};
+	int x{}, first{ 2 }, count{};
 
-	std::cin >> T;
+	std::cin >> x;
 
-	for (int i = 0;i < T;i++)
+	for (int i = 0; i < x;i++)
 	{
-		std::cin >> C;		
-
-		for (int j = 0;j < 4;j++)
-		{
-			x[j] = C / array[j];
-			C = C % array[j];
-			std::cout << x[j] << " ";
-		}std::cout << std::endl;		
+		first += (first - 1);
 	}
+
+	count = first * first;
+	std::cout << count << std::endl;
 }
