@@ -160,42 +160,77 @@
 //}
 
 //6.
+//int main()
+//{
+//	int a[2]{1,1};
+//	int x{}, turn{};
+//
+//	std::cin >> x;
+//	x -= 1;
+//	for (int i = 0; i < x;i++)
+//	{			
+//		if (turn == 0)
+//		{
+//			if (a[0] == 1)
+//			{
+//				a[1]++;
+//				turn++;	
+//			}
+//			else
+//			{
+//				a[1]++;
+//				a[0]--;
+//			}
+//		}
+//		else if (turn == 1)
+//		{
+//			if (a[1] == 1)
+//			{
+//				a[0]++;
+//				turn--;				
+//			}
+//			else
+//			{
+//				a[1]--;
+//				a[0]++;
+//			}
+//		}		
+//	}
+//
+//	std::cout << a[0] << "/" << a[1] << std::endl;
+//}
+
+//7.
 int main()
 {
-	int a[2]{1,1};
-	int x{}, turn{};
+	int A{}, B{}, V{}, x{}, goal{}, date{};
 
-	std::cin >> x;
-	x -= 1;
-	for (int i = 0; i < x;i++)
-	{			
-		if (turn == 0)
-		{
-			if (a[0] == 1)
-			{
-				a[1]++;
-				turn++;	
-			}
-			else
-			{
-				a[1]++;
-				a[0]--;
-			}
-		}
-		else if (turn == 1)
-		{
-			if (a[1] == 1)
-			{
-				a[0]++;
-				turn--;				
-			}
-			else
-			{
-				a[1]--;
-				a[0]++;
-			}
-		}		
+	std::cin >> A >> B >> V;
+	
+	goal = V - A;
+
+	if (V - A <= 0)
+	{
+		date = 1;		
 	}
 
-	std::cout << a[0] << "/" << a[1] << std::endl;
+	else
+	{
+		if (goal / (A - B) < 1)
+		{
+			x = 1;
+		}
+
+		else
+		{
+			x = goal / (A - B);
+			if (goal % (A - B) != 0)
+			{
+				x++;
+			}			
+		}
+		date = x + 1;
+	}
+
+	std::cout << date << std::endl;	
 }
