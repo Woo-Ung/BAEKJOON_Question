@@ -143,18 +143,59 @@
 //}
 
 //5.
+//int main()
+//{
+//	int N{};
+//	int count{1}, num{1};
+//
+//	std::cin >> N;
+//	
+//	while (N > count)
+//	{
+//		count += 6 * num;
+//		num++;
+//	}
+//
+//	std::cout << num << std::endl;
+//}
+
+//6.
 int main()
 {
-	int N{};
-	int count{1}, num{1};
+	int a[2]{1,1};
+	int x{}, turn{};
 
-	std::cin >> N;
-	
-	while (N > count)
-	{
-		count += 6 * num;
-		num++;
+	std::cin >> x;
+	x -= 1;
+	for (int i = 0; i < x;i++)
+	{			
+		if (turn == 0)
+		{
+			if (a[0] == 1)
+			{
+				a[1]++;
+				turn++;	
+			}
+			else
+			{
+				a[1]++;
+				a[0]--;
+			}
+		}
+		else if (turn == 1)
+		{
+			if (a[1] == 1)
+			{
+				a[0]++;
+				turn--;				
+			}
+			else
+			{
+				a[1]--;
+				a[0]++;
+			}
+		}		
 	}
 
-	std::cout << num << std::endl;
+	std::cout << a[0] << "/" << a[1] << std::endl;
 }
