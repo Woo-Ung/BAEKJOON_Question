@@ -32,27 +32,75 @@
 //}
 
 //2.
+//int main()
+//{
+//	int N{}, K{}, factors{}, count{};
+//
+//	std::cin >> N >> K;
+//
+//	for (int i = 1; i <= N; i++)
+//	{
+//		if (N % i == 0)
+//		{
+//			factors = i;
+//			count++;
+//			if (K == count)
+//			{
+//				std::cout << factors << std::endl;
+//				break;
+//			}			
+//		}
+//	}
+//	if (K > count)
+//	{
+//		std::cout << "0" << std::endl;
+//	}
+//}
+
+//3.
 int main()
 {
-	int N{}, K{}, factors{}, count{};
-
-	std::cin >> N >> K;
-
-	for (int i = 1; i <= N; i++)
+	int N{};
+	
+	
+	while (true)
 	{
-		if (N % i == 0)
+		int sum{}, count{};
+		int factors[100000]{};
+		std::cin >> N;
+
+		if (N == -1)
 		{
-			factors = i;
-			count++;
-			if (K == count)
-			{
-				std::cout << factors << std::endl;
-				break;
-			}			
+			break;
 		}
-	}
-	if (K > count)
-	{
-		std::cout << "0" << std::endl;
+
+		for (int i = 1; i < N; i++)
+		{
+			if (N % i == 0)
+			{
+				factors[count+1] = i;
+				sum += i;
+				count++;
+			}
+		}
+
+		if (sum == N)
+		{
+			std::cout << N << " = ";
+			for (int i = 1; i <= count ;i++)
+			{
+				if (i != 1)
+				{
+					std::cout << " + ";
+				}
+				std::cout << factors[i];
+			}
+			std::cout << std::endl;
+		}
+
+		else
+		{
+			std::cout << N <<" is NOT perfect." << std::endl;
+		}
 	}
 }
