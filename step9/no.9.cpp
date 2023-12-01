@@ -58,49 +58,78 @@
 //}
 
 //3.
+//int main()
+//{
+//	int N{};
+//	
+//	
+//	while (true)
+//	{
+//		int sum{}, count{};
+//		int factors[100000]{};
+//		std::cin >> N;
+//
+//		if (N == -1)
+//		{
+//			break;
+//		}
+//
+//		for (int i = 1; i < N; i++)
+//		{
+//			if (N % i == 0)
+//			{
+//				factors[count+1] = i;
+//				sum += i;
+//				count++;
+//			}
+//		}
+//
+//		if (sum == N)
+//		{
+//			std::cout << N << " = ";
+//			for (int i = 1; i <= count ;i++)
+//			{
+//				if (i != 1)
+//				{
+//					std::cout << " + ";
+//				}
+//				std::cout << factors[i];
+//			}
+//			std::cout << std::endl;
+//		}
+//
+//		else
+//		{
+//			std::cout << N <<" is NOT perfect." << std::endl;
+//		}
+//	}
+//}
+
+//4.
 int main()
 {
-	int N{};
-	
-	
-	while (true)
+	int N{}, x{}, count{};
+
+	std::cin >> N;
+
+	for (int i = 0; i < N; i++)
 	{
-		int sum{}, count{};
-		int factors[100000]{};
-		std::cin >> N;
+		int y{};
 
-		if (N == -1)
-		{
-			break;
-		}
+		std::cin >> x;
 
-		for (int i = 1; i < N; i++)
+		for (int j = 1; j < x;j++)
 		{
-			if (N % i == 0)
+			if (x % j==0)
 			{
-				factors[count+1] = i;
-				sum += i;
-				count++;
+				y++;
 			}
-		}
-
-		if (sum == N)
+		}	
+		if (y == 1)
 		{
-			std::cout << N << " = ";
-			for (int i = 1; i <= count ;i++)
-			{
-				if (i != 1)
-				{
-					std::cout << " + ";
-				}
-				std::cout << factors[i];
-			}
-			std::cout << std::endl;
-		}
-
-		else
-		{
-			std::cout << N <<" is NOT perfect." << std::endl;
+			count++;
 		}
 	}
+
+	std::cout << count << std::endl;
 }
