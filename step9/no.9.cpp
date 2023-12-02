@@ -106,30 +106,69 @@
 //}
 
 //4.
+//int main()
+//{
+//	int N{}, x{}, count{};
+//
+//	std::cin >> N;
+//
+//	for (int i = 0; i < N; i++)
+//	{
+//		int y{};
+//
+//		std::cin >> x;
+//
+//		for (int j = 1; j < x;j++)
+//		{
+//			if (x % j==0)
+//			{
+//				y++;
+//			}
+//		}	
+//		if (y == 1)
+//		{
+//			count++;
+//		}
+//	}
+//
+//	std::cout << count << std::endl;
+//}
+
+//5.
 int main()
 {
-	int N{}, x{}, count{};
+	int N{}, M{}, sum{}, min{};
 
-	std::cin >> N;
+	std::cin >> N >> M;
 
-	for (int i = 0; i < N; i++)
-	{
-		int y{};
+	for (int i = N; i <= M; i++)
+	{		
+		int count{};
 
-		std::cin >> x;
-
-		for (int j = 1; j < x;j++)
+		for (int j = 1; j < i;j++)
 		{
-			if (x % j==0)
+			if (i % j == 0)
 			{
-				y++;
+				count++;
 			}
-		}	
-		if (y == 1)
+		}
+		if (count == 1)
 		{
-			count++;
+			sum += i;
+			if (min == 0)
+			{
+				min = i;
+			}
 		}
 	}
 
-	std::cout << count << std::endl;
+	if (sum > 0)
+	{
+		std::cout << sum << std::endl;
+		std::cout << min << std::endl;
+	}
+	else
+	{
+		std::cout << -1 << std::endl;
+	}
 }
