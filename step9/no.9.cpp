@@ -135,40 +135,58 @@
 //}
 
 //5.
+//int main()
+//{
+//	int N{}, M{}, sum{}, min{};
+//
+//	std::cin >> N >> M;
+//
+//	for (int i = N; i <= M; i++)
+//	{		
+//		int count{};
+//
+//		for (int j = 1; j < i;j++)
+//		{
+//			if (i % j == 0)
+//			{
+//				count++;
+//			}
+//		}
+//		if (count == 1)
+//		{
+//			sum += i;
+//			if (min == 0)
+//			{
+//				min = i;
+//			}
+//		}
+//	}
+//
+//	if (sum > 0)
+//	{
+//		std::cout << sum << std::endl;
+//		std::cout << min << std::endl;
+//	}
+//	else
+//	{
+//		std::cout << -1 << std::endl;
+//	}
+//}
+
+//6.
 int main()
 {
-	int N{}, M{}, sum{}, min{};
+	int N{}, number;
 
-	std::cin >> N >> M;
+	std::cin >> N;
 
-	for (int i = N; i <= M; i++)
-	{		
-		int count{};
-
-		for (int j = 1; j < i;j++)
-		{
-			if (i % j == 0)
-			{
-				count++;
-			}
-		}
-		if (count == 1)
-		{
-			sum += i;
-			if (min == 0)
-			{
-				min = i;
-			}
-		}
-	}
-
-	if (sum > 0)
+	for (int i = 2; i <= N; i++)
 	{
-		std::cout << sum << std::endl;
-		std::cout << min << std::endl;
-	}
-	else
-	{
-		std::cout << -1 << std::endl;
+		if (N % i == 0)
+		{
+			std::cout << i << std::endl;
+			N /= i;
+			i = 1;
+		}
 	}
 }
