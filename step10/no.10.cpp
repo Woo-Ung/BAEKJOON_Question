@@ -35,48 +35,58 @@
 //}
 
 //3.
+//int main()
+//{
+//	int x[3]{}, y[3]{};
+//	int a{}, b{};
+//
+//	for (int i = 0; i < 3;i++)
+//	{
+//		std::cin >> x[i] >> y[i];
+//		
+//	}
+//
+//	for (int i = 0; i < 1;i++)
+//	{		
+//		if (x[i] == x[i + 1])
+//		{
+//			a = x[i + 2];
+//		}
+//		else if (x[i] == x[i + 2])
+//		{
+//			a = x[i + 1];
+//		}
+//		else
+//		{
+//			a = x[i];
+//		}		
+//	}
+//
+//	for (int i = 0; i < 1;i++)
+//	{
+//		if (y[i] == y[i + 1])
+//		{
+//			b = y[i + 2];
+//		}
+//		else if (y[i] == y[i + 2])
+//		{
+//			b = y[i + 1];
+//		}
+//		else
+//		{
+//			b = y[i];
+//		}
+//	}
+//
+//	std::cout << a << " " << b << std::endl;
+//}
+
+//4.
 int main()
 {
-	int x[3]{}, y[3]{};
-	int a{}, b{};
+	long long int x{};
 
-	for (int i = 0; i < 3;i++)
-	{
-		std::cin >> x[i] >> y[i];
-		
-	}
+	std::cin >> x;
 
-	for (int i = 0; i < 1;i++)
-	{		
-		if (x[i] == x[i + 1])
-		{
-			a = x[i + 2];
-		}
-		else if (x[i] == x[i + 2])
-		{
-			a = x[i + 1];
-		}
-		else
-		{
-			a = x[i];
-		}		
-	}
-
-	for (int i = 0; i < 1;i++)
-	{
-		if (y[i] == y[i + 1])
-		{
-			b = y[i + 2];
-		}
-		else if (y[i] == y[i + 2])
-		{
-			b = y[i + 1];
-		}
-		else
-		{
-			b = y[i];
-		}
-	}
-
-	std::cout << a << " " << b << std::endl;
+	std::cout << 4 * x << std::endl;
 }
