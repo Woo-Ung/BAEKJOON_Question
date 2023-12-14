@@ -82,11 +82,54 @@
 //}
 
 //4.
+//int main()
+//{
+//	long long int x{};
+//
+//	std::cin >> x;
+//
+//	std::cout << 4 * x << std::endl;
+//}
+
+//5.
 int main()
 {
-	long long int x{};
+	int N{}, x{}, y{};
+	int point[2]{}, max[2]{-10001,-10001}, min[2]{10001,10001};
 
-	std::cin >> x;
+	std::cin >> N;
+	
+	for (int i = 0; i < N;i++)
+	{
+		std::cin >> point[0] >> point[1];
 
-	std::cout << 4 * x << std::endl;
+		if (max[0] < point[0])
+		{
+			max[0] = point[0];
+		}
+		if (max[1] < point[1])
+		{
+			max[1] = point[1];
+		}
+		if (min[0] > point[0])
+		{
+			min[0] = point[0];
+		}
+		if (min[1] > point[1])
+		{
+			min[1] = point[1];
+		}
+	}
+	if (N == 1)
+	{
+		std::cout << 0 << std::endl;
+	}
+
+	else
+	{
+		x = max[0] - min[0];
+		y = max[1] - min[1];
+
+		std::cout << abs(x * y) << std::endl;
+	}
 }
