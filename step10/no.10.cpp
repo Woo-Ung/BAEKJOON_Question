@@ -92,44 +92,73 @@
 //}
 
 //5.
+//int main()
+//{
+//	int N{}, x{}, y{};
+//	int point[2]{}, max[2]{-10001,-10001}, min[2]{10001,10001};
+//
+//	std::cin >> N;
+//	
+//	for (int i = 0; i < N;i++)
+//	{
+//		std::cin >> point[0] >> point[1];
+//
+//		if (max[0] < point[0])
+//		{
+//			max[0] = point[0];
+//		}
+//		if (max[1] < point[1])
+//		{
+//			max[1] = point[1];
+//		}
+//		if (min[0] > point[0])
+//		{
+//			min[0] = point[0];
+//		}
+//		if (min[1] > point[1])
+//		{
+//			min[1] = point[1];
+//		}
+//	}
+//	if (N == 1)
+//	{
+//		std::cout << 0 << std::endl;
+//	}
+//
+//	else
+//	{
+//		x = max[0] - min[0];
+//		y = max[1] - min[1];
+//
+//		std::cout << abs(x * y) << std::endl;
+//	}
+//}
+
+//6.
 int main()
 {
-	int N{}, x{}, y{};
-	int point[2]{}, max[2]{-10001,-10001}, min[2]{10001,10001};
+	int x{}, y{}, z{};
 
-	std::cin >> N;
-	
-	for (int i = 0; i < N;i++)
+	std::cin >> x >> y >> z;
+
+	if (x + y + z == 180)
 	{
-		std::cin >> point[0] >> point[1];
-
-		if (max[0] < point[0])
+		if (x == 60 && y == 60)
 		{
-			max[0] = point[0];
+			std::cout << "Equilateral" << std::endl;
 		}
-		if (max[1] < point[1])
+		else if (x == y || x == z || y == z)
 		{
-			max[1] = point[1];
+			std::cout << "Isosceles" << std::endl;
 		}
-		if (min[0] > point[0])
+		else if (x != y && x != z && y != z)
 		{
-			min[0] = point[0];
-		}
-		if (min[1] > point[1])
-		{
-			min[1] = point[1];
+			std::cout << "Scalene" << std::endl;
 		}
 	}
-	if (N == 1)
-	{
-		std::cout << 0 << std::endl;
-	}
-
 	else
 	{
-		x = max[0] - min[0];
-		y = max[1] - min[1];
-
-		std::cout << abs(x * y) << std::endl;
+		std::cout << "Error" << std::endl;
 	}
+
 }
