@@ -135,30 +135,84 @@
 //}
 
 //6.
+//int main()
+//{
+//	int x{}, y{}, z{};
+//
+//	std::cin >> x >> y >> z;
+//
+//	if (x + y + z == 180)
+//	{
+//		if (x == 60 && y == 60)
+//		{
+//			std::cout << "Equilateral" << std::endl;
+//		}
+//		else if (x == y || x == z || y == z)
+//		{
+//			std::cout << "Isosceles" << std::endl;
+//		}
+//		else if (x != y && x != z && y != z)
+//		{
+//			std::cout << "Scalene" << std::endl;
+//		}
+//	}
+//	else
+//	{
+//		std::cout << "Error" << std::endl;
+//	}
+//
+//}
+
+//7.
 int main()
 {
 	int x{}, y{}, z{};
+	
 
-	std::cin >> x >> y >> z;
-
-	if (x + y + z == 180)
+	while (true)
 	{
-		if (x == 60 && y == 60)
+		int max{0}, a{};
+		std::cin >> x >> y >> z;
+		if (x == 0 && y == 0 && z == 0)
+		{
+			break;
+		}
+
+		if (max < x)
+		{
+			max = x;
+			a = y + z;
+		}
+		if (max < y)
+		{
+			max = y;
+			a = x + z;
+		}
+		if (max < z)
+		{
+			max = z;
+			a = x + y;
+		}
+		if (max >= a)
+		{
+			std::cout << "Invalid" << std::endl;
+			continue;
+		}
+
+		if (x == y && x == z && y == z)
 		{
 			std::cout << "Equilateral" << std::endl;
+			continue;			
 		}
 		else if (x == y || x == z || y == z)
 		{
 			std::cout << "Isosceles" << std::endl;
+			continue;			
 		}
-		else if (x != y && x != z && y != z)
+		else if(x!=y && x!=z && y!=z)
 		{
 			std::cout << "Scalene" << std::endl;
+			continue;
 		}
 	}
-	else
-	{
-		std::cout << "Error" << std::endl;
-	}
-
 }
