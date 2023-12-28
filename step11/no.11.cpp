@@ -10,10 +10,19 @@
 //}
 
 //2.
+//int main()
+//{
+//	int n{};
+//	std::cin >> n;
+//	std::cout << n << std::endl;
+//	std::cout << 1 << std::endl;
+//}
+
+//3.
 int main()
 {
-	int n{};
+	long long int n{};
 	std::cin >> n;
-	std::cout << n << std::endl;
-	std::cout << 1 << std::endl;
+	std::cout << n * n << std::endl;
+	std::cout << 2 << std::endl;
 }
