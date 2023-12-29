@@ -19,10 +19,26 @@
 //}
 
 //3.
+//int main()
+//{
+//	long long int n{};
+//	std::cin >> n;
+//	std::cout << n * n << std::endl;
+//	std::cout << 2 << std::endl;
+//}
+
+//4.
 int main()
 {
-	long long int n{};
+	long long int n{}, sum{};
 	std::cin >> n;
-	std::cout << n * n << std::endl;
+	for (int i = 1 ; i < n; i++)
+	{
+		for (int j = i + 1; j < n+1; j++)
+		{
+			sum += 1;
+		}
+	}
+	std::cout << sum << std::endl;
 	std::cout << 2 << std::endl;
 }
