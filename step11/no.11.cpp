@@ -28,17 +28,36 @@
 //}
 
 //4.
+//int main()
+//{
+//	long long int n{}, sum{};
+//	std::cin >> n;
+//	for (int i = 1 ; i < n; i++)
+//	{
+//		for (int j = i + 1; j < n+1; j++)
+//		{
+//			sum += 1;
+//		}
+//	}
+//	std::cout << sum << std::endl;
+//	std::cout << 2 << std::endl;
+//}
+
+//5.
 int main()
 {
 	long long int n{}, sum{};
 	std::cin >> n;
-	for (int i = 1 ; i < n; i++)
+	for (int i = 0 ; i < n; i++)
 	{
-		for (int j = i + 1; j < n+1; j++)
+		for (int j =  0; j < n; j++)
 		{
-			sum += 1;
+			for (int k = 0; k < n; k++)
+			{
+				sum += 1;
+			}			
 		}
 	}
 	std::cout << sum << std::endl;
-	std::cout << 2 << std::endl;
+	std::cout << 3 << std::endl;
 }
