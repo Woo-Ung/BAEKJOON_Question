@@ -63,13 +63,31 @@
 //}
 
 //6.
+//int main()
+//{
+//	long long int n{}, sum{};
+//	std::cin >> n;
+//	
+//	sum = (n * (n - 1) * (n - 2)) / 6;
+//
+//	std::cout << sum << std::endl;
+//	std::cout << 3 << std::endl;
+//}
+
+//7.
 int main()
 {
-	long long int n{}, sum{};
-	std::cin >> n;
-	
-	sum = (n * (n - 1) * (n - 2)) / 6;
+	int fn{}, a1{}, a2{}, c{}, n{};
 
-	std::cout << sum << std::endl;
-	std::cout << 3 << std::endl;
+	std::cin >> a1 >> a2 >> c >> n;
+	
+	fn = a1 * n + a2;
+	if (fn <= c * n && a1 <= c)
+	{
+		std::cout << 1 << std::endl;
+	}
+	else
+	{
+		std::cout << 0 << std::endl;
+	}
 }
