@@ -46,33 +46,53 @@
 //}
 
 //2.
+//int main()
+//{
+//	int N{}, sum{}, temp{};
+//
+//	std::cin >> N;
+//
+//	for (int i = 0; ;i++)
+//	{
+//		temp = i;
+//		sum = 0;
+//
+//		while (temp != 0)
+//		{	
+//			sum += temp % 10;
+//
+//			temp /= 10;
+//		}
+//
+//		if (N == i + sum)
+//		{			
+//			std::cout << i << std::endl;
+//			break;
+//		}
+//		if (N < i)
+//		{
+//			std::cout << 0 << std::endl;
+//			break;
+//		}
+//	}
+//}
+
+//3.
 int main()
 {
-	int N{}, sum{}, temp{};
+	int a{}, b{}, c{}, d{}, e{}, f{};
 
-	std::cin >> N;
+	std::cin >> a >> b >> c >> d >> e >> f;
 
-	for (int i = 0; ;i++)
+	for (int i = -999; i < 1000;i++)
 	{
-		temp = i;
-		sum = 0;
-
-		while (temp != 0)
-		{	
-			sum += temp % 10;
-
-			temp /= 10;
-		}
-
-		if (N == i + sum)
-		{			
-			std::cout << i << std::endl;
-			break;
-		}
-		if (N < i)
+		for (int j = -999; j < 1000; j++)
 		{
-			std::cout << 0 << std::endl;
-			break;
+			if (a* i + b * j == c && d * i + e * j == f)
+			{
+				std::cout << i << " " << j << std::endl;
+				break;
+			}
 		}
 	}
 }
