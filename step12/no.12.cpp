@@ -78,21 +78,113 @@
 //}
 
 //3.
+//int main()
+//{
+//	int a{}, b{}, c{}, d{}, e{}, f{};
+//
+//	std::cin >> a >> b >> c >> d >> e >> f;
+//
+//	for (int i = -999; i < 1000;i++)
+//	{
+//		for (int j = -999; j < 1000; j++)
+//		{
+//			if (a* i + b * j == c && d * i + e * j == f)
+//			{
+//				std::cout << i << " " << j << std::endl;
+//				break;
+//			}
+//		}
+//	}
+//}
+
+//4.
 int main()
 {
-	int a{}, b{}, c{}, d{}, e{}, f{};
+	std::string WB[8]{
+	"WBWBWBWB",
+	"BWBWBWBW",
+	"WBWBWBWB",
+	"BWBWBWBW",
+	"WBWBWBWB",
+	"BWBWBWBW",
+	"WBWBWBWB",
+	"BWBWBWBW"
+	};
+	std::string BW[8]{
+		"BWBWBWBW",
+		"WBWBWBWB",
+		"BWBWBWBW",
+		"WBWBWBWB",
+		"BWBWBWBW",
+		"WBWBWBWB",
+		"BWBWBWBW",
+		"WBWBWBWB"
+	};
 
-	std::cin >> a >> b >> c >> d >> e >> f;
+	int N{}, M{}, min{100};
 
-	for (int i = -999; i < 1000;i++)
+	std::cin >> N >> M;
+
+	char** array = new char*[N];
+
+	for (int i = 0; i < N; i++)
 	{
-		for (int j = -999; j < 1000; j++)
+		array[i] = new char[M];
+		for (int j = 0; j < M; j++)
 		{
-			if (a* i + b * j == c && d * i + e * j == f)
+			std::cin >> array[i][j];
+		}
+	}
+
+	//for (int i = 0; i < N; i++)
+	//{		
+	//	for (int j = 0; j < M; j++)
+	//	{
+	//		std::cout << array[i][j];
+	//	}
+	//	std::cout << std::endl;
+	//}
+
+	for (int i = 0; i + 8 <= N;i++)
+	{
+		for (int j = 0; j + 8 <= M;j++)
+		{
+			int tempW{};
+			int tempB{};
+
+			for (int a = 0; a < 8; a++)
 			{
-				std::cout << i << " " << j << std::endl;
-				break;
+				for (int b = 0; b < 8;b++)
+				{
+					if (array[i + a][j + b] != WB[a][b])
+					{
+						tempW++;					
+					}
+					if (array[i + a][j + b] != BW[a][b])
+					{
+						tempB++;
+					}			
+				}				
+			}
+
+			if (min > tempW)
+			{
+				min = tempW;
+			}
+			if (min > tempB)
+			{
+				min = tempB;
 			}
 		}
 	}
+
+	std::cout << min << std::endl;
+	
+
+	for (int i = 0; i < N; i++)
+	{
+		delete[] array[i];
+	}
+
+	delete[] array;
 }
