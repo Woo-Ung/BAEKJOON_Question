@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 //1.
 //int main()
@@ -98,93 +99,111 @@
 //}
 
 //4.
+//int main()
+//{
+//	std::string WB[8]{
+//	"WBWBWBWB",
+//	"BWBWBWBW",
+//	"WBWBWBWB",
+//	"BWBWBWBW",
+//	"WBWBWBWB",
+//	"BWBWBWBW",
+//	"WBWBWBWB",
+//	"BWBWBWBW"
+//	};
+//	std::string BW[8]{
+//		"BWBWBWBW",
+//		"WBWBWBWB",
+//		"BWBWBWBW",
+//		"WBWBWBWB",
+//		"BWBWBWBW",
+//		"WBWBWBWB",
+//		"BWBWBWBW",
+//		"WBWBWBWB"
+//	};
+//
+//	int N{}, M{}, min{100};
+//
+//	std::cin >> N >> M;
+//
+//	char** array = new char*[N];
+//
+//	for (int i = 0; i < N; i++)
+//	{
+//		array[i] = new char[M];
+//		for (int j = 0; j < M; j++)
+//		{
+//			std::cin >> array[i][j];
+//		}
+//	}
+//
+//	for (int i = 0; i + 8 <= N;i++)
+//	{
+//		for (int j = 0; j + 8 <= M;j++)
+//		{
+//			int tempW{};
+//			int tempB{};
+//
+//			for (int a = 0; a < 8; a++)
+//			{
+//				for (int b = 0; b < 8;b++)
+//				{
+//					if (array[i + a][j + b] != WB[a][b])
+//					{
+//						tempW++;					
+//					}
+//					if (array[i + a][j + b] != BW[a][b])
+//					{
+//						tempB++;
+//					}			
+//				}				
+//			}
+//
+//			if (min > tempW)
+//			{
+//				min = tempW;
+//			}
+//			if (min > tempB)
+//			{
+//				min = tempB;
+//			}
+//		}
+//	}
+//
+//	std::cout << min << std::endl;
+//	
+//
+//	for (int i = 0; i < N; i++)
+//	{
+//		delete[] array[i];
+//	}
+//
+//	delete[] array;
+//}
+
+//5.
 int main()
 {
-	std::string WB[8]{
-	"WBWBWBWB",
-	"BWBWBWBW",
-	"WBWBWBWB",
-	"BWBWBWBW",
-	"WBWBWBWB",
-	"BWBWBWBW",
-	"WBWBWBWB",
-	"BWBWBWBW"
-	};
-	std::string BW[8]{
-		"BWBWBWBW",
-		"WBWBWBWB",
-		"BWBWBWBW",
-		"WBWBWBWB",
-		"BWBWBWBW",
-		"WBWBWBWB",
-		"BWBWBWBW",
-		"WBWBWBWB"
-	};
+	int N{}, count{};
 
-	int N{}, M{}, min{100};
+	std::cin >> N;
 
-	std::cin >> N >> M;
-
-	char** array = new char*[N];
-
-	for (int i = 0; i < N; i++)
+	for (int i = 666; ;i++)
 	{
-		array[i] = new char[M];
-		for (int j = 0; j < M; j++)
+		std::string number = std::to_string(i);
+		for (int j = 0; j < size(number);j++)
 		{
-			std::cin >> array[i][j];
+			if (number[j] == '6' && number[j + 1] == '6' && number[j + 2] == '6')
+			{
+				count++;
+				break;
+			}
+		}
+		if (N == count)
+		{
+			std::cout << number << std::endl;
+			break;
 		}
 	}
 
-	//for (int i = 0; i < N; i++)
-	//{		
-	//	for (int j = 0; j < M; j++)
-	//	{
-	//		std::cout << array[i][j];
-	//	}
-	//	std::cout << std::endl;
-	//}
-
-	for (int i = 0; i + 8 <= N;i++)
-	{
-		for (int j = 0; j + 8 <= M;j++)
-		{
-			int tempW{};
-			int tempB{};
-
-			for (int a = 0; a < 8; a++)
-			{
-				for (int b = 0; b < 8;b++)
-				{
-					if (array[i + a][j + b] != WB[a][b])
-					{
-						tempW++;					
-					}
-					if (array[i + a][j + b] != BW[a][b])
-					{
-						tempB++;
-					}			
-				}				
-			}
-
-			if (min > tempW)
-			{
-				min = tempW;
-			}
-			if (min > tempB)
-			{
-				min = tempB;
-			}
-		}
-	}
-
-	std::cout << min << std::endl;
-	
-
-	for (int i = 0; i < N; i++)
-	{
-		delete[] array[i];
-	}
-
-	delete[] array;
 }
