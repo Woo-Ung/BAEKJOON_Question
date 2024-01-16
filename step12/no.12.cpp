@@ -182,28 +182,58 @@
 //}
 
 //5.
+//int main()
+//{
+//	int N{}, count{};
+//
+//	std::cin >> N;
+//
+//	for (int i = 666; ;i++)
+//	{
+//		std::string number = std::to_string(i);
+//		for (int j = 0; j < size(number);j++)
+//		{
+//			if (number[j] == '6' && number[j + 1] == '6' && number[j + 2] == '6')
+//			{
+//				count++;
+//				break;
+//			}
+//		}
+//		if (N == count)
+//		{
+//			std::cout << number << std::endl;
+//			break;
+//		}
+//	}
+//
+//}
+
+//6.
 int main()
 {
-	int N{}, count{};
+	int N{}, min{10000};
 
 	std::cin >> N;
 
-	for (int i = 666; ;i++)
+	for (int i = 0;i <= N/5 ;i++)
 	{
-		std::string number = std::to_string(i);
-		for (int j = 0; j < size(number);j++)
+		for (int j = 0;j <=N/3 ;j++)
 		{
-			if (number[j] == '6' && number[j + 1] == '6' && number[j + 2] == '6')
+			if (N == i * 5 + j * 3)
 			{
-				count++;
-				break;
+				if (min > i + j)
+				{
+					min = i + j;
+				}
 			}
 		}
-		if (N == count)
-		{
-			std::cout << number << std::endl;
-			break;
-		}
 	}
-
+	if (min == 10000)
+	{
+		std::cout << -1 << std::endl;
+	}
+	else
+	{
+		std::cout << min << std::endl;
+	}
 }
