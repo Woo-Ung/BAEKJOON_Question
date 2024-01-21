@@ -61,5 +61,4 @@ int main()
 
 	std::cout << sum/5 << std::endl;
 	std::cout << num[2] << std::endl;
-
 }
