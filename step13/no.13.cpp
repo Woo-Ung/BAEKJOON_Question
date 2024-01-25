@@ -1,4 +1,6 @@
 #include <iostream>
+#include <vector>
+#include <algorithm>
 
 //1.
 //int main()
@@ -64,34 +66,58 @@
 //}
 
 //3.
+//int main()
+//{
+//	int N{}, k{}, x{};
+//
+//	std::cin >> N >> k;
+//
+//	int* student = new int[N];
+//
+//	for (int i = 0; i < N;i++)
+//	{
+//		std::cin >> x;
+//		student[i] = x;
+//	}
+//
+//	for (int i = 0; i < N;i++)
+//	{
+//		for (int j = i + 1; j < N;j++)
+//		{
+//			if (student[i] < student[j])
+//			{
+//				int temp = student[i];
+//				student[i] = student[j];
+//				student[j] = temp;
+//			}
+//		}
+//	}
+//
+//	std::cout << student[k - 1] << std::endl;
+//
+//	delete[] student;
+//}
+
+//4.
 int main()
 {
-	int N{}, k{}, x{};
+	int N{};
 
-	std::cin >> N >> k;
+	std::cin >> N;
 
-	int* student = new int[N];
-
-	for (int i = 0; i < N;i++)
-	{
-		std::cin >> x;
-		student[i] = x;
-	}
+	int* num = new int[N];
 
 	for (int i = 0; i < N;i++)
 	{
-		for (int j = i + 1; j < N;j++)
-		{
-			if (student[i] < student[j])
-			{
-				int temp = student[i];
-				student[i] = student[j];
-				student[j] = temp;
-			}
-		}
+		std::cin >> num[i];
 	}
 
-	std::cout << student[k - 1] << std::endl;
+	std::sort(num, num + N);
 
-	delete[] student;
+	for (int i = 0; i < N;i++)
+	{
+		std::cout << num[i] << '\n';
+	}
+
+	delete[] num;
 }
