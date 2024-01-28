@@ -99,25 +99,55 @@
 //}
 
 //4.
+//int main()
+//{
+//	int N{};
+//
+//	std::cin >> N;
+//
+//	int* num = new int[N];
+//
+//	for (int i = 0; i < N;i++)
+//	{
+//		std::cin >> num[i];
+//	}
+//
+//	std::sort(num, num + N);
+//
+//	for (int i = 0; i < N;i++)
+//	{
+//		std::cout << num[i] << '\n';
+//	}
+//
+//	delete[] num;
+//}
+
+//5.
 int main()
 {
-	int N{};
+	std::ios::sync_with_stdio(false);
+
+	std::cin.tie(nullptr);
+
+	int N{}, num{};
+	int array[10001]{};
 
 	std::cin >> N;
 
-	int* num = new int[N];
-
 	for (int i = 0; i < N;i++)
 	{
-		std::cin >> num[i];
+		std::cin >> num;
+		array[num-1]++;
 	}
 
-	std::sort(num, num + N);
-
-	for (int i = 0; i < N;i++)
+	for (int i = 0; i < 10001;i++)
 	{
-		std::cout << num[i] << '\n';
+		if (array[i] > 0)
+		{
+			for (int j = 0; j < array[i]; j++)
+			{
+				std::cout << i+1 << '\n';
+			}
+		}
 	}
-
-	delete[] num;
 }
