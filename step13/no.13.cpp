@@ -123,30 +123,55 @@
 //}
 
 //5.
+//int main()
+//{
+//	std::ios::sync_with_stdio(false);
+//
+//	std::cin.tie(nullptr);
+//
+//	int N{}, num{};
+//	int array[10001]{};
+//
+//	std::cin >> N;
+//
+//	for (int i = 0; i < N;i++)
+//	{
+//		std::cin >> num;
+//		array[num-1]++;
+//	}
+//
+//	for (int i = 0; i < 10001;i++)
+//	{
+//		if (array[i] > 0)
+//		{
+//			for (int j = 0; j < array[i]; j++)
+//			{
+//				std::cout << i+1 << '\n';
+//			}
+//		}
+//	}
+//}
+
+//6.
 int main()
 {
-	std::ios::sync_with_stdio(false);
-
-	std::cin.tie(nullptr);
-
-	int N{}, num{};
-	int array[10001]{};
+	std::string N{};
+	int array[10]{}, num{};
 
 	std::cin >> N;
 
-	for (int i = 0; i < N;i++)
+	for (int i = 0; i < size(N); i++)
 	{
-		std::cin >> num;
-		array[num-1]++;
+		num = N[i]-48;
+		array[num]++;
 	}
-
-	for (int i = 0; i < 10001;i++)
+	for (int i = 9; i >= 0; i--)
 	{
 		if (array[i] > 0)
 		{
 			for (int j = 0; j < array[i]; j++)
 			{
-				std::cout << i+1 << '\n';
+				std::cout << i;
 			}
 		}
 	}
