@@ -153,26 +153,67 @@
 //}
 
 //6.
+//int main()
+//{
+//	std::string N{};
+//	int array[10]{}, num{};
+//
+//	std::cin >> N;
+//
+//	for (int i = 0; i < size(N); i++)
+//	{
+//		num = N[i]-48;
+//		array[num]++;
+//	}
+//	for (int i = 9; i >= 0; i--)
+//	{
+//		if (array[i] > 0)
+//		{
+//			for (int j = 0; j < array[i]; j++)
+//			{
+//				std::cout << i;
+//			}
+//		}
+//	}
+//}
+
+//7.
+struct P
+{
+	int x{}, y{};
+}num[100001];
+
+bool compare(P& a, P& b)
+{
+	if (a.x == b.x)
+	{
+		return a.y < b.y;
+	}
+	else
+	{
+		return a.x < b.x;
+	}
+}
+
 int main()
 {
-	std::string N{};
-	int array[10]{}, num{};
+	std::ios::sync_with_stdio(false);
+	std::cin.tie(NULL);
+	std::cout.tie(NULL);
+
+	int N{};
 
 	std::cin >> N;
 
-	for (int i = 0; i < size(N); i++)
+	for (int i = 0; i < N; i++)
 	{
-		num = N[i]-48;
-		array[num]++;
+		std::cin >> num[i].x >> num[i].y;
 	}
-	for (int i = 9; i >= 0; i--)
+
+	std::sort(num, num + N, compare);
+	
+	for (int i = 0; i < N; i++)
 	{
-		if (array[i] > 0)
-		{
-			for (int j = 0; j < array[i]; j++)
-			{
-				std::cout << i;
-			}
-		}
+		std::cout << num[i].x << " " << num[i].y << '\n';
 	}
 }
