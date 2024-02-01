@@ -178,6 +178,47 @@
 //}
 
 //7.
+//struct P
+//{
+//	int x{}, y{};
+//}num[100001];
+//
+//bool compare(P& a, P& b)
+//{
+//	if (a.x == b.x)
+//	{
+//		return a.y < b.y;
+//	}
+//	else
+//	{
+//		return a.x < b.x;
+//	}
+//}
+//
+//int main()
+//{
+//	std::ios::sync_with_stdio(false);
+//	std::cin.tie(NULL);
+//	std::cout.tie(NULL);
+//
+//	int N{};
+//
+//	std::cin >> N;
+//
+//	for (int i = 0; i < N; i++)
+//	{
+//		std::cin >> num[i].x >> num[i].y;
+//	}
+//
+//	std::sort(num, num + N, compare);
+//	
+//	for (int i = 0; i < N; i++)
+//	{
+//		std::cout << num[i].x << " " << num[i].y << '\n';
+//	}
+//}
+
+//8.
 struct P
 {
 	int x{}, y{};
@@ -185,13 +226,13 @@ struct P
 
 bool compare(P& a, P& b)
 {
-	if (a.x == b.x)
+	if (a.y == b.y)
 	{
-		return a.y < b.y;
+		return a.x < b.x;
 	}
 	else
 	{
-		return a.x < b.x;
+		return a.y < b.y;
 	}
 }
 
@@ -211,7 +252,7 @@ int main()
 	}
 
 	std::sort(num, num + N, compare);
-	
+
 	for (int i = 0; i < N; i++)
 	{
 		std::cout << num[i].x << " " << num[i].y << '\n';
