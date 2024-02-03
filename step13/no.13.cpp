@@ -219,42 +219,84 @@
 //}
 
 //8.
-struct P
-{
-	int x{}, y{};
-}num[100001];
+//struct P
+//{
+//	int x{}, y{};
+//}num[100001];
+//
+//bool compare(P& a, P& b)
+//{
+//	if (a.y == b.y)
+//	{
+//		return a.x < b.x;
+//	}
+//	else
+//	{
+//		return a.y < b.y;
+//	}
+//}
+//
+//int main()
+//{
+//	std::ios::sync_with_stdio(false);
+//	std::cin.tie(NULL);
+//	std::cout.tie(NULL);
+//
+//	int N{};
+//
+//	std::cin >> N;
+//
+//	for (int i = 0; i < N; i++)
+//	{
+//		std::cin >> num[i].x >> num[i].y;
+//	}
+//
+//	std::sort(num, num + N, compare);
+//
+//	for (int i = 0; i < N; i++)
+//	{
+//		std::cout << num[i].x << " " << num[i].y << '\n';
+//	}
+//}
 
-bool compare(P& a, P& b)
+//9.
+bool compare(std::string& a, std::string& b)
 {
-	if (a.y == b.y)
+	if (a.length() == b.length())
 	{
-		return a.x < b.x;
+		return a < b;
 	}
 	else
 	{
-		return a.y < b.y;
+		return a.length() < b.length();
 	}
 }
 
+
 int main()
 {
-	std::ios::sync_with_stdio(false);
-	std::cin.tie(NULL);
-	std::cout.tie(NULL);
-
 	int N{};
+	std::string w{};
+	std::vector<std::string> word{};
 
 	std::cin >> N;
 
-	for (int i = 0; i < N; i++)
+	for (int i = 0; i < N;i++)
 	{
-		std::cin >> num[i].x >> num[i].y;
+		std::cin >> w;
+		word.push_back(w);
 	}
+	std::sort(word.begin(), word.end(), compare);
 
-	std::sort(num, num + N, compare);
-
-	for (int i = 0; i < N; i++)
+	for (int i = 0; i < N;i++)
 	{
-		std::cout << num[i].x << " " << num[i].y << '\n';
+		if (i > 0 && word[i] == word[i - 1])
+		{
+			continue;
+		}
+		else
+		{
+			std::cout << word[i] << '\n';
+		}
 	}
 }
