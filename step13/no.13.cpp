@@ -260,15 +260,64 @@
 //}
 
 //9.
-bool compare(std::string& a, std::string& b)
+//bool compare(std::string& a, std::string& b)
+//{
+//	if (a.length() == b.length())
+//	{
+//		return a < b;
+//	}
+//	else
+//	{
+//		return a.length() < b.length();
+//	}
+//}
+//
+//
+//int main()
+//{
+//	int N{};
+//	std::string w{};
+//	std::vector<std::string> word{};
+//
+//	std::cin >> N;
+//
+//	for (int i = 0; i < N;i++)
+//	{
+//		std::cin >> w;
+//		word.push_back(w);
+//	}
+//	std::sort(word.begin(), word.end(), compare);
+//
+//	for (int i = 0; i < N;i++)
+//	{
+//		if (i > 0 && word[i] == word[i - 1])
+//		{
+//			continue;
+//		}
+//		else
+//		{
+//			std::cout << word[i] << '\n';
+//		}
+//	}
+//}
+
+//10.
+struct M
 {
-	if (a.length() == b.length())
+	int age{};
+	std::string name{};
+	int count{};
+} member[100001];
+
+bool compare(M& a, M& b)
+{
+	if (a.age == b.age)
 	{
-		return a < b;
+		return a.count < b.count;
 	}
 	else
 	{
-		return a.length() < b.length();
+		return a.age < b.age;
 	}
 }
 
@@ -276,27 +325,19 @@ bool compare(std::string& a, std::string& b)
 int main()
 {
 	int N{};
-	std::string w{};
-	std::vector<std::string> word{};
 
 	std::cin >> N;
 
-	for (int i = 0; i < N;i++)
+	for (int i = 0; i < N; i++)
 	{
-		std::cin >> w;
-		word.push_back(w);
+		std::cin >> member[i].age >> member[i].name;
+		member[i].count = i;
 	}
-	std::sort(word.begin(), word.end(), compare);
 
-	for (int i = 0; i < N;i++)
+	std::sort(member, member + N, compare);
+
+	for (int i = 0; i < N; i++)
 	{
-		if (i > 0 && word[i] == word[i - 1])
-		{
-			continue;
-		}
-		else
-		{
-			std::cout << word[i] << '\n';
-		}
+		std::cout << member[i].age << " " << member[i].name << '\n';
 	}
 }
