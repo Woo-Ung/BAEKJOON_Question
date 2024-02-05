@@ -302,42 +302,96 @@
 //}
 
 //10.
-struct M
-{
-	int age{};
-	std::string name{};
-	int count{};
-} member[100001];
+//struct M
+//{
+//	int age{};
+//	std::string name{};
+//	int count{};
+//} member[100001];
+//
+//bool compare(M& a, M& b)
+//{
+//	if (a.age == b.age)
+//	{
+//		return a.count < b.count;
+//	}
+//	else
+//	{
+//		return a.age < b.age;
+//	}
+//}
+//
+//
+//int main()
+//{
+//	int N{};
+//
+//	std::cin >> N;
+//
+//	for (int i = 0; i < N; i++)
+//	{
+//		std::cin >> member[i].age >> member[i].name;
+//		member[i].count = i;
+//	}
+//
+//	std::sort(member, member + N, compare);
+//
+//	for (int i = 0; i < N; i++)
+//	{
+//		std::cout << member[i].age << " " << member[i].name << '\n';
+//	}
+//}
 
-bool compare(M& a, M& b)
+//11.
+struct Number
 {
-	if (a.age == b.age)
-	{
-		return a.count < b.count;
-	}
-	else
-	{
-		return a.age < b.age;
-	}
+	int x{};
+	int order{};
+} num[1000001];
+
+bool compare(Number& a, Number& b)
+{	
+	return a.x < b.x;
 }
 
+bool recompare(Number& a, Number& b)
+{
+	return a.order < b.order;
+}
 
 int main()
 {
-	int N{};
+	int N{}, y{}, z{-1}, temp{};
 
 	std::cin >> N;
 
-	for (int i = 0; i < N; i++)
+	for (int i = 0; i < N;i++)
 	{
-		std::cin >> member[i].age >> member[i].name;
-		member[i].count = i;
+		std::cin >> y;
+		num[i].x = y;
+		num[i].order = i;
 	}
 
-	std::sort(member, member + N, compare);
+	std::sort(num, num+N,compare);
 
 	for (int i = 0; i < N; i++)
 	{
-		std::cout << member[i].age << " " << member[i].name << '\n';
+		if (i>0 && temp == num[i].x)
+		{
+			num[i].x = z;
+		}
+		else
+		{
+			z++;
+			temp = num[i].x;
+			num[i].x = z;
+		}
+	}
+
+	std::sort(num, num + N, recompare);
+
+	for (int i = 0; i < N; i++)
+	{
+		std::cout << num[i].x << " ";
 	}
 }
