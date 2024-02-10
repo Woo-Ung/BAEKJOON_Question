@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <set>
 
 //1.
 //int main()
@@ -66,34 +67,67 @@
 //}
 
 //2.
+//int main()
+//{
+//	std::ios::sync_with_stdio(false);
+//	std::cin.tie(nullptr);
+//	std::cout.tie(NULL);
+//
+//	int N{}, M{}, count{};
+//	std::string x{};
+//	std::vector<std::string> check{};
+//
+//	std::cin >> N >> M;
+//
+//	for (int i = 0; i < N; i++)
+//	{
+//		std::cin >> x;
+//		check.push_back(x);
+//	}
+//
+//	std::sort(check.begin(), check.end());
+//
+//	for (int i = 0; i < M; i++)
+//	{
+//		std::cin >> x;
+//		if (std::binary_search(check.begin(), check.end(), x))
+//		{
+//			count++;
+//		}
+//	}
+//
+//	std::cout << count << std::endl;
+//}
+
+//3.
 int main()
 {
 	std::ios::sync_with_stdio(false);
 	std::cin.tie(nullptr);
 	std::cout.tie(NULL);
 
-	int N{}, M{}, count{};
-	std::string x{};
-	std::vector<std::string> check{};
+	int n{};
+	std::string name, check;
+	std::set <std::string, std::greater<std::string>> log;
 
-	std::cin >> N >> M;
+	std::cin >> n;
 
-	for (int i = 0; i < N; i++)
+	for (int i = 0; i < n;i++)
 	{
-		std::cin >> x;
-		check.push_back(x);
-	}
+		std::cin >> name >> check;
 
-	std::sort(check.begin(), check.end());
-
-	for (int i = 0; i < M; i++)
-	{
-		std::cin >> x;
-		if (std::binary_search(check.begin(), check.end(), x))
+		if (check == "enter")
 		{
-			count++;
+			log.insert(name);
+		}
+		else
+		{
+			log.erase(name);
 		}
 	}
 
-	std::cout << count << std::endl;
+	for (auto& i : log)
+	{
+		std::cout << i << '\n';
+	}
 }
