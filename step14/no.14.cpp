@@ -2,6 +2,8 @@
 #include <vector>
 #include <algorithm>
 #include <set>
+#include <map>
+#include <string>
 
 //1.
 //int main()
@@ -100,34 +102,72 @@
 //}
 
 //3.
+//int main()
+//{
+//	std::ios::sync_with_stdio(false);
+//	std::cin.tie(nullptr);
+//	std::cout.tie(NULL);
+//
+//	int n{};
+//	std::string name, check;
+//	std::set <std::string, std::greater<std::string>> log;
+//
+//	std::cin >> n;
+//
+//	for (int i = 0; i < n;i++)
+//	{
+//		std::cin >> name >> check;
+//
+//		if (check == "enter")
+//		{
+//			log.insert(name);
+//		}
+//		else
+//		{
+//			log.erase(name);
+//		}
+//	}
+//
+//	for (auto& i : log)
+//	{
+//		std::cout << i << '\n';
+//	}
+//}
+
+//4.
 int main()
 {
 	std::ios::sync_with_stdio(false);
 	std::cin.tie(nullptr);
 	std::cout.tie(NULL);
 
-	int n{};
-	std::string name, check;
-	std::set <std::string, std::greater<std::string>> log;
+	int N{}, M{}, num{0};
+	std::string name, x;
 
-	std::cin >> n;
+	std::map<std::string, int> Mon{};
+	std::map<int, std::string> MonNum{};
 
-	for (int i = 0; i < n;i++)
+	std::cin >> N >> M;
+	
+	for (int i = 0; i < N; i++)
 	{
-		std::cin >> name >> check;
+		std::cin >> name;
+		num++;
+		Mon.insert(std::pair<std::string,int>(name, num));
+		MonNum.insert(std::pair<int, std::string>(num, name));
+	}
 
-		if (check == "enter")
+	for (int i = 0; i < M; i++)
+	{
+		std::cin >> x;
+		if (x[0] > 47 && x[0] < 58)
 		{
-			log.insert(name);
+			int y = std::stoi(x);			
+			std::cout << MonNum.find(y)->second << '\n';
 		}
 		else
 		{
-			log.erase(name);
+			std::cout << Mon.find(x)->second << '\n';
 		}
-	}
-
-	for (auto& i : log)
-	{
-		std::cout << i << '\n';
 	}
 }
