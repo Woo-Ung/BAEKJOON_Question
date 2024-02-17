@@ -135,39 +135,75 @@
 //}
 
 //4.
+//int main()
+//{
+//	std::ios::sync_with_stdio(false);
+//	std::cin.tie(nullptr);
+//	std::cout.tie(NULL);
+//
+//	int N{}, M{}, num{0};
+//	std::string name, x;
+//
+//	std::map<std::string, int> Mon{};
+//	std::map<int, std::string> MonNum{};
+//
+//	std::cin >> N >> M;
+//	
+//	for (int i = 0; i < N; i++)
+//	{
+//		std::cin >> name;
+//		num++;
+//		Mon.insert(std::pair<std::string,int>(name, num));
+//		MonNum.insert(std::pair<int, std::string>(num, name));
+//	}
+//
+//	for (int i = 0; i < M; i++)
+//	{
+//		std::cin >> x;
+//		if (x[0] > 47 && x[0] < 58)
+//		{
+//			int y = std::stoi(x);			
+//			std::cout << MonNum.find(y)->second << '\n';
+//		}
+//		else
+//		{
+//			std::cout << Mon.find(x)->second << '\n';
+//		}
+//	}
+//}
+
+//5.
 int main()
 {
 	std::ios::sync_with_stdio(false);
 	std::cin.tie(nullptr);
 	std::cout.tie(NULL);
 
-	int N{}, M{}, num{0};
-	std::string name, x;
+	int N{}, M{};
 
-	std::map<std::string, int> Mon{};
-	std::map<int, std::string> MonNum{};
+	std::map<int,int> num{};
+	std::vector<int> check{};
 
-	std::cin >> N >> M;
-	
+	std::cin >> N;
+
 	for (int i = 0; i < N; i++)
 	{
-		std::cin >> name;
-		num++;
-		Mon.insert(std::pair<std::string,int>(name, num));
-		MonNum.insert(std::pair<int, std::string>(num, name));
+		int x{};
+		std::cin >> x;
+		num[x]++;		
+	}
+
+	std::cin >> M;
+
+	for (int i = 0; i < M; i++)
+	{
+		int y{};
+		std::cin >> y;
+		check.push_back(y);
 	}
 
 	for (int i = 0; i < M; i++)
 	{
-		std::cin >> x;
-		if (x[0] > 47 && x[0] < 58)
-		{
-			int y = std::stoi(x);			
-			std::cout << MonNum.find(y)->second << '\n';
-		}
-		else
-		{
-			std::cout << Mon.find(x)->second << '\n';
-		}
+		std::cout << num[check[i]] << " ";
 	}
 }
