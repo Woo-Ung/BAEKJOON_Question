@@ -173,37 +173,82 @@
 //}
 
 //5.
+//int main()
+//{
+//	std::ios::sync_with_stdio(false);
+//	std::cin.tie(nullptr);
+//	std::cout.tie(NULL);
+//
+//	int N{}, M{};
+//
+//	std::map<int,int> num{};
+//	std::vector<int> check{};
+//
+//	std::cin >> N;
+//
+//	for (int i = 0; i < N; i++)
+//	{
+//		int x{};
+//		std::cin >> x;
+//		num[x]++;		
+//	}
+//
+//	std::cin >> M;
+//
+//	for (int i = 0; i < M; i++)
+//	{
+//		int y{};
+//		std::cin >> y;
+//		check.push_back(y);
+//	}
+//
+//	for (int i = 0; i < M; i++)
+//	{
+//		std::cout << num[check[i]] << " ";
+//	}
+//}
+
+//6.
 int main()
 {
 	std::ios::sync_with_stdio(false);
 	std::cin.tie(nullptr);
 	std::cout.tie(NULL);
 
-	int N{}, M{};
+	int N{}, M{}, count{};
 
-	std::map<int,int> num{};
-	std::vector<int> check{};
+	std::cin >> N >> M;
 
-	std::cin >> N;
+	std::string name{};
+	std::map<std::string, int, std::less<std::string>> mem{};
 
-	for (int i = 0; i < N; i++)
+	for (int i = 0; i < N;i++)
 	{
-		int x{};
-		std::cin >> x;
-		num[x]++;		
+		std::cin >> name;
+		mem[name]++;
 	}
 
-	std::cin >> M;
-
-	for (int i = 0; i < M; i++)
+	for (int i = 0; i < M;i++)
 	{
-		int y{};
-		std::cin >> y;
-		check.push_back(y);
+		std::cin >> name;
+		mem[name]++;
 	}
 
-	for (int i = 0; i < M; i++)
+	for (auto& e : mem)
 	{
-		std::cout << num[check[i]] << " ";
+		if (e.second == 2)
+		{
+			count++;
+		}
+	}
+
+	std::cout << count << '\n';
+
+	for (auto& e : mem)
+	{
+		if (e.second == 2)
+		{
+			std::cout << e.first << '\n';
+		}
 	}
 }
