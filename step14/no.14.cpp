@@ -209,46 +209,106 @@
 //}
 
 //6.
+//int main()
+//{
+//	std::ios::sync_with_stdio(false);
+//	std::cin.tie(nullptr);
+//	std::cout.tie(NULL);
+//
+//	int N{}, M{}, count{};
+//
+//	std::cin >> N >> M;
+//
+//	std::string name{};
+//	std::map<std::string, int, std::less<std::string>> mem{};
+//
+//	for (int i = 0; i < N;i++)
+//	{
+//		std::cin >> name;
+//		mem[name]++;
+//	}
+//
+//	for (int i = 0; i < M;i++)
+//	{
+//		std::cin >> name;
+//		mem[name]++;
+//	}
+//
+//	for (auto& e : mem)
+//	{
+//		if (e.second == 2)
+//		{
+//			count++;
+//		}
+//	}
+//
+//	std::cout << count << '\n';
+//
+//	for (auto& e : mem)
+//	{
+//		if (e.second == 2)
+//		{
+//			std::cout << e.first << '\n';
+//		}
+//	}
+//}
+
+
+//7.
 int main()
 {
 	std::ios::sync_with_stdio(false);
 	std::cin.tie(nullptr);
 	std::cout.tie(NULL);
 
-	int N{}, M{}, count{};
+	int N{}, M{}, countA{}, countB{};
+
+	std::vector<int> A{};
+	std::vector<int> B{};
 
 	std::cin >> N >> M;
 
-	std::string name{};
-	std::map<std::string, int, std::less<std::string>> mem{};
-
-	for (int i = 0; i < N;i++)
+	for (int i = 0; i < N; i++)
 	{
-		std::cin >> name;
-		mem[name]++;
+		int x{};
+		std::cin >> x;
+		A.push_back(x);
 	}
 
-	for (int i = 0; i < M;i++)
+	std::sort(A.begin(), A.end());
+
+	for (int i = 0; i < M; i++)
 	{
-		std::cin >> name;
-		mem[name]++;
+		int x{};
+		std::cin >> x;
+		B.push_back(x);
 	}
 
-	for (auto& e : mem)
+	std::sort(B.begin(), B.end());
+
+	for (int i = 0; i < N; i++)
 	{
-		if (e.second == 2)
+		if (std::binary_search(B.begin(), B.end(), A[i]))
 		{
-			count++;
+			continue;
+		}
+		else
+		{
+			countA++;
 		}
 	}
 
-	std::cout << count << '\n';
-
-	for (auto& e : mem)
+	for (int i = 0; i < M; i++)
 	{
-		if (e.second == 2)
+		if (std::binary_search(A.begin(), A.end(), B[i]))
 		{
-			std::cout << e.first << '\n';
+			continue;
+		}
+		else
+		{
+			countB++;
 		}
 	}
+
+	std::cout << countA + countB << '\n';
 }
