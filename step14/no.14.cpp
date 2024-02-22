@@ -255,60 +255,97 @@
 
 
 //7.
+//int main()
+//{
+//	std::ios::sync_with_stdio(false);
+//	std::cin.tie(nullptr);
+//	std::cout.tie(NULL);
+//
+//	int N{}, M{}, countA{}, countB{};
+//
+//	std::vector<int> A{};
+//	std::vector<int> B{};
+//
+//	std::cin >> N >> M;
+//
+//	for (int i = 0; i < N; i++)
+//	{
+//		int x{};
+//		std::cin >> x;
+//		A.push_back(x);
+//	}
+//
+//	std::sort(A.begin(), A.end());
+//
+//	for (int i = 0; i < M; i++)
+//	{
+//		int x{};
+//		std::cin >> x;
+//		B.push_back(x);
+//	}
+//
+//	std::sort(B.begin(), B.end());
+//
+//	for (int i = 0; i < N; i++)
+//	{
+//		if (std::binary_search(B.begin(), B.end(), A[i]))
+//		{
+//			continue;
+//		}
+//		else
+//		{
+//			countA++;
+//		}
+//	}
+//
+//	for (int i = 0; i < M; i++)
+//	{
+//		if (std::binary_search(A.begin(), A.end(), B[i]))
+//		{
+//			continue;
+//		}
+//		else
+//		{
+//			countB++;
+//		}
+//	}
+//
+//	std::cout << countA + countB << '\n';
+//}
+
+//8.
 int main()
 {
 	std::ios::sync_with_stdio(false);
 	std::cin.tie(nullptr);
 	std::cout.tie(NULL);
 
-	int N{}, M{}, countA{}, countB{};
+	int count{};
+	std::string S{};
+	std::map<std::string, int> word{};
 
-	std::vector<int> A{};
-	std::vector<int> B{};
+	std::cin >> S;
 
-	std::cin >> N >> M;
-
-	for (int i = 0; i < N; i++)
+	for (int i = 0; i < size(S); i++)
 	{
-		int x{};
-		std::cin >> x;
-		A.push_back(x);
-	}
+		std::string a{};
+		a = S[i];
+		word[a]++;
 
-	std::sort(A.begin(), A.end());
-
-	for (int i = 0; i < M; i++)
-	{
-		int x{};
-		std::cin >> x;
-		B.push_back(x);
-	}
-
-	std::sort(B.begin(), B.end());
-
-	for (int i = 0; i < N; i++)
-	{
-		if (std::binary_search(B.begin(), B.end(), A[i]))
+		for (int j = i+1; j < size(S); j++)
 		{
-			continue;
-		}
-		else
-		{
-			countA++;
+			a = a + S[j];
+			word[a]++;
 		}
 	}
 
-	for (int i = 0; i < M; i++)
+	for (auto e : word)
 	{
-		if (std::binary_search(A.begin(), A.end(), B[i]))
-		{
-			continue;
-		}
-		else
-		{
-			countB++;
+		if (e.second > 0)
+		{			
+			count++;
 		}
 	}
 
-	std::cout << countA + countB << '\n';
+	std::cout << count << '\n';
 }
