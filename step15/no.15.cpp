@@ -68,38 +68,75 @@
 //}
 
 //2.
-int gcd(int a, int b)
-{
-	int r;
-	while (b != 0)
-	{
-		r = a % b;
-		a = b;
-		b = r;
-	}
-	return a;
-}
+//int gcd(int a, int b)
+//{
+//	int r;
+//	while (b != 0)
+//	{
+//		r = a % b;
+//		a = b;
+//		b = r;
+//	}
+//	return a;
+//}
+//
+//int main()
+//{
+//	std::ios::sync_with_stdio(false);
+//	std::cin.tie(nullptr);
+//	std::cout.tie(NULL);
+//
+//	long long int A{}, B{}, C{}, D{};
+//
+//	std::cin >> A >> B;
+//
+//	if (A > B)
+//	{
+//		C = A;
+//		D = B;
+//	}
+//	else
+//	{
+//		C = B;
+//		D = A;
+//	}
+//
+//	std::cout << (C * D) / gcd(C, D) << '\n';
+//}
 
+//3.
 int main()
 {
 	std::ios::sync_with_stdio(false);
 	std::cin.tie(nullptr);
 	std::cout.tie(NULL);
 
-	long long int A{}, B{}, C{}, D{};
+	int A{}, B{}, C{}, D{}, E{}, a{}, b{}, n{}, m{};
 
-	std::cin >> A >> B;
+	std::cin >> A >> B >> a >> b;
 
-	if (A > B)
+	n = (A * b) + (a*B);
+	m = b * B;
+
+	if (n > m)
 	{
-		C = A;
-		D = B;
+		C = m;
 	}
 	else
 	{
-		C = B;
-		D = A;
+		C = n;
 	}
 
-	std::cout << (C * D) / gcd(C, D) << '\n';
+	for (int i = 2; i <= C;i++)
+	{
+		if (n % i == 0 && m % i == 0)
+		{
+			n /= i;
+			m /= i;
+			C /= i;
+			i--;
+		}
+	}
+	
+	std::cout << n << " " << m << '\n';
 }
