@@ -105,38 +105,90 @@
 //}
 
 //3.
+//int main()
+//{
+//	std::ios::sync_with_stdio(false);
+//	std::cin.tie(nullptr);
+//	std::cout.tie(NULL);
+//
+//	int A{}, B{}, C{}, D{}, E{}, a{}, b{}, n{}, m{};
+//
+//	std::cin >> A >> B >> a >> b;
+//
+//	n = (A * b) + (a*B);
+//	m = b * B;
+//
+//	if (n > m)
+//	{
+//		C = m;
+//	}
+//	else
+//	{
+//		C = n;
+//	}
+//
+//	for (int i = 2; i <= C;i++)
+//	{
+//		if (n % i == 0 && m % i == 0)
+//		{
+//			n /= i;
+//			m /= i;
+//			C /= i;
+//			i--;
+//		}
+//	}
+//	
+//	std::cout << n << " " << m << '\n';
+//}
+
+//4.
+int gcd(int a, int b)
+{
+	int r{};
+	while (b != 0)
+	{
+		r = a % b;
+		a = b;
+		b = r;
+	}
+	return a;
+}
+
 int main()
 {
-	std::ios::sync_with_stdio(false);
-	std::cin.tie(nullptr);
+	std::ios_base::sync_with_stdio(false);
+	std::cin.tie(NULL);
 	std::cout.tie(NULL);
 
-	int A{}, B{}, C{}, D{}, E{}, a{}, b{}, n{}, m{};
 
-	std::cin >> A >> B >> a >> b;
+	int N{}, M{};
+	std::vector<int> point;
+	std::vector<int> distance;
 
-	n = (A * b) + (a*B);
-	m = b * B;
+	std::cin >> N;
 
-	if (n > m)
+	for (int i = 0; i < N; i++)
 	{
-		C = m;
-	}
-	else
-	{
-		C = n;
+		int x{};
+		std::cin >> x;
+		point.push_back(x);
 	}
 
-	for (int i = 2; i <= C;i++)
+	M = point[N-1] - point[0];
+
+	for (int i = 1; i < N;i++)
 	{
-		if (n % i == 0 && m % i == 0)
-		{
-			n /= i;
-			m /= i;
-			C /= i;
-			i--;
-		}
+		int x{};
+		x = point[i] - point[i -1];
+		distance.push_back(x);
 	}
-	
-	std::cout << n << " " << m << '\n';
+
+	int L = distance[0];
+
+	for (int i = 0; i < size(distance); i++)
+	{
+		L = gcd(L, distance[i]);
+	}
+
+	std::cout << M / L - (N-1) << '\n';
 }
