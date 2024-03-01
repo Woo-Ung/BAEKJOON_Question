@@ -142,53 +142,110 @@
 //}
 
 //4.
-int gcd(int a, int b)
+//int gcd(int a, int b)
+//{
+//	int r{};
+//	while (b != 0)
+//	{
+//		r = a % b;
+//		a = b;
+//		b = r;
+//	}
+//	return a;
+//}
+//
+//int main()
+//{
+//	std::ios_base::sync_with_stdio(false);
+//	std::cin.tie(NULL);
+//	std::cout.tie(NULL);
+//
+//
+//	int N{}, M{};
+//	std::vector<int> point;
+//	std::vector<int> distance;
+//
+//	std::cin >> N;
+//
+//	for (int i = 0; i < N; i++)
+//	{
+//		int x{};
+//		std::cin >> x;
+//		point.push_back(x);
+//	}
+//
+//	M = point[N-1] - point[0];
+//
+//	for (int i = 1; i < N;i++)
+//	{
+//		int x{};
+//		x = point[i] - point[i -1];
+//		distance.push_back(x);
+//	}
+//
+//	int L = distance[0];
+//
+//	for (int i = 0; i < size(distance); i++)
+//	{
+//		L = gcd(L, distance[i]);
+//	}
+//
+//	std::cout << M / L - (N-1) << '\n';
+//}
+
+//5.
+bool test(long long int a)
 {
-	int r{};
-	while (b != 0)
+	if (a <= 1)
 	{
-		r = a % b;
-		a = b;
-		b = r;
+		return false;
 	}
-	return a;
+	if (a == 2 || a == 3 || a == 5)
+	{
+		return true;
+	}
+	if (a % 2 == 0 || a % 3 == 0)
+	{
+		return false;
+	}
+
+	for (long long int i = 5; i * i <= a ;i++)
+	{	
+		if (a % i == 0)
+		{
+			return false;
+		}
+	}
+	return true;
 }
 
 int main()
 {
-	std::ios_base::sync_with_stdio(false);
-	std::cin.tie(NULL);
+	std::ios::sync_with_stdio(false);
+	std::cin.tie(nullptr);
 	std::cout.tie(NULL);
 
+	int m{};
+	long long int n{}, l{};
 
-	int N{}, M{};
-	std::vector<int> point;
-	std::vector<int> distance;
+	std::cin >> m;
 
-	std::cin >> N;
-
-	for (int i = 0; i < N; i++)
+	for (int i = 0; i < m; i++)
 	{
-		int x{};
-		std::cin >> x;
-		point.push_back(x);
+		std::cin >> n;
+		if (n == 0 || n == 1)
+		{
+			std::cout << 2 << '\n';
+			continue;
+		}
+		if (n != 2 && n % 2 == 0)
+		{
+			n++;
+		}
+		while (!test(n))
+		{
+			n+=2;
+		}
+		std::cout << n << '\n';
 	}
-
-	M = point[N-1] - point[0];
-
-	for (int i = 1; i < N;i++)
-	{
-		int x{};
-		x = point[i] - point[i -1];
-		distance.push_back(x);
-	}
-
-	int L = distance[0];
-
-	for (int i = 0; i < size(distance); i++)
-	{
-		L = gcd(L, distance[i]);
-	}
-
-	std::cout << M / L - (N-1) << '\n';
 }
