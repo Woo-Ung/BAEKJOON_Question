@@ -194,6 +194,63 @@
 //}
 
 //5.
+//bool test(long long int a)
+//{
+//	if (a <= 1)
+//	{
+//		return false;
+//	}
+//	if (a == 2 || a == 3 || a == 5)
+//	{
+//		return true;
+//	}
+//	if (a % 2 == 0 || a % 3 == 0)
+//	{
+//		return false;
+//	}
+//
+//	for (long long int i = 5; i * i <= a ;i++)
+//	{	
+//		if (a % i == 0)
+//		{
+//			return false;
+//		}
+//	}
+//	return true;
+//}
+//
+//int main()
+//{
+//	std::ios::sync_with_stdio(false);
+//	std::cin.tie(nullptr);
+//	std::cout.tie(NULL);
+//
+//	int m{};
+//	long long int n{}, l{};
+//
+//	std::cin >> m;
+//
+//	for (int i = 0; i < m; i++)
+//	{
+//		std::cin >> n;
+//		if (n == 0 || n == 1)
+//		{
+//			std::cout << 2 << '\n';
+//			continue;
+//		}
+//		if (n != 2 && n % 2 == 0)
+//		{
+//			n++;
+//		}
+//		while (!test(n))
+//		{
+//			n+=2;
+//		}
+//		std::cout << n << '\n';
+//	}
+//}
+
+//6.
 bool test(long long int a)
 {
 	if (a <= 1)
@@ -221,31 +278,15 @@ bool test(long long int a)
 
 int main()
 {
-	std::ios::sync_with_stdio(false);
-	std::cin.tie(nullptr);
-	std::cout.tie(NULL);
+	int M{}, N{};
 
-	int m{};
-	long long int n{}, l{};
+	std::cin >> M >> N;
 
-	std::cin >> m;
-
-	for (int i = 0; i < m; i++)
+	for (int i = M; i <= N;i++)
 	{
-		std::cin >> n;
-		if (n == 0 || n == 1)
+		if (test(i))
 		{
-			std::cout << 2 << '\n';
-			continue;
+			std::cout << i << '\n';
 		}
-		if (n != 2 && n % 2 == 0)
-		{
-			n++;
-		}
-		while (!test(n))
-		{
-			n+=2;
-		}
-		std::cout << n << '\n';
 	}
 }
