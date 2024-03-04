@@ -251,7 +251,48 @@
 //}
 
 //6.
-bool test(long long int a)
+//bool test(long long int a)
+//{
+//	if (a <= 1)
+//	{
+//		return false;
+//	}
+//	if (a == 2 || a == 3 || a == 5)
+//	{
+//		return true;
+//	}
+//	if (a % 2 == 0 || a % 3 == 0)
+//	{
+//		return false;
+//	}
+//
+//	for (long long int i = 5; i * i <= a ;i++)
+//	{	
+//		if (a % i == 0)
+//		{
+//			return false;
+//		}
+//	}
+//	return true;
+//}
+//
+//int main()
+//{
+//	int M{}, N{};
+//
+//	std::cin >> M >> N;
+//
+//	for (int i = M; i <= N;i++)
+//	{
+//		if (test(i))
+//		{
+//			std::cout << i << '\n';
+//		}
+//	}
+//}
+
+//7.
+bool test(int a)
 {
 	if (a <= 1)
 	{
@@ -265,9 +306,8 @@ bool test(long long int a)
 	{
 		return false;
 	}
-
-	for (long long int i = 5; i * i <= a ;i++)
-	{	
+	for (int i = 5; i * i <= a; i++)
+	{
 		if (a % i == 0)
 		{
 			return false;
@@ -278,15 +318,26 @@ bool test(long long int a)
 
 int main()
 {
-	int M{}, N{};
+	std::ios::sync_with_stdio(false);
+	std::cin.tie(nullptr);
+	std::cout.tie(NULL);
 
-	std::cin >> M >> N;
+	int n{1};
 
-	for (int i = M; i <= N;i++)
+	while (n != 0)
 	{
-		if (test(i))
+		int count{};
+		std::cin >> n;
+		for (int i = n+1; i <= 2 * n; i++)
 		{
-			std::cout << i << '\n';
+			if (test(i))
+			{
+				count++;
+			}
+		}
+		if (n != 0)
+		{
+			std::cout << count << '\n';
 		}
 	}
 }
