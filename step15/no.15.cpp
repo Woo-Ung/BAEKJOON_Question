@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 //1.
 //int main()
@@ -292,52 +293,113 @@
 //}
 
 //7.
-bool test(int a)
+//bool test(int a)
+//{
+//	if (a <= 1)
+//	{
+//		return false;
+//	}
+//	if (a == 2 || a == 3 || a == 5)
+//	{
+//		return true;
+//	}
+//	if (a % 2 == 0 || a % 3 == 0)
+//	{
+//		return false;
+//	}
+//	for (int i = 5; i * i <= a; i++)
+//	{
+//		if (a % i == 0)
+//		{
+//			return false;
+//		}
+//	}
+//	return true;
+//}
+//
+//int main()
+//{
+//	std::ios::sync_with_stdio(false);
+//	std::cin.tie(nullptr);
+//	std::cout.tie(NULL);
+//
+//	int n{1};
+//
+//	while (n != 0)
+//	{
+//		int count{};
+//		std::cin >> n;
+//		for (int i = n+1; i <= 2 * n; i++)
+//		{
+//			if (test(i))
+//			{
+//				count++;
+//			}
+//		}
+//		if (n != 0)
+//		{
+//			std::cout << count << '\n';
+//		}
+//	}
+//}
+
+//8.
+
+std::vector<bool> prime(1000001, true);
+
+void Eratos()
 {
-	if (a <= 1)
+	for (int i = 2; i * i <= 1000000; i++)
 	{
-		return false;
-	}
-	if (a == 2 || a == 3 || a == 5)
-	{
-		return true;
-	}
-	if (a % 2 == 0 || a % 3 == 0)
-	{
-		return false;
-	}
-	for (int i = 5; i * i <= a; i++)
-	{
-		if (a % i == 0)
+		if (prime[i])
 		{
-			return false;
+			for (int j = i * i; j <= 1000000; j += i)
+			{
+				prime[j] = false;
+			}
 		}
 	}
-	return true;
 }
 
 int main()
 {
 	std::ios::sync_with_stdio(false);
-	std::cin.tie(nullptr);
+	std::cin.tie(NULL);
 	std::cout.tie(NULL);
 
-	int n{1};
+	Eratos();
 
-	while (n != 0)
+	int T{};
+	std::cin >> T;
+
+	for (int i = 0; i < T; i++)
 	{
-		int count{};
+		int n{}, count{};
+		std::vector<int> num;
 		std::cin >> n;
-		for (int i = n+1; i <= 2 * n; i++)
+
+		for (int i = 2; i < n; i++)
 		{
-			if (test(i))
+			if (prime[i])
 			{
-				count++;
+				num.push_back(i);
 			}
 		}
-		if (n != 0)
+
+		for (auto e : num)
 		{
-			std::cout << count << '\n';
+			int x = n - e;
+
+			if (x < e)
+			{
+				break;
+			}
+
+			if (std::binary_search(num.begin(),num.end(),x))
+			{
+				count++;
+			}			
 		}
+		std::cout << count << '\n';
 	}
 }
