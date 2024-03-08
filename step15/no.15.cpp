@@ -344,62 +344,76 @@
 //}
 
 //8.
+//std::vector<bool> prime(1000001, true);
+//
+//void Eratos()
+//{
+//	for (int i = 2; i * i <= 1000000; i++)
+//	{
+//		if (prime[i])
+//		{
+//			for (int j = i * i; j <= 1000000; j += i)
+//			{
+//				prime[j] = false;
+//			}
+//		}
+//	}
+//}
+//
+//int main()
+//{
+//	std::ios::sync_with_stdio(false);
+//	std::cin.tie(NULL);
+//	std::cout.tie(NULL);
+//
+//	Eratos();
+//
+//	int T{};
+//	std::cin >> T;
+//
+//	for (int i = 0; i < T; i++)
+//	{
+//		int n{}, count{};
+//		std::vector<int> num;
+//		std::cin >> n;
+//
+//		for (int i = 2; i < n; i++)
+//		{
+//			if (prime[i])
+//			{
+//				num.push_back(i);
+//			}
+//		}
+//
+//		for (auto e : num)
+//		{
+//			int x = n - e;
+//
+//			if (x < e)
+//			{
+//				break;
+//			}
+//
+//			if (std::binary_search(num.begin(),num.end(),x))
+//			{
+//				count++;
+//			}			
+//		}
+//		std::cout << count << '\n';
+//	}
+//}
 
-std::vector<bool> prime(1000001, true);
-
-void Eratos()
-{
-	for (int i = 2; i * i <= 1000000; i++)
-	{
-		if (prime[i])
-		{
-			for (int j = i * i; j <= 1000000; j += i)
-			{
-				prime[j] = false;
-			}
-		}
-	}
-}
-
+//9.
 int main()
 {
-	std::ios::sync_with_stdio(false);
-	std::cin.tie(NULL);
-	std::cout.tie(NULL);
+	int N{}, count{};
 
-	Eratos();
+	std::cin >> N;
 
-	int T{};
-	std::cin >> T;
-
-	for (int i = 0; i < T; i++)
+	for (int i = 1; i * i <= N;i++)
 	{
-		int n{}, count{};
-		std::vector<int> num;
-		std::cin >> n;
-
-		for (int i = 2; i < n; i++)
-		{
-			if (prime[i])
-			{
-				num.push_back(i);
-			}
-		}
-
-		for (auto e : num)
-		{
-			int x = n - e;
-
-			if (x < e)
-			{
-				break;
-			}
-
-			if (std::binary_search(num.begin(),num.end(),x))
-			{
-				count++;
-			}			
-		}
-		std::cout << count << '\n';
+		count++;
 	}
+
+	std::cout << count << '\n';
 }
