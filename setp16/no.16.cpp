@@ -1,0 +1,77 @@
+#include <iostream>
+#include <stack>
+
+//1.
+std::stack<int> stack;
+
+void Pop()
+{
+	if (stack.empty())
+	{
+		std::cout << -1 << '\n';
+	}
+	else
+	{		
+		std::cout << stack.top() << '\n';
+		stack.pop();
+	}
+}
+
+void tPrint()
+{
+	if (stack.empty())
+	{
+		std::cout << -1 << '\n';
+	}
+	else
+	{
+		std::cout << stack.top() << '\n';
+	}
+}
+
+int main()
+{
+	std::ios::sync_with_stdio(false);
+	std::cin.tie(NULL);
+	std::cout.tie(NULL);
+
+	int N{}, cmd{}, x{};
+
+	std::cin >> N;
+
+	for (int i = 0; i < N; i++)
+	{
+		std::cin >> cmd;
+
+		switch (cmd)
+		{
+		case 1:	
+			std::cin >> x;
+			stack.push(x);			
+			break;
+
+		case 2:
+			Pop();
+			break;
+
+		case 3:
+			std::cout << size(stack) << '\n';
+			break;
+
+		case 4:
+			if (stack.empty())
+			{
+				std::cout << 1 << '\n';
+			}
+			else
+			{
+				std::cout << 0 << '\n';
+			}
+			break;
+
+		case 5:
+			tPrint();
+			break;
+		}
+	}
+}
