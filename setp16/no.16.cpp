@@ -2,76 +2,107 @@
 #include <stack>
 
 //1.
-std::stack<int> stack;
+//std::stack<int> stack;
+//
+//void Pop()
+//{
+//	if (stack.empty())
+//	{
+//		std::cout << -1 << '\n';
+//	}
+//	else
+//	{		
+//		std::cout << stack.top() << '\n';
+//		stack.pop();
+//	}
+//}
+//
+//void tPrint()
+//{
+//	if (stack.empty())
+//	{
+//		std::cout << -1 << '\n';
+//	}
+//	else
+//	{
+//		std::cout << stack.top() << '\n';
+//	}
+//}
+//
+//int main()
+//{
+//	std::ios::sync_with_stdio(false);
+//	std::cin.tie(NULL);
+//	std::cout.tie(NULL);
+//
+//	int N{}, cmd{}, x{};
+//
+//	std::cin >> N;
+//
+//	for (int i = 0; i < N; i++)
+//	{
+//		std::cin >> cmd;
+//
+//		switch (cmd)
+//		{
+//		case 1:	
+//			std::cin >> x;
+//			stack.push(x);			
+//			break;
+//
+//		case 2:
+//			Pop();
+//			break;
+//
+//		case 3:
+//			std::cout << size(stack) << '\n';
+//			break;
+//
+//		case 4:
+//			if (stack.empty())
+//			{
+//				std::cout << 1 << '\n';
+//			}
+//			else
+//			{
+//				std::cout << 0 << '\n';
+//			}
+//			break;
+//
+//		case 5:
+//			tPrint();
+//			break;
+//		}
+//	}
+//}
 
-void Pop()
-{
-	if (stack.empty())
-	{
-		std::cout << -1 << '\n';
-	}
-	else
-	{		
-		std::cout << stack.top() << '\n';
-		stack.pop();
-	}
-}
-
-void tPrint()
-{
-	if (stack.empty())
-	{
-		std::cout << -1 << '\n';
-	}
-	else
-	{
-		std::cout << stack.top() << '\n';
-	}
-}
-
+//2.
 int main()
 {
-	std::ios::sync_with_stdio(false);
-	std::cin.tie(NULL);
-	std::cout.tie(NULL);
+	int k{}, max{};
+	std::stack<int> check;
 
-	int N{}, cmd{}, x{};
+	std::cin >> k;
 
-	std::cin >> N;
-
-	for (int i = 0; i < N; i++)
+	for (int i = 0; i < k;i++)
 	{
-		std::cin >> cmd;
-
-		switch (cmd)
+		int x{};
+		std::cin >> x;
+		if (x == 0)
 		{
-		case 1:	
-			std::cin >> x;
-			stack.push(x);			
-			break;
-
-		case 2:
-			Pop();
-			break;
-
-		case 3:
-			std::cout << size(stack) << '\n';
-			break;
-
-		case 4:
-			if (stack.empty())
-			{
-				std::cout << 1 << '\n';
-			}
-			else
-			{
-				std::cout << 0 << '\n';
-			}
-			break;
-
-		case 5:
-			tPrint();
-			break;
+			check.pop();
+		}
+		else
+		{
+			check.push(x);
 		}
 	}
+
+	while(!check.empty())
+	{
+		max += check.top();
+		check.pop();
+	}
+
+	std::cout << max << '\n';
 }
