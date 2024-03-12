@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stack>
+#include <vector>
 
 //1.
 //std::stack<int> stack;
@@ -77,32 +78,86 @@
 //}
 
 //2.
+//int main()
+//{
+//	int k{}, max{};
+//	std::stack<int> check;
+//
+//	std::cin >> k;
+//
+//	for (int i = 0; i < k;i++)
+//	{
+//		int x{};
+//		std::cin >> x;
+//		if (x == 0)
+//		{
+//			check.pop();
+//		}
+//		else
+//		{
+//			check.push(x);
+//		}
+//	}
+//
+//	while(!check.empty())
+//	{
+//		max += check.top();
+//		check.pop();
+//	}
+//
+//	std::cout << max << '\n';
+//}
+
+//3.
 int main()
 {
-	int k{}, max{};
-	std::stack<int> check;
+	int T{};
+	std::string VPS{};
 
-	std::cin >> k;
+	std::cin >> T;
 
-	for (int i = 0; i < k;i++)
+	for (int i = 0; i < T; i++)
 	{
-		int x{};
-		std::cin >> x;
-		if (x == 0)
+		int x{}, y{}, count{};
+		std::cin >> VPS;
+
+		
+
+		if (size(VPS) % 2 != 0)
 		{
-			check.pop();
+			std::cout << "NO" << '\n';
+			continue;
 		}
 		else
 		{
-			check.push(x);
+			for (int j = 0; j < size(VPS); j++)
+			{
+				if (VPS[j] == '(')
+				{
+					x++;
+					count++;
+				}
+				if (VPS[j] == ')')
+				{
+					y++;
+					count--;
+				}
+				if(count<0)
+				{
+					break;
+				}
+			}
+
+			if (x == y)
+			{
+				std::cout << "YES" << '\n';
+				continue;
+			}
+			else
+			{
+				std::cout << "NO" << '\n';
+				continue;
+			}
 		}
 	}
-
-	while(!check.empty())
-	{
-		max += check.top();
-		check.pop();
-	}
-
-	std::cout << max << '\n';
 }
