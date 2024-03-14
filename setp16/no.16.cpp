@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stack>
 #include <vector>
+#include <string>
 
 //1.
 //std::stack<int> stack;
@@ -109,55 +110,126 @@
 //}
 
 //3.
+//int main()
+//{
+//	int T{};
+//	std::string VPS{};
+//
+//	std::cin >> T;
+//
+//	for (int i = 0; i < T; i++)
+//	{
+//		int x{}, y{}, count{};
+//		std::cin >> VPS;
+//
+//		
+//
+//		if (size(VPS) % 2 != 0)
+//		{
+//			std::cout << "NO" << '\n';
+//			continue;
+//		}
+//		else
+//		{
+//			for (int j = 0; j < size(VPS); j++)
+//			{
+//				if (VPS[j] == '(')
+//				{
+//					x++;
+//					count++;
+//				}
+//				if (VPS[j] == ')')
+//				{
+//					y++;
+//					count--;
+//				}
+//				if(count<0)
+//				{
+//					break;
+//				}
+//			}
+//
+//			if (x == y)
+//			{
+//				std::cout << "YES" << '\n';
+//				continue;
+//			}
+//			else
+//			{
+//				std::cout << "NO" << '\n';
+//				continue;
+//			}
+//		}
+//	}
+//}
+
+//4.
+void test(std::string a)
+{
+	
+	std::stack<char> check;
+
+	for (int i = 0; i<size(a) ;i++)
+	{	
+		if (a[i] == '(')
+		{
+			check.push('(');
+		}
+		else if (a[i] == ')')
+		{
+			if (check.empty() || check.top() == '[')
+			{
+				std::cout << "no" << '\n';
+				return;
+			}
+			check.pop();
+		}
+
+		if (a[i] == '[')
+		{
+			check.push('[');
+		}
+		else if (a[i] == ']')
+		{
+			if (check.empty() || check.top() == '(')
+			{
+				std::cout << "no" << '\n';
+				return;
+			}
+			check.pop();
+		}
+		
+		if (a[i] == '.')
+		{
+			break;
+		}
+	}
+
+	if (check.empty() && a[size(a)-1] == '.')
+	{
+		std::cout << "yes" << '\n';
+		return;
+	}
+	else
+	{
+		std::cout << "no" << '\n';
+		return;
+	}
+}
+
 int main()
 {
-	int T{};
-	std::string VPS{};
+	std::string x{};
 
-	std::cin >> T;
-
-	for (int i = 0; i < T; i++)
+	while (true)
 	{
-		int x{}, y{}, count{};
-		std::cin >> VPS;
+		getline(std::cin, x);
 
-		
-
-		if (size(VPS) % 2 != 0)
+		if (x[0] == '.')
 		{
-			std::cout << "NO" << '\n';
-			continue;
+			break;
 		}
-		else
-		{
-			for (int j = 0; j < size(VPS); j++)
-			{
-				if (VPS[j] == '(')
-				{
-					x++;
-					count++;
-				}
-				if (VPS[j] == ')')
-				{
-					y++;
-					count--;
-				}
-				if(count<0)
-				{
-					break;
-				}
-			}
 
-			if (x == y)
-			{
-				std::cout << "YES" << '\n';
-				continue;
-			}
-			else
-			{
-				std::cout << "NO" << '\n';
-				continue;
-			}
-		}
+		test(x);
 	}
 }
