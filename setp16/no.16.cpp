@@ -2,6 +2,7 @@
 #include <stack>
 #include <vector>
 #include <string>
+#include <queue>
 
 //1.
 //std::stack<int> stack;
@@ -164,72 +165,139 @@
 //}
 
 //4.
-void test(std::string a)
-{
-	
-	std::stack<char> check;
+//void test(std::string a)
+//{
+//	
+//	std::stack<char> check;
+//
+//	for (int i = 0; i<size(a) ;i++)
+//	{	
+//		if (a[i] == '(')
+//		{
+//			check.push('(');
+//		}
+//		else if (a[i] == ')')
+//		{
+//			if (check.empty() || check.top() == '[')
+//			{
+//				std::cout << "no" << '\n';
+//				return;
+//			}
+//			check.pop();
+//		}
+//
+//		if (a[i] == '[')
+//		{
+//			check.push('[');
+//		}
+//		else if (a[i] == ']')
+//		{
+//			if (check.empty() || check.top() == '(')
+//			{
+//				std::cout << "no" << '\n';
+//				return;
+//			}
+//			check.pop();
+//		}
+//		
+//		if (a[i] == '.')
+//		{
+//			break;
+//		}
+//	}
+//
+//	if (check.empty() && a[size(a)-1] == '.')
+//	{
+//		std::cout << "yes" << '\n';
+//		return;
+//	}
+//	else
+//	{
+//		std::cout << "no" << '\n';
+//		return;
+//	}
+//}
+//
+//int main()
+//{
+//	std::string x{};
+//
+//	while (true)
+//	{
+//		getline(std::cin, x);
+//
+//		if (x[0] == '.')
+//		{
+//			break;
+//		}
+//
+//		test(x);
+//	}
+//}
 
-	for (int i = 0; i<size(a) ;i++)
-	{	
-		if (a[i] == '(')
-		{
-			check.push('(');
-		}
-		else if (a[i] == ')')
-		{
-			if (check.empty() || check.top() == '[')
-			{
-				std::cout << "no" << '\n';
-				return;
-			}
-			check.pop();
-		}
-
-		if (a[i] == '[')
-		{
-			check.push('[');
-		}
-		else if (a[i] == ']')
-		{
-			if (check.empty() || check.top() == '(')
-			{
-				std::cout << "no" << '\n';
-				return;
-			}
-			check.pop();
-		}
-		
-		if (a[i] == '.')
-		{
-			break;
-		}
-	}
-
-	if (check.empty() && a[size(a)-1] == '.')
-	{
-		std::cout << "yes" << '\n';
-		return;
-	}
-	else
-	{
-		std::cout << "no" << '\n';
-		return;
-	}
-}
-
+//5.
 int main()
 {
-	std::string x{};
+	int N{}, x{}, count{1};
+	std::stack<int> line;
+	std::queue<int> random;
 
-	while (true)
+	std::cin >> N;
+
+	for (int i = 0; i < N; i++)
 	{
-		getline(std::cin, x);
+		std::cin >> x;
+		random.push(x);
+	}
 
-		if (x[0] == '.')
+
+	while(!random.empty())
+	{
+		if (count == random.front())
 		{
-			break;
+			random.pop();
+			count++;
 		}
+		else
+		{
+			if (!line.empty() && count == line.top())
+			{
+				line.pop();
+				count++;
+			}
+			else
+			{
+				line.push(random.front());
+				random.pop();
+			}
+		}
+	}
 
-		test(x);
+	if (!line.empty())
+	{
+		N = size(line);
+
+		for (int i = 0; i < N; i++)
+		{
+			if (count == line.top())
+			{
+				line.pop();
+				count++;
+			}
+			else
+			{
+				break;
+			}
+		}
+	}
+
+	if (line.empty())
+	{
+		std::cout << "Nice" << '\n';
+	}
+
+	else
+	{
+		std::cout << "Sad" << '\n';
 	}
 }
