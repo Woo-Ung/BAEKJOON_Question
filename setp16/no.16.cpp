@@ -236,68 +236,149 @@
 //}
 
 //5.
+//int main()
+//{
+//	int N{}, x{}, count{1};
+//	std::stack<int> line;
+//	std::queue<int> random;
+//
+//	std::cin >> N;
+//
+//	for (int i = 0; i < N; i++)
+//	{
+//		std::cin >> x;
+//		random.push(x);
+//	}
+//
+//	while(!random.empty())
+//	{
+//		if (count == random.front())
+//		{
+//			random.pop();
+//			count++;
+//		}
+//		else
+//		{
+//			if (!line.empty() && count == line.top())
+//			{
+//				line.pop();
+//				count++;
+//			}
+//			else
+//			{
+//				line.push(random.front());
+//				random.pop();
+//			}
+//		}
+//	}
+//
+//	if (!line.empty())
+//	{
+//		N = size(line);
+//
+//		for (int i = 0; i < N; i++)
+//		{
+//			if (count == line.top())
+//			{
+//				line.pop();
+//				count++;
+//			}
+//			else
+//			{
+//				break;
+//			}
+//		}
+//	}
+//
+//	if (line.empty())
+//	{
+//		std::cout << "Nice" << '\n';
+//	}
+//
+//	else
+//	{
+//		std::cout << "Sad" << '\n';
+//	}
+//}
+
+//6.
 int main()
 {
-	int N{}, x{}, count{1};
-	std::stack<int> line;
-	std::queue<int> random;
+	std::ios::sync_with_stdio(false);
+	std::cin.tie(NULL);
+	std::cout.tie(NULL);
+
+	int N{};
+	std::string cmd{};
+
+	std::queue<int> Q;
 
 	std::cin >> N;
 
-	for (int i = 0; i < N; i++)
+	for (int i = 0;i < N;i++)
 	{
-		std::cin >> x;
-		random.push(x);
-	}
+		int x{};
+		std::cin >> cmd;
 
-
-	while(!random.empty())
-	{
-		if (count == random.front())
+		if (cmd == "push")
 		{
-			random.pop();
-			count++;
+			std::cin >> x;
+			Q.push(x);
 		}
-		else
+
+		if (cmd == "pop")
 		{
-			if (!line.empty() && count == line.top())
+			if (Q.empty())
 			{
-				line.pop();
-				count++;
+				std::cout << "-1" << '\n';
 			}
 			else
 			{
-				line.push(random.front());
-				random.pop();
+				std::cout << Q.front() << '\n';
+				Q.pop();
 			}
 		}
-	}
 
-	if (!line.empty())
-	{
-		N = size(line);
-
-		for (int i = 0; i < N; i++)
+		if (cmd == "size")
 		{
-			if (count == line.top())
+			std::cout << Q.size() << '\n';
+		}
+
+		if (cmd == "empty")
+		{
+			if (Q.empty())
 			{
-				line.pop();
-				count++;
+				std::cout << "1" << '\n';
 			}
 			else
 			{
-				break;
+				std::cout << "0" << '\n';
 			}
 		}
+
+		if (cmd == "front")
+		{
+			if (Q.empty())
+			{
+				std::cout << "-1" << '\n';
+			}
+			else
+			{
+				std::cout << Q.front() << '\n';				
+			}
+		}
+
+		if (cmd == "back")
+		{
+			if (Q.empty())
+			{
+				std::cout << "-1" << '\n';
+			}
+			else
+			{
+				std::cout << Q.back() << '\n';
+			}
+		}	
 	}
 
-	if (line.empty())
-	{
-		std::cout << "Nice" << '\n';
-	}
-
-	else
-	{
-		std::cout << "Sad" << '\n';
-	}
 }
