@@ -302,83 +302,119 @@
 //}
 
 //6.
+//int main()
+//{
+//	std::ios::sync_with_stdio(false);
+//	std::cin.tie(NULL);
+//	std::cout.tie(NULL);
+//
+//	int N{};
+//	std::string cmd{};
+//
+//	std::queue<int> Q;
+//
+//	std::cin >> N;
+//
+//	for (int i = 0;i < N;i++)
+//	{
+//		int x{};
+//		std::cin >> cmd;
+//
+//		if (cmd == "push")
+//		{
+//			std::cin >> x;
+//			Q.push(x);
+//		}
+//
+//		if (cmd == "pop")
+//		{
+//			if (Q.empty())
+//			{
+//				std::cout << "-1" << '\n';
+//			}
+//			else
+//			{
+//				std::cout << Q.front() << '\n';
+//				Q.pop();
+//			}
+//		}
+//
+//		if (cmd == "size")
+//		{
+//			std::cout << Q.size() << '\n';
+//		}
+//
+//		if (cmd == "empty")
+//		{
+//			if (Q.empty())
+//			{
+//				std::cout << "1" << '\n';
+//			}
+//			else
+//			{
+//				std::cout << "0" << '\n';
+//			}
+//		}
+//
+//		if (cmd == "front")
+//		{
+//			if (Q.empty())
+//			{
+//				std::cout << "-1" << '\n';
+//			}
+//			else
+//			{
+//				std::cout << Q.front() << '\n';				
+//			}
+//		}
+//
+//		if (cmd == "back")
+//		{
+//			if (Q.empty())
+//			{
+//				std::cout << "-1" << '\n';
+//			}
+//			else
+//			{
+//				std::cout << Q.back() << '\n';
+//			}
+//		}	
+//	}
+//
+//}
+
+//7.
 int main()
 {
-	std::ios::sync_with_stdio(false);
-	std::cin.tie(NULL);
-	std::cout.tie(NULL);
+	int N{}, x{};
 
-	int N{};
-	std::string cmd{};
-
-	std::queue<int> Q;
+	std::queue<int> deck;
 
 	std::cin >> N;
 
-	for (int i = 0;i < N;i++)
-	{
-		int x{};
-		std::cin >> cmd;
-
-		if (cmd == "push")
-		{
-			std::cin >> x;
-			Q.push(x);
-		}
-
-		if (cmd == "pop")
-		{
-			if (Q.empty())
-			{
-				std::cout << "-1" << '\n';
-			}
-			else
-			{
-				std::cout << Q.front() << '\n';
-				Q.pop();
-			}
-		}
-
-		if (cmd == "size")
-		{
-			std::cout << Q.size() << '\n';
-		}
-
-		if (cmd == "empty")
-		{
-			if (Q.empty())
-			{
-				std::cout << "1" << '\n';
-			}
-			else
-			{
-				std::cout << "0" << '\n';
-			}
-		}
-
-		if (cmd == "front")
-		{
-			if (Q.empty())
-			{
-				std::cout << "-1" << '\n';
-			}
-			else
-			{
-				std::cout << Q.front() << '\n';				
-			}
-		}
-
-		if (cmd == "back")
-		{
-			if (Q.empty())
-			{
-				std::cout << "-1" << '\n';
-			}
-			else
-			{
-				std::cout << Q.back() << '\n';
-			}
-		}	
+	for (int i = 0; i < N; i++)
+	{		
+		deck.push(i+1);
 	}
 
+	while (true)
+	{
+		if (deck.size() == 1)
+		{
+			break;
+		}
+
+		deck.pop();
+
+		if (deck.size() == 1)
+		{
+			break;
+		}
+
+		deck.push(deck.front());
+
+		deck.pop();
+	}
+
+	std::cout << deck.front() << '\n';
 }
