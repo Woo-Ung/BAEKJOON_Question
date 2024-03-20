@@ -384,37 +384,78 @@
 //}
 
 //7.
+//int main()
+//{
+//	int N{}, x{};
+//
+//	std::queue<int> deck;
+//
+//	std::cin >> N;
+//
+//	for (int i = 0; i < N; i++)
+//	{		
+//		deck.push(i+1);
+//	}
+//
+//	while (true)
+//	{
+//		if (deck.size() == 1)
+//		{
+//			break;
+//		}
+//
+//		deck.pop();
+//
+//		if (deck.size() == 1)
+//		{
+//			break;
+//		}
+//
+//		deck.push(deck.front());
+//
+//		deck.pop();
+//	}
+//
+//	std::cout << deck.front() << '\n';
+//}
+
+//8.
 int main()
 {
-	int N{}, x{};
+	int N{}, k{};
 
-	std::queue<int> deck;
+	std::queue<int> circle;
+	std::vector<int> array;
 
-	std::cin >> N;
+	std::cin >> N >> k;
 
-	for (int i = 0; i < N; i++)
-	{		
-		deck.push(i+1);
-	}
-
-	while (true)
+	for(int i =0; i< N; i++)
 	{
-		if (deck.size() == 1)
-		{
-			break;
-		}
-
-		deck.pop();
-
-		if (deck.size() == 1)
-		{
-			break;
-		}
-
-		deck.push(deck.front());
-
-		deck.pop();
+		circle.push(i + 1);
 	}
 
-	std::cout << deck.front() << '\n';
+	while (!circle.empty())
+	{
+		for (int i = 0; i < k-1;i++)
+		{
+			circle.push(circle.front());
+			circle.pop();
+		}
+		array.push_back(circle.front());
+		circle.pop();
+	}
+
+	std::cout << "<";
+
+	for (auto& e : array)
+	{
+		if (e != array[array.size()-1])
+		{
+			std::cout << e << "," << " ";
+		}
+		else
+		{
+			std::cout << e << ">";
+		}
+	}
 }
