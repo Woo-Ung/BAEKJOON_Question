@@ -420,42 +420,130 @@
 //}
 
 //8.
+//int main()
+//{
+//	int N{}, k{};
+//
+//	std::queue<int> circle;
+//	std::vector<int> array;
+//
+//	std::cin >> N >> k;
+//
+//	for(int i =0; i< N; i++)
+//	{
+//		circle.push(i + 1);
+//	}
+//
+//	while (!circle.empty())
+//	{
+//		for (int i = 0; i < k-1;i++)
+//		{
+//			circle.push(circle.front());
+//			circle.pop();
+//		}
+//		array.push_back(circle.front());
+//		circle.pop();
+//	}
+//
+//	std::cout << "<";
+//
+//	for (auto& e : array)
+//	{
+//		if (e != array[array.size()-1])
+//		{
+//			std::cout << e << "," << " ";
+//		}
+//		else
+//		{
+//			std::cout << e << ">";
+//		}
+//	}
+//}
+
+//9.
 int main()
 {
-	int N{}, k{};
+	std::ios::sync_with_stdio(false);
+	std::cin.tie(NULL);
+	std::cout.tie(NULL);
 
-	std::queue<int> circle;
-	std::vector<int> array;
+	int N{}, cmd{}, x{};
 
-	std::cin >> N >> k;
+	std::deque<int> D;
 
-	for(int i =0; i< N; i++)
+	std::cin >> N;
+
+	for (int i = 0; i < N; i++)
 	{
-		circle.push(i + 1);
-	}
+		std::cin >> cmd;
 
-	while (!circle.empty())
-	{
-		for (int i = 0; i < k-1;i++)
+		switch (cmd)
 		{
-			circle.push(circle.front());
-			circle.pop();
-		}
-		array.push_back(circle.front());
-		circle.pop();
-	}
+		case 1 :
+			std::cin >> x;
+			D.push_front(x);
+			break;
+		case 2:
+			std::cin >> x;
+			D.push_back(x);
+			break;
+		case 3:
+			if (D.empty())
+			{
+				std::cout << -1 << '\n';
+			}
+			else
+			{
+				std::cout << D.front() << '\n';
+				D.pop_front();
+			}
+			break;
+		case 4:
+			if (D.empty())
+			{
+				std::cout << -1 << '\n';
+			}
+			else
+			{
+				std::cout << D.back() << '\n';
+				D.pop_back();
+			}
+			break;
+		case 5:
+			std::cout << D.size() << '\n';
+			break;
+		case 6:
+			if (D.empty())
+			{
+				std::cout << 1 << '\n';
+			}
+			else
+			{
+				std::cout << 0 << '\n';
+			}
+			break;
+		case 7:
+			if (D.empty())
+			{
+				std::cout << -1 << '\n';
+			}
+			else
+			{
+				std::cout << D.front() << '\n';
+			}
 
-	std::cout << "<";
+			break;
+		case 8:
+			if (D.empty())
+			{
+				std::cout << -1 << '\n';
+			}
+			else
+			{
+				std::cout << D.back() << '\n';
+			}
 
-	for (auto& e : array)
-	{
-		if (e != array[array.size()-1])
-		{
-			std::cout << e << "," << " ";
-		}
-		else
-		{
-			std::cout << e << ">";
+			break;
 		}
 	}
 }
