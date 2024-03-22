@@ -461,89 +461,142 @@
 //}
 
 //9.
+//int main()
+//{
+//	std::ios::sync_with_stdio(false);
+//	std::cin.tie(NULL);
+//	std::cout.tie(NULL);
+//
+//	int N{}, cmd{}, x{};
+//
+//	std::deque<int> D;
+//
+//	std::cin >> N;
+//
+//	for (int i = 0; i < N; i++)
+//	{
+//		std::cin >> cmd;
+//
+//		switch (cmd)
+//		{
+//		case 1 :
+//			std::cin >> x;
+//			D.push_front(x);
+//			break;
+//		case 2:
+//			std::cin >> x;
+//			D.push_back(x);
+//			break;
+//		case 3:
+//			if (D.empty())
+//			{
+//				std::cout << -1 << '\n';
+//			}
+//			else
+//			{
+//				std::cout << D.front() << '\n';
+//				D.pop_front();
+//			}
+//			break;
+//		case 4:
+//			if (D.empty())
+//			{
+//				std::cout << -1 << '\n';
+//			}
+//			else
+//			{
+//				std::cout << D.back() << '\n';
+//				D.pop_back();
+//			}
+//			break;
+//		case 5:
+//			std::cout << D.size() << '\n';
+//			break;
+//		case 6:
+//			if (D.empty())
+//			{
+//				std::cout << 1 << '\n';
+//			}
+//			else
+//			{
+//				std::cout << 0 << '\n';
+//			}
+//			break;
+//		case 7:
+//			if (D.empty())
+//			{
+//				std::cout << -1 << '\n';
+//			}
+//			else
+//			{
+//				std::cout << D.front() << '\n';
+//			}
+//
+//			break;
+//		case 8:
+//			if (D.empty())
+//			{
+//				std::cout << -1 << '\n';
+//			}
+//			else
+//			{
+//				std::cout << D.back() << '\n';
+//			}
+//
+//			break;
+//		}
+//	}
+//}
+
+//10.
 int main()
 {
-	std::ios::sync_with_stdio(false);
-	std::cin.tie(NULL);
-	std::cout.tie(NULL);
+	int N{}, x{}, y{};
 
-	int N{}, cmd{}, x{};
-
-	std::deque<int> D;
+	std::deque<int> circle;
+	std::deque<int> num;
 
 	std::cin >> N;
 
-	for (int i = 0; i < N; i++)
+	for (int i = 0; i < N;i++)
 	{
-		std::cin >> cmd;
+		std::cin >> x;
+		circle.push_back(x);
+		num.push_back(i + 1);
+	}
 
-		switch (cmd)
+	while (true)
+	{
+		std::cout << num.front() << " ";
+		y = circle.front();
+		circle.pop_front();
+		num.pop_front();
+
+		if (circle.empty())
 		{
-		case 1 :
-			std::cin >> x;
-			D.push_front(x);
 			break;
-		case 2:
-			std::cin >> x;
-			D.push_back(x);
-			break;
-		case 3:
-			if (D.empty())
-			{
-				std::cout << -1 << '\n';
-			}
-			else
-			{
-				std::cout << D.front() << '\n';
-				D.pop_front();
-			}
-			break;
-		case 4:
-			if (D.empty())
-			{
-				std::cout << -1 << '\n';
-			}
-			else
-			{
-				std::cout << D.back() << '\n';
-				D.pop_back();
-			}
-			break;
-		case 5:
-			std::cout << D.size() << '\n';
-			break;
-		case 6:
-			if (D.empty())
-			{
-				std::cout << 1 << '\n';
-			}
-			else
-			{
-				std::cout << 0 << '\n';
-			}
-			break;
-		case 7:
-			if (D.empty())
-			{
-				std::cout << -1 << '\n';
-			}
-			else
-			{
-				std::cout << D.front() << '\n';
-			}
+		}
 
-			break;
-		case 8:
-			if (D.empty())
-			{
-				std::cout << -1 << '\n';
+		if (y > 0)
+		{			
+			for (int i = 0; i < abs(y)-1; i++)
+			{				
+				circle.push_back(circle.front());
+				circle.pop_front();				
+				num.push_back(num.front());
+				num.pop_front();
 			}
-			else
-			{
-				std::cout << D.back() << '\n';
-			}
+		}
 
-			break;
+		if (y < 0)
+		{
+			for (int i = 0; i < abs(y); i++)
+			{				
+				circle.push_front(circle.back());
+				circle.pop_back();
+				num.push_front(num.back());
+				num.pop_back();
+			}
 		}
 	}
 }
