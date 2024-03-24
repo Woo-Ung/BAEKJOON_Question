@@ -549,54 +549,97 @@
 //}
 
 //10.
+//int main()
+//{
+//	int N{}, x{}, y{};
+//
+//	std::deque<int> circle;
+//	std::deque<int> num;
+//
+//	std::cin >> N;
+//
+//	for (int i = 0; i < N;i++)
+//	{
+//		std::cin >> x;
+//		circle.push_back(x);
+//		num.push_back(i + 1);
+//	}
+//
+//	while (true)
+//	{
+//		std::cout << num.front() << " ";
+//		y = circle.front();
+//		circle.pop_front();
+//		num.pop_front();
+//
+//		if (circle.empty())
+//		{
+//			break;
+//		}
+//
+//		if (y > 0)
+//		{			
+//			for (int i = 0; i < abs(y)-1; i++)
+//			{				
+//				circle.push_back(circle.front());
+//				circle.pop_front();				
+//				num.push_back(num.front());
+//				num.pop_front();
+//			}
+//		}
+//
+//		if (y < 0)
+//		{
+//			for (int i = 0; i < abs(y); i++)
+//			{				
+//				circle.push_front(circle.back());
+//				circle.pop_back();
+//				num.push_front(num.back());
+//				num.pop_back();
+//			}
+//		}
+//	}
+//}
+
+//11.
 int main()
 {
-	int N{}, x{}, y{};
+	std::ios::sync_with_stdio(false);
+	std::cin.tie(NULL);
+	std::cout.tie(NULL);
 
-	std::deque<int> circle;
-	std::deque<int> num;
+	int N{}, M{}, x{}, temp{};
+
+	std::vector<int> array;
+	std::deque<int> Qs;
 
 	std::cin >> N;
 
 	for (int i = 0; i < N;i++)
 	{
 		std::cin >> x;
-		circle.push_back(x);
-		num.push_back(i + 1);
+		array.push_back(x);
 	}
 
-	while (true)
+	for (int i = 0; i < N; i++)
 	{
-		std::cout << num.front() << " ";
-		y = circle.front();
-		circle.pop_front();
-		num.pop_front();
-
-		if (circle.empty())
+		std::cin >> x;
+		if (array[i] == 0)
 		{
-			break;
+			Qs.push_back(x);
 		}
+	}
 
-		if (y > 0)
-		{			
-			for (int i = 0; i < abs(y)-1; i++)
-			{				
-				circle.push_back(circle.front());
-				circle.pop_front();				
-				num.push_back(num.front());
-				num.pop_front();
-			}
-		}
+	std::cin >> M;
 
-		if (y < 0)
-		{
-			for (int i = 0; i < abs(y); i++)
-			{				
-				circle.push_front(circle.back());
-				circle.pop_back();
-				num.push_front(num.back());
-				num.pop_back();
-			}
-		}
+	for (int i = 0; i < M; i++)
+	{
+		std::cin >> x;
+
+		Qs.push_front(x);
+
+		std::cout << Qs.back() << " ";
+
+		Qs.pop_back();
 	}
 }
