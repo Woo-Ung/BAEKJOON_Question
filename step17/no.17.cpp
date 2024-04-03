@@ -45,31 +45,56 @@
 //}
 
 //4.
-int factorial(int n)
-{
-	if (n <= 1)
-	{
-		return 1;
-	}
+//int factorial(int n)
+//{
+//	if (n <= 1)
+//	{
+//		return 1;
+//	}
+//
+//	else
+//	{
+//		return n * factorial(n - 1);
+//	}
+//}
+//
+//int main()
+//{
+//	int N{}, K{};
+//
+//	std::cin >> N >> K;
+//
+//	if (K == 0 && K == N)
+//	{
+//		std::cout << 1 << '\n';
+//	}
+//	else
+//	{
+//		std::cout << factorial(N) / (factorial(N - K) * factorial(K)) << '\n';
+//	}
+//}
 
-	else
-	{
-		return n * factorial(n - 1);
-	}
-}
-
+//5.
 int main()
 {
-	int N{}, K{};
+	int T{}, N{}, M{};
 
-	std::cin >> N >> K;
+	std::cin >> T;
 
-	if (K == 0 && K == N)
+	for (int i = 0; i < T;i++)
 	{
-		std::cout << 1 << '\n';
-	}
-	else
-	{
-		std::cout << factorial(N) / (factorial(N - K) * factorial(K)) << '\n';
+		long long int result{1};
+		int temp{ 1 };
+
+		std::cin >> N >> M;
+
+		for (int j = M; j > M - N; j--)
+		{
+			result = result * j;
+			result = result / temp;
+			temp++;
+		}
+
+		std::cout << result << '\n';
 	}
 }
