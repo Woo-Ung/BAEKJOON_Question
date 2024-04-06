@@ -24,37 +24,71 @@
 //}
 
 //2.
+//int main()
+//{
+//	std::ios::sync_with_stdio(false);
+//	std::cin.tie(NULL);
+//	std::cout.tie(NULL);
+//
+//	int N{}, count{};
+//	std::string x{};
+//	std::map<std::string, int> name{};
+//	
+//
+//	std::cin >> N;
+//
+//	for (int i = 0; i < N; i++)
+//	{
+//		std::cin >> x;
+//
+//		if (x == "ENTER")
+//		{
+//			for (auto& e : name)
+//			{
+//				if (e.second > 0)
+//				{
+//					count++;					
+//				}			
+//			}
+//			name.clear();
+//		}
+//		else
+//		{
+//			name[x]++;
+//		}
+//	}
+//
+//	for (auto& e : name)
+//	{
+//		if (e.second > 0)
+//		{
+//			count++;
+//		}
+//	}
+//
+//	std::cout << count << '\n';
+//}
+
+//3.
 int main()
 {
-	std::ios::sync_with_stdio(false);
-	std::cin.tie(NULL);
-	std::cout.tie(NULL);
-
 	int N{}, count{};
-	std::string x{};
-	std::map<std::string, int> name{};
-	
+
+	std::string x{}, y{};
+
+	std::map<std::string, int> name{{"ChongChong",0}};
+
 
 	std::cin >> N;
 
 	for (int i = 0; i < N; i++)
 	{
-		std::cin >> x;
+		std::cin >> x >> y;
 
-		if (x == "ENTER")
-		{
-			for (auto& e : name)
-			{
-				if (e.second > 0)
-				{
-					count++;					
-				}			
-			}
-			name.clear();
-		}
-		else
+		if (name.find(y) != name.end() || name.find(x) != name.end())
 		{
 			name[x]++;
+			name[y]++;
 		}
 	}
 
