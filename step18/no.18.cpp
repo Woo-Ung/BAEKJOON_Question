@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include <map>
+#include <cmath>
 
 //1.
 //int main()
@@ -70,35 +71,113 @@
 //}
 
 //3.
+//int main()
+//{
+//	int N{}, count{};
+//
+//	std::string x{}, y{};
+//
+//	std::map<std::string, int> name{{"ChongChong",0}};
+//
+//
+//	std::cin >> N;
+//
+//	for (int i = 0; i < N; i++)
+//	{
+//		std::cin >> x >> y;
+//
+//		if (name.find(y) != name.end() || name.find(x) != name.end())
+//		{
+//			name[x]++;
+//			name[y]++;
+//		}
+//	}
+//
+//	for (auto& e : name)
+//	{
+//		if (e.second > 0)
+//		{
+//			count++;
+//		}
+//	}
+//
+//	std::cout << count << '\n';
+//}
+
+//4.
+bool cmp(std::pair<int, int>& a, std::pair<int, int>& b)
+{
+	if (a.second == b.second)
+	{
+		return a.first > b.first;
+	}
+
+	else
+	{
+		return a.second < b.second;
+	}
+}
+
 int main()
 {
-	int N{}, count{};
+	double max{}, x{}, N{}, mid{}, most{}, range{};
 
-	std::string x{}, y{};
-
-	std::map<std::string, int> name{{"ChongChong",0}};
-
+	std::vector<int> array;
+	std::map<int, int> array2;
 
 	std::cin >> N;
 
 	for (int i = 0; i < N; i++)
 	{
-		std::cin >> x >> y;
+		std::cin >> x;
 
-		if (name.find(y) != name.end() || name.find(x) != name.end())
-		{
-			name[x]++;
-			name[y]++;
-		}
+		max = max + x;
+
+		array.push_back(x);
+		array2[x]++;
 	}
 
-	for (auto& e : name)
+	std::vector<std::pair<int, int>> vec(array2.begin(), array2.end());
+
+	std::sort(array.begin(), array.end());
+
+	std::sort(vec.begin(), vec.end(),cmp);
+
+	range = array[size(array)-1] - array[0];
+
+	if (size(vec) > 1)
 	{
-		if (e.second > 0)
+		if (vec[vec.size() - 1].second == vec[vec.size() - 2].second)
 		{
-			count++;
+			most = vec[vec.size() - 2].first;
+		}
+		else
+		{
+			most = vec[vec.size() - 1].first;
 		}
 	}
+	else
+	{
+		most = vec[vec.size() - 1].first;
+	}
+		
+	if (max < 0)
+	{
+		if (round((abs(max) / N)) * -1 == -0)
+		{
+			std::cout << 0 << '\n';
+		}
+		else
+		{
+			std::cout << round((abs(max) / N)) * -1 << '\n';
+		}
+	}
+	else
+	{
+		std::cout << round(max / N) << '\n';
+	}
 
-	std::cout << count << '\n';
+	std::cout << array[N/2] << '\n';
+	std::cout << most << '\n';
+	std::cout << range << '\n';
 }
