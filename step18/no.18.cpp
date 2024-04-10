@@ -1,4 +1,4 @@
-#include<iostream>
+#include <iostream>
 #include <vector>
 #include <algorithm>
 #include <map>
@@ -183,44 +183,64 @@
 //}
 
 //5.
-bool cmp(std::pair<std::string, int>& a, std::pair<std::string, int>& b)
-{
-	if (a.second == b.second)
-	{
-		if (size(a.first) == size(b.first))
-		{
-			return a.first < b.first;			
-		}
-		return size(a.first) > size(b.first);		
-	}
-	return a.second > b.second;	
-};
+//bool cmp(std::pair<std::string, int>& a, std::pair<std::string, int>& b)
+//{
+//	if (a.second == b.second)
+//	{
+//		if (size(a.first) == size(b.first))
+//		{
+//			return a.first < b.first;			
+//		}
+//		return size(a.first) > size(b.first);		
+//	}
+//	return a.second > b.second;	
+//};
+//
+//
+//int main()
+//{
+//	int N{}, M{};
+//
+//	std::string x;
+//	std::map<std::string, int> array;
+//
+//	std::cin >> N >> M;
+//
+//	for (int i = 0; i < N; i++)
+//	{
+//		std::cin >> x;
+//		
+//		if (size(x) >= M)
+//		{
+//			array[x]++;
+//		}
+//	}
+//
+//	std::vector<std::pair<std::string, int>> vec(array.begin(),array.end());
+//	std::sort(vec.begin(), vec.end(), cmp);
+//
+//	for (auto& e : vec)
+//	{
+//		std::cout << e.first << '\n';
+//	}
+//}
 
+//6.
+long long int Fac(long long int a)
+{
+	if (a <= 1)
+	{
+		return 1;
+	}
+
+	return a * Fac(a - 1);
+}
 
 int main()
 {
-	int N{}, M{};
+	long long int N{};
 
-	std::string x;
-	std::map<std::string, int> array;
+	std::cin >> N;
 
-	std::cin >> N >> M;
-
-	for (int i = 0; i < N; i++)
-	{
-		std::cin >> x;
-		
-		if (size(x) >= M)
-		{
-			array[x]++;
-		}
-	}
-
-	std::vector<std::pair<std::string, int>> vec(array.begin(),array.end());
-	std::sort(vec.begin(), vec.end(), cmp);
-
-	for (auto& e : vec)
-	{
-		std::cout << e.first << '\n';
-	}
+	std::cout << Fac(N) << '\n';
 }
