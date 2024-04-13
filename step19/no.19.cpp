@@ -1,4 +1,5 @@
 #include<iostream>
+#include <string>
 
 //1.
 //long long int Fac(long long int a)
@@ -21,26 +22,67 @@
 //}
 
 //2.
-int fb(int a)
+//int fb(int a)
+//{
+//	if (a == 0)
+//	{
+//		return 0;
+//	}
+//
+//	if (a == 1 || a == 2)
+//	{
+//		return 1;
+//	}
+//
+//	return fb(a - 1) + fb(a - 2);
+//}
+//
+//int main()
+//{
+//	int N{};
+//
+//	std::cin >> N;
+//
+//	std::cout << fb(N) << '\n';
+//}
+
+//3.
+int count{1};
+
+int recursion(std::string& s, int l, int r) 
+{  
+    if (l >= r)
+    {
+        return 1;
+    }
+    else if (s[l] != s[r])
+    {
+        return 0;
+    }
+    else
+    {
+        count++;
+        return recursion(s, l + 1, r - 1);
+    }
+}
+
+int isPalindrome(std::string& s)
 {
-	if (a == 0)
-	{
-		return 0;
-	}
-
-	if (a == 1 || a == 2)
-	{
-		return 1;
-	}
-
-	return fb(a - 1) + fb(a - 2);
+    return recursion(s, 0, size(s)-1);
 }
 
 int main()
 {
-	int N{};
+    int T{};
+    
+    std::string x{};
 
-	std::cin >> N;
+    std::cin >> T;
 
-	std::cout << fb(N) << '\n';
+    for (int i = 0; i < T; i++)
+    {
+        count = 1;
+        std::cin >> x;
+        std::cout << isPalindrome(x) << " " << count << '\n';
+    }
 }
