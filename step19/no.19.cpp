@@ -47,42 +47,118 @@
 //}
 
 //3.
-int count{1};
+//int count{1};
+//
+//int recursion(std::string& s, int l, int r) 
+//{  
+//    if (l >= r)
+//    {
+//        return 1;
+//    }
+//    else if (s[l] != s[r])
+//    {
+//        return 0;
+//    }
+//    else
+//    {
+//        count++;
+//        return recursion(s, l + 1, r - 1);
+//    }
+//}
+//
+//int isPalindrome(std::string& s)
+//{
+//    return recursion(s, 0, size(s)-1);
+//}
+//
+//int main()
+//{
+//    int T{};
+//    
+//    std::string x{};
+//
+//    std::cin >> T;
+//
+//    for (int i = 0; i < T; i++)
+//    {
+//        count = 1;
+//        std::cin >> x;
+//        std::cout << isPalindrome(x) << " " << count << '\n';
+//    }
+//}
 
-int recursion(std::string& s, int l, int r) 
-{  
-    if (l >= r)
+//4.
+int* tmp;
+int* A;
+int count{}, save{-1}, K{}, N{};
+
+void merge(int A[],int p,int q,int r)
+{
+    int i = p;
+    int j = q + 1;
+    int t = 1;
+
+    while (i <= q && j <= r) 
     {
-        return 1;
+        if (A[i] <= A[j])
+        {
+            tmp[t++] = A[i++];
+        }
+        else
+        {
+            tmp[t++] = A[j++];
+        }
     }
-    else if (s[l] != s[r])
+    while (i <= q)
     {
-        return 0;
+        tmp[t++] = A[i++];
     }
-    else
+
+    while (j <= r)
     {
+        tmp[t++] = A[j++];
+    }
+
+    i = p; t = 1;
+    while (i <= r)
+    {
+        A[i++] = tmp[t++];
         count++;
-        return recursion(s, l + 1, r - 1);
+        if (count == K)
+        {
+            save = A[i - 1];
+            break;
+        }
     }
 }
 
-int isPalindrome(std::string& s)
+void merge_sort(int A[], int p, int r)
 {
-    return recursion(s, 0, size(s)-1);
+    if (p < r)
+    {
+        int q = (p + r) / 2;
+        merge_sort(A, p, q);
+        merge_sort(A, q + 1, r);
+        merge(A, p, q, r);
+    }
 }
 
 int main()
 {
-    int T{};
-    
-    std::string x{};
+	std::cin >> N >> K;
 
-    std::cin >> T;
+    A = new int[N+1];
+    tmp = new int[N+1];
 
-    for (int i = 0; i < T; i++)
-    {
-        count = 1;
-        std::cin >> x;
-        std::cout << isPalindrome(x) << " " << count << '\n';
-    }
+	for (int i = 0; i < N; i++)
+	{
+		std::cin >> A[i];       
+	}
+
+	merge_sort(A, 0, N-1);
+
+    std::cout << save << '\n';
+
+    delete[] A;
+    delete[] tmp;
 }
