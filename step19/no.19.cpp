@@ -1,5 +1,7 @@
-#include<iostream>
+#include <iostream>
 #include <string>
+#include <cmath>
+#include <vector>
 
 //1.
 //long long int Fac(long long int a)
@@ -88,77 +90,129 @@
 //}
 
 //4.
-int* tmp;
-int* A;
-int count{}, save{-1}, K{}, N{};
+//int* tmp;
+//int* A;
+//int count{}, save{-1}, K{}, N{};
+//
+//void merge(int A[],int p,int q,int r)
+//{
+//    int i = p;
+//    int j = q + 1;
+//    int t = 1;
+//
+//    while (i <= q && j <= r) 
+//    {
+//        if (A[i] <= A[j])
+//        {
+//            tmp[t++] = A[i++];
+//        }
+//        else
+//        {
+//            tmp[t++] = A[j++];
+//        }
+//    }
+//    while (i <= q)
+//    {
+//        tmp[t++] = A[i++];
+//    }
+//
+//    while (j <= r)
+//    {
+//        tmp[t++] = A[j++];
+//    }
+//
+//    i = p; t = 1;
+//    while (i <= r)
+//    {
+//        A[i++] = tmp[t++];
+//        count++;
+//        if (count == K)
+//        {
+//            save = A[i - 1];
+//            break;
+//        }
+//    }
+//}
+//
+//void merge_sort(int A[], int p, int r)
+//{
+//    if (p < r)
+//    {
+//        int q = (p + r) / 2;
+//        merge_sort(A, p, q);
+//        merge_sort(A, q + 1, r);
+//        merge(A, p, q, r);
+//    }
+//}
+//
+//int main()
+//{
+//	std::cin >> N >> K;
+//
+//    A = new int[N+1];
+//    tmp = new int[N+1];
+//
+//	for (int i = 0; i < N; i++)
+//	{
+//		std::cin >> A[i];       
+//	}
+//
+//	merge_sort(A, 0, N-1);
+//
+//    std::cout << save << '\n';
+//
+//    delete[] A;
+//    delete[] tmp;
+//}
 
-void merge(int A[],int p,int q,int r)
+//5.
+void canto(std::vector<char>& a, int b, int c)
 {
-    int i = p;
-    int j = q + 1;
-    int t = 1;
-
-    while (i <= q && j <= r) 
-    {
-        if (A[i] <= A[j])
-        {
-            tmp[t++] = A[i++];
-        }
-        else
-        {
-            tmp[t++] = A[j++];
-        }
-    }
-    while (i <= q)
-    {
-        tmp[t++] = A[i++];
-    }
-
-    while (j <= r)
-    {
-        tmp[t++] = A[j++];
-    }
-
-    i = p; t = 1;
-    while (i <= r)
-    {
-        A[i++] = tmp[t++];
-        count++;
-        if (count == K)
-        {
-            save = A[i - 1];
-            break;
-        }
-    }
-}
-
-void merge_sort(int A[], int p, int r)
-{
-    if (p < r)
-    {
-        int q = (p + r) / 2;
-        merge_sort(A, p, q);
-        merge_sort(A, q + 1, r);
-        merge(A, p, q, r);
-    }
-}
-
-int main()
-{
-	std::cin >> N >> K;
-
-    A = new int[N+1];
-    tmp = new int[N+1];
-
-	for (int i = 0; i < N; i++)
+	if (c - b <= 1)
 	{
-		std::cin >> A[i];       
+		return;
 	}
 
-	merge_sort(A, 0, N-1);
+	int key = (c - b) / 3;
 
-    std::cout << save << '\n';
+	int x = b + key;
 
-    delete[] A;
-    delete[] tmp;
+	int y = b + (2*key);
+
+	for (int i = x; i < y; i++)
+	{
+		a[i] = ' ';
+	}
+
+	canto(a, b, x);
+	canto(a, y, c);	
+}
+int main()
+{
+	int N{}, A{};
+	std::vector<char> array;
+
+	while (true)
+	{
+		std::cin >> N;
+
+		if (std::cin.eof())
+		{
+			break;
+		}
+
+		N = pow(3, N);	
+
+		for (int i = 0; i < N; i++)
+		{
+			array.push_back('-');
+		}
+
+		canto(array, 0, N);
+
+		for (int i = 0; i < N;i++)
+		{
+			std::cout << array[i];
+		}std::cout << '\n';		
+	}	
 }
