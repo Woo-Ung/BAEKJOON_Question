@@ -166,53 +166,101 @@
 //}
 
 //5.
-void canto(std::vector<char>& a, int b, int c)
+//void canto(std::vector<char>& a, int b, int c)
+//{
+//	if (c - b <= 1)
+//	{
+//		return;
+//	}
+//
+//	int key = (c - b) / 3;
+//
+//	int x = b + key;
+//
+//	int y = b + (2*key);
+//
+//	for (int i = x; i < y; i++)
+//	{
+//		a[i] = ' ';
+//	}
+//
+//	canto(a, b, x);
+//	canto(a, y, c);	
+//}
+//int main()
+//{
+//	int N{}, A{};
+//	std::vector<char> array;
+//
+//	while (true)
+//	{
+//		std::cin >> N;
+//
+//		if (std::cin.eof())
+//		{
+//			break;
+//		}
+//
+//		N = pow(3, N);	
+//
+//		for (int i = 0; i < N; i++)
+//		{
+//			array.push_back('-');
+//		}
+//
+//		canto(array, 0, N);
+//
+//		for (int i = 0; i < N;i++)
+//		{
+//			std::cout << array[i];
+//		}std::cout << '\n';		
+//	}	
+//}
+
+//6.
+char box[6561][6561]{};
+
+void hole(int a, int b, int c)
 {
-	if (c - b <= 1)
+
+	if ((a / c) % 3 == 1 && (b / c) % 3 == 1)
 	{
-		return;
+		box[a][b] = ' ';
 	}
-
-	int key = (c - b) / 3;
-
-	int x = b + key;
-
-	int y = b + (2*key);
-
-	for (int i = x; i < y; i++)
+	else
 	{
-		a[i] = ' ';
+		if (c / 3 == 0)
+		{
+			box[a][b] = '*';
+		}
+		else
+		{
+			hole(a, b, c / 3);
+		}
 	}
-
-	canto(a, b, x);
-	canto(a, y, c);	
+	
 }
+
 int main()
 {
-	int N{}, A{};
-	std::vector<char> array;
+	int N{};
+	
 
-	while (true)
+	std::cin >> N;
+
+	for (int i = 0; i < N; i++)
 	{
-		std::cin >> N;
-
-		if (std::cin.eof())
+		for (int j = 0; j < N; j++)
 		{
-			break;
+			hole(i, j, N);
 		}
+	}
 
-		N = pow(3, N);	
-
-		for (int i = 0; i < N; i++)
+	for (int i = 0; i < N; i++)
+	{
+		for (int j = 0; j < N; j++)
 		{
-			array.push_back('-');
-		}
-
-		canto(array, 0, N);
-
-		for (int i = 0; i < N;i++)
-		{
-			std::cout << array[i];
-		}std::cout << '\n';		
-	}	
+			std::cout << box[i][j];
+		}std::cout << '\n';
+	}
 }
