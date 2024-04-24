@@ -218,49 +218,78 @@
 //}
 
 //6.
-char box[6561][6561]{};
+//char box[6561][6561]{};
+//
+//void hole(int a, int b, int c)
+//{
+//
+//	if ((a / c) % 3 == 1 && (b / c) % 3 == 1)
+//	{
+//		box[a][b] = ' ';
+//	}
+//	else
+//	{
+//		if (c / 3 == 0)
+//		{
+//			box[a][b] = '*';
+//		}
+//		else
+//		{
+//			hole(a, b, c / 3);
+//		}
+//	}
+//	
+//}
+//
+//int main()
+//{
+//	int N{};
+//	
+//
+//	std::cin >> N;
+//
+//	for (int i = 0; i < N; i++)
+//	{
+//		for (int j = 0; j < N; j++)
+//		{
+//			hole(i, j, N);
+//		}
+//	}
+//
+//	for (int i = 0; i < N; i++)
+//	{
+//		for (int j = 0; j < N; j++)
+//		{
+//			std::cout << box[i][j];
+//		}std::cout << '\n';
+//	}
+//}
 
-void hole(int a, int b, int c)
+//7.
+void hanoi(int n, int a, int b, int c)
 {
-
-	if ((a / c) % 3 == 1 && (b / c) % 3 == 1)
+	if (n == 1)
 	{
-		box[a][b] = ' ';
+		std::cout << a << " " << c << '\n';
 	}
+
 	else
 	{
-		if (c / 3 == 0)
-		{
-			box[a][b] = '*';
-		}
-		else
-		{
-			hole(a, b, c / 3);
-		}
+		hanoi(n - 1, a, c, b);
+		std::cout << a << " " << c << '\n';
+		hanoi(n - 1, b, a, c);
 	}
-	
 }
 
 int main()
 {
 	int N{};
-	
 
 	std::cin >> N;
 
-	for (int i = 0; i < N; i++)
-	{
-		for (int j = 0; j < N; j++)
-		{
-			hole(i, j, N);
-		}
-	}
+	int count = pow(2, N) - 1;
 
-	for (int i = 0; i < N; i++)
-	{
-		for (int j = 0; j < N; j++)
-		{
-			std::cout << box[i][j];
-		}std::cout << '\n';
-	}
+	std::cout << count << '\n';
+
+	hanoi(N,1,2,3);
 }
