@@ -70,14 +70,47 @@
 //}
 
 //3.
+//int N{}, M{};
+//int array[9];
+//bool check[9];
+//
+//void dfs(int a)
+//{
+//	if (a == M)
+//	{
+//		for (int i = 0; i < M;i++)
+//		{
+//			std::cout << array[i] << " ";
+//		}std::cout << '\n';
+//		return;
+//	}
+//
+//	for (auto i = 1; i <= N; i++)
+//	{
+//		check[i] = true;
+//		array[a] = i;
+//		dfs(a + 1);
+//		check[i] = false;		
+//	}
+//}
+//
+//int main()
+//{
+//	std::cin >> N >> M;
+//	dfs(0);
+//}
+
+//4.
+
 int N{}, M{};
 int array[9];
 bool check[9];
 
-void dfs(int a)
+void dfs(int b, int a)
 {
 	if (a == M)
 	{
+		
 		for (int i = 0; i < M;i++)
 		{
 			std::cout << array[i] << " ";
@@ -85,17 +118,19 @@ void dfs(int a)
 		return;
 	}
 
-	for (auto i = 1; i <= N; i++)
-	{
-		check[i] = true;
-		array[a] = i;
-		dfs(a + 1);
-		check[i] = false;		
+	for (auto i = b; i <= N; i++)
+	{		
+		
+			check[i] = true;
+			array[a] = i;
+			dfs(i,a + 1);
+			check[i] = false;
+		
 	}
 }
 
 int main()
 {
 	std::cin >> N >> M;
-	dfs(0);
+	dfs(1,0);
 }
