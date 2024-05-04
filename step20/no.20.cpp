@@ -102,35 +102,80 @@
 
 //4.
 
-int N{}, M{};
-int array[9];
-bool check[9];
+//int N{}, M{};
+//int array[9];
+//bool check[9];
+//
+//void dfs(int b, int a)
+//{
+//	if (a == M)
+//	{
+//		
+//		for (int i = 0; i < M;i++)
+//		{
+//			std::cout << array[i] << " ";
+//		}std::cout << '\n';
+//		return;
+//	}
+//
+//	for (auto i = b; i <= N; i++)
+//	{		
+//		
+//			check[i] = true;
+//			array[a] = i;
+//			dfs(i,a + 1);
+//			check[i] = false;
+//		
+//	}
+//}
+//
+//int main()
+//{
+//	std::cin >> N >> M;
+//	dfs(1,0);
+//}
 
-void dfs(int b, int a)
+//5.
+int col[15];
+int N{}, count{};
+
+bool check(int a)
 {
-	if (a == M)
+	for (int i = 0; i < a;i++)
 	{
-		
-		for (int i = 0; i < M;i++)
+		if (col[i] == col[a] || abs(col[a] - col[i]) == a - i)
 		{
-			std::cout << array[i] << " ";
-		}std::cout << '\n';
-		return;
+			return false;
+		}
 	}
+	return true;
+}
 
-	for (auto i = b; i <= N; i++)
-	{		
-		
-			check[i] = true;
-			array[a] = i;
-			dfs(i,a + 1);
-			check[i] = false;
-		
+void queen(int x)
+{
+	if (x == N)
+	{
+		count++;
+	}
+	else
+	{
+		for (int i = 0; i < N;i++)
+		{
+			col[x] = i;
+			if (check(x))
+			{
+				queen(x + 1);
+			}
+		}
 	}
 }
 
+
 int main()
 {
-	std::cin >> N >> M;
-	dfs(1,0);
+	std::cin >> N;
+
+	queen(0);
+
+	std::cout << count << '\n';
 }
