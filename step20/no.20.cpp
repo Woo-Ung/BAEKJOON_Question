@@ -136,46 +136,56 @@
 //}
 
 //5.
-int col[15];
-int N{}, count{};
+//int col[15];
+//int N{}, count{};
+//
+//bool check(int a)
+//{
+//	for (int i = 0; i < a;i++)
+//	{
+//		if (col[i] == col[a] || abs(col[a] - col[i]) == a - i)
+//		{
+//			return false;
+//		}
+//	}
+//	return true;
+//}
+//
+//void queen(int x)
+//{
+//	if (x == N)
+//	{
+//		count++;
+//	}
+//	else
+//	{
+//		for (int i = 0; i < N;i++)
+//		{
+//			col[x] = i;
+//			if (check(x))
+//			{
+//				queen(x + 1);
+//			}
+//		}
+//	}
+//}
+//
+//int main()
+//{
+//	std::cin >> N;
+//
+//	queen(0);
+//
+//	std::cout << count << '\n';
+//}
 
-bool check(int a)
-{
-	for (int i = 0; i < a;i++)
-	{
-		if (col[i] == col[a] || abs(col[a] - col[i]) == a - i)
-		{
-			return false;
-		}
-	}
-	return true;
-}
+//6.
 
-void queen(int x)
-{
-	if (x == N)
-	{
-		count++;
-	}
-	else
-	{
-		for (int i = 0; i < N;i++)
-		{
-			col[x] = i;
-			if (check(x))
-			{
-				queen(x + 1);
-			}
-		}
-	}
-}
-
-
+//7.
 int main()
 {
-	std::cin >> N;
 
-	queen(0);
 
-	std::cout << count << '\n';
+
+
 }
