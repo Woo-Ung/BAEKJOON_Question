@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 //1.
 //int count1{};
@@ -43,51 +44,75 @@
 //}
 
 //2.
-int memo[21][21][21];
+//int memo[21][21][21];
+//
+//int w(int a, int b, int c)
+//{
+//	if (a <= 0 || b <= 0 || c <= 0)
+//	{
+//		return 1;
+//	}
+//
+//	if (a > 20 || b > 20 || c > 20)
+//	{
+//		return 1048576;
+//	}
+//
+//	if (memo[a][b][c])
+//	{
+//		return memo[a][b][c];
+//	}
+//
+//	if (a < b && b < c)
+//	{
+//		memo[a][b][c] = w(a, b, c - 1) + w(a, b - 1, c - 1) - w(a, b - 1, c);
+//		return memo[a][b][c];
+//	}
+//
+//	else
+//	{
+//		memo[a][b][c] = w(a - 1, b, c) + w(a - 1, b - 1, c) + w(a - 1, b, c - 1) - w(a - 1, b - 1, c - 1);
+//		return  memo[a][b][c];
+//	}
+//}
+//
+//int main()
+//{
+//	int a{}, b{}, c{};
+//
+//	while (true)
+//	{
+//		std::cin >> a >> b >> c;
+//
+//		if (a == -1 && b == -1 && c == -1)
+//		{
+//			break;
+//		}
+//
+//		std::cout << "w(" << a << ", " << b <<", " << c << ") " << "= " << w(a, b, c) << '\n';		
+//	}
+//}
 
-int w(int a, int b, int c)
+//3.
+std::vector<long long int> array {0,1,2};
+
+void two(int n)
 {
-	if (a <= 0 || b <= 0 || c <= 0)
+	for (int i = 3; i <= n; i++)
 	{
-		return 1;
-	}
-
-	if (a > 20 || b > 20 || c > 20)
-	{
-		return 1048576;
-	}
-
-	if (memo[a][b][c])
-	{
-		return memo[a][b][c];
-	}
-
-	if (a < b && b < c)
-	{
-		memo[a][b][c] = w(a, b, c - 1) + w(a, b - 1, c - 1) - w(a, b - 1, c);
-		return memo[a][b][c];
-	}
-
-	else
-	{
-		memo[a][b][c] = w(a - 1, b, c) + w(a - 1, b - 1, c) + w(a - 1, b, c - 1) - w(a - 1, b - 1, c - 1);
-		return  memo[a][b][c];
+		long long int x{};
+		x = (array[i - 2] + array[i - 1]) % 15746;
+		array.push_back(x);
 	}
 }
 
 int main()
 {
-	int a{}, b{}, c{};
+	int N{};
 
-	while (true)
-	{
-		std::cin >> a >> b >> c;
+	std::cin >> N;
 
-		if (a == -1 && b == -1 && c == -1)
-		{
-			break;
-		}
+	two(N);
 
-		std::cout << "w(" << a << ", " << b <<", " << c << ") " << "= " << w(a, b, c) << '\n';		
-	}
+	std::cout << array[N] << '\n';
 }
