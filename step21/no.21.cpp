@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <map>
 
 //1.
 //int count1{};
@@ -94,25 +95,59 @@
 //}
 
 //3.
-std::vector<long long int> array {0,1,2};
+//std::vector<long long int> array {0,1,2};
+//
+//void two(int n)
+//{
+//	for (int i = 3; i <= n; i++)
+//	{
+//		long long int x{};
+//		x = (array[i - 2] + array[i - 1]) % 15746;
+//		array.push_back(x);
+//	}
+//}
+//
+//int main()
+//{
+//	int N{};
+//
+//	std::cin >> N;
+//
+//	two(N);
+//
+//	std::cout << array[N] << '\n';
+//}
 
-void two(int n)
+//4.
+std::map<int, long long int> array { {0,0},{1,1},{2,1},{3,1},{4,2},{5,2},{6,3},{7,4},{8,5},{9,7},{10,9} };
+
+long long int P(int a)
 {
-	for (int i = 3; i <= n; i++)
+	long long int temp{};	
+
+	if (array[a])
 	{
-		long long int x{};
-		x = (array[i - 2] + array[i - 1]) % 15746;
-		array.push_back(x);
+		return array[a];
 	}
+
+	else
+	{
+		temp = P(a - 1) + P(a - 5);
+		array[a] = temp;
+		return array[a];
+	}
+
 }
 
 int main()
 {
-	int N{};
+	int N{}, a{};
 
 	std::cin >> N;
 
-	two(N);
-
-	std::cout << array[N] << '\n';
+	for (int i = 0; i < N;i++)
+	{
+		std::cin >> a;
+		std::cout << P(a) << '\n';
+	}
 }
