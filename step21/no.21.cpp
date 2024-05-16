@@ -119,35 +119,72 @@
 //}
 
 //4.
-std::map<int, long long int> array { {0,0},{1,1},{2,1},{3,1},{4,2},{5,2},{6,3},{7,4},{8,5},{9,7},{10,9} };
+//std::map<int, long long int> array { {0,0},{1,1},{2,1},{3,1},{4,2},{5,2},{6,3},{7,4},{8,5},{9,7},{10,9} };
+//
+//long long int P(int a)
+//{
+//	long long int temp{};	
+//
+//	if (array[a])
+//	{
+//		return array[a];
+//	}
+//
+//	else
+//	{
+//		temp = P(a - 1) + P(a - 5);
+//		array[a] = temp;
+//		return array[a];
+//	}
+//
+//}
+//
+//int main()
+//{
+//	int N{}, a{};
+//
+//	std::cin >> N;
+//
+//	for (int i = 0; i < N;i++)
+//	{
+//		std::cin >> a;
+//		std::cout << P(a) << '\n';
+//	}
+//}
 
-long long int P(int a)
+//5.
+int array[100001]{}, max[100001]{};
+int m{}, n{};
+
+int check(int a, int b)
 {
-	long long int temp{};	
-
-	if (array[a])
+	if (a > b)
 	{
-		return array[a];
+		return a;
 	}
-
 	else
 	{
-		temp = P(a - 1) + P(a - 5);
-		array[a] = temp;
-		return array[a];
+		return b;
 	}
-
 }
 
 int main()
 {
-	int N{}, a{};
+	std::cin >> n;
 
-	std::cin >> N;
-
-	for (int i = 0; i < N;i++)
+	for (int i = 0; i < n;i++)
 	{
-		std::cin >> a;
-		std::cout << P(a) << '\n';
+		std::cin >> array[i];
 	}
+
+	m = array[0];
+	max[0] = array[0];
+
+	for (int i = 1; i < n; i++)
+	{
+		max[i] = check(max[i - 1] + array[i], array[i]);
+		m = check(max[i], m);
+	}
+
+	std::cout << m << '\n';
 }
