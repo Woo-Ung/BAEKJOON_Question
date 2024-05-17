@@ -153,38 +153,60 @@
 //}
 
 //5.
-int array[100001]{}, max[100001]{};
-int m{}, n{};
+//int array[100001]{}, max[100001]{};
+//int m{}, n{};
+//
+//int check(int a, int b)
+//{
+//	if (a > b)
+//	{
+//		return a;
+//	}
+//	else
+//	{
+//		return b;
+//	}
+//}
+//
+//int main()
+//{
+//	std::cin >> n;
+//
+//	for (int i = 0; i < n;i++)
+//	{
+//		std::cin >> array[i];
+//	}
+//
+//	m = array[0];
+//	max[0] = array[0];
+//
+//	for (int i = 1; i < n; i++)
+//	{
+//		max[i] = check(max[i - 1] + array[i], array[i]);
+//		m = check(max[i], m);
+//	}
+//
+//	std::cout << m << '\n';
+//}
 
-int check(int a, int b)
-{
-	if (a > b)
-	{
-		return a;
-	}
-	else
-	{
-		return b;
-	}
-}
+//6.
+int color[1001][3]{};
 
 int main()
 {
-	std::cin >> n;
+	int N{};
 
-	for (int i = 0; i < n;i++)
+	std::cin >> N;
+
+	for (int i = 1; i <= N; i++)
 	{
-		std::cin >> array[i];
+		std::cin >> color[i][0] >> color[i][1] >> color[i][2];
+
+		color[i][0] += std::min(color[i - 1][1], color[i - 1][2]);
+		color[i][1] += std::min(color[i - 1][0], color[i - 1][2]);
+		color[i][2] += std::min(color[i - 1][0], color[i - 1][1]);
 	}
 
-	m = array[0];
-	max[0] = array[0];
+	std::cout << std::min(color[N][0], std::min(color[N][1], color[N][2])) << '\n';
 
-	for (int i = 1; i < n; i++)
-	{
-		max[i] = check(max[i - 1] + array[i], array[i]);
-		m = check(max[i], m);
-	}
-
-	std::cout << m << '\n';
 }
