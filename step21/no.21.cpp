@@ -190,23 +190,67 @@
 //}
 
 //6.
-int color[1001][3]{};
+//int color[1001][3]{};
+//
+//int main()
+//{
+//	int N{};
+//
+//	std::cin >> N;
+//
+//	for (int i = 1; i <= N; i++)
+//	{
+//		std::cin >> color[i][0] >> color[i][1] >> color[i][2];
+//
+//		color[i][0] += std::min(color[i - 1][1], color[i - 1][2]);
+//		color[i][1] += std::min(color[i - 1][0], color[i - 1][2]);
+//		color[i][2] += std::min(color[i - 1][0], color[i - 1][1]);
+//	}
+//
+//	std::cout << std::min(color[N][0], std::min(color[N][1], color[N][2])) << '\n';
+//
+//}
+
+//7.
+int tri[501][501]{};
 
 int main()
 {
-	int N{};
+	int n{}, max{};
 
-	std::cin >> N;
+	std::cin >> n;
 
-	for (int i = 1; i <= N; i++)
+	for (int i = 0; i < n; i++)
 	{
-		std::cin >> color[i][0] >> color[i][1] >> color[i][2];
-
-		color[i][0] += std::min(color[i - 1][1], color[i - 1][2]);
-		color[i][1] += std::min(color[i - 1][0], color[i - 1][2]);
-		color[i][2] += std::min(color[i - 1][0], color[i - 1][1]);
+		for (int j = 0; j <= i; j++)
+		{
+			std::cin >> tri[i][j];
+		}
 	}
 
-	std::cout << std::min(color[N][0], std::min(color[N][1], color[N][2])) << '\n';
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j <= i; j++)
+		{
+			if (j == 0)
+			{
+				tri[i][j] = tri[i - 1][0] + tri[i][j];
+			}
+			else if (i == j)
+			{
+				tri[i][j] = tri[i - 1][j - 1] + tri[i][j];
+			}
+			else
+			{
+				tri[i][j] = std::max(tri[i - 1][j - 1] + tri[i][j], tri[i - 1][j] + tri[i][j]);
+			}
 
+			if (max < tri[i][j])
+			{
+				max = tri[i][j];
+			}
+		}
+	}
+
+	std::cout << max << '\n';
 }
