@@ -212,45 +212,76 @@
 //}
 
 //7.
-int tri[501][501]{};
+//int tri[501][501]{};
+//
+//int main()
+//{
+//	int n{}, max{};
+//
+//	std::cin >> n;
+//
+//	for (int i = 0; i < n; i++)
+//	{
+//		for (int j = 0; j <= i; j++)
+//		{
+//			std::cin >> tri[i][j];
+//		}
+//	}
+//
+//	for (int i = 0; i < n; i++)
+//	{
+//		for (int j = 0; j <= i; j++)
+//		{
+//			if (j == 0)
+//			{
+//				tri[i][j] = tri[i - 1][0] + tri[i][j];
+//			}
+//			else if (i == j)
+//			{
+//				tri[i][j] = tri[i - 1][j - 1] + tri[i][j];
+//			}
+//			else
+//			{
+//				tri[i][j] = std::max(tri[i - 1][j - 1] + tri[i][j], tri[i - 1][j] + tri[i][j]);
+//			}
+//
+//			if (max < tri[i][j])
+//			{
+//				max = tri[i][j];
+//			}
+//		}
+//	}
+//
+//	std::cout << max << '\n';
+//}
+
+//8.
+int stair[301]{};
+int memo[301]{};
 
 int main()
 {
-	int n{}, max{};
+	int N{}, x{};
 
-	std::cin >> n;
+	std::cin >> N;
 
-	for (int i = 0; i < n; i++)
+	for (int i = 1; i <= N;i++)
 	{
-		for (int j = 0; j <= i; j++)
-		{
-			std::cin >> tri[i][j];
-		}
+		std::cin >> stair[i];
 	}
 
-	for (int i = 0; i < n; i++)
+	memo[1] = stair[1];
+	memo[2] = stair[1] + stair[2];
+	memo[3] = std::max(stair[1], stair[2]) + stair[3];
+	for (int i = 4; i <= N;i++)
 	{
-		for (int j = 0; j <= i; j++)
+		if (i == N - 1)
 		{
-			if (j == 0)
-			{
-				tri[i][j] = tri[i - 1][0] + tri[i][j];
-			}
-			else if (i == j)
-			{
-				tri[i][j] = tri[i - 1][j - 1] + tri[i][j];
-			}
-			else
-			{
-				tri[i][j] = std::max(tri[i - 1][j - 1] + tri[i][j], tri[i - 1][j] + tri[i][j]);
-			}
-
-			if (max < tri[i][j])
-			{
-				max = tri[i][j];
-			}
+			memo[i] = stair[i] + memo[i - 2];
+			continue;
 		}
+		memo[i] = std::max(memo[i - 3] + stair[i - 1], memo[i - 2]) + stair[i];
 	}
 
-	std::cout << max << '\n';
+	std::cout << std::max(memo[N-1],memo[N]) << '\n';
 }
