@@ -256,32 +256,61 @@
 //}
 
 //8.
-int stair[301]{};
-int memo[301]{};
+//int stair[301]{};
+//int memo[301]{};
+//
+//int main()
+//{
+//	int N{}, x{};
+//
+//	std::cin >> N;
+//
+//	for (int i = 1; i <= N;i++)
+//	{
+//		std::cin >> stair[i];
+//	}
+//
+//	memo[1] = stair[1];
+//	memo[2] = stair[1] + stair[2];
+//	memo[3] = std::max(stair[1], stair[2]) + stair[3];
+//	for (int i = 4; i <= N;i++)
+//	{
+//		if (i == N - 1)
+//		{
+//			memo[i] = stair[i] + memo[i - 2];
+//			continue;
+//		}
+//		memo[i] = std::max(memo[i - 3] + stair[i - 1], memo[i - 2]) + stair[i];
+//	}
+//
+//	std::cout << std::max(memo[N-1],memo[N]) << '\n';
+//}
+
+//9.
+int array[1000001]{0,0,1};
 
 int main()
 {
-	int N{}, x{};
+	int N{};
 
 	std::cin >> N;
 
-	for (int i = 1; i <= N;i++)
-	{
-		std::cin >> stair[i];
-	}
+	for (int i = 2; i <= N; i++)
+	{		
+	
+		array[i] = array[i - 1] + 1;
 
-	memo[1] = stair[1];
-	memo[2] = stair[1] + stair[2];
-	memo[3] = std::max(stair[1], stair[2]) + stair[3];
-	for (int i = 4; i <= N;i++)
-	{
-		if (i == N - 1)
+		if (i % 3 == 0)
 		{
-			memo[i] = stair[i] + memo[i - 2];
-			continue;
+			array[i] = std::min(array[i], array[i / 3] + 1);
 		}
-		memo[i] = std::max(memo[i - 3] + stair[i - 1], memo[i - 2]) + stair[i];
+
+		if (i % 2 == 0)
+		{
+			array[i] = std::min(array[i], array[i / 2] + 1);
+		}
+		
 	}
 
-	std::cout << std::max(memo[N-1],memo[N]) << '\n';
+	std::cout << array[N] << '\n';
 }
