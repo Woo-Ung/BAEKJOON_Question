@@ -287,30 +287,78 @@
 //}
 
 //9.
-int array[1000001]{0,0,1};
+//int array[1000001]{0,0,1};
+//
+//int main()
+//{
+//	int N{};
+//
+//	std::cin >> N;
+//
+//	for (int i = 2; i <= N; i++)
+//	{		
+//	
+//		array[i] = array[i - 1] + 1;
+//
+//		if (i % 3 == 0)
+//		{
+//			array[i] = std::min(array[i], array[i / 3] + 1);
+//		}
+//
+//		if (i % 2 == 0)
+//		{
+//			array[i] = std::min(array[i], array[i / 2] + 1);
+//		}
+//		
+//	}
+//
+//	std::cout << array[N] << '\n';
+//}
+
+//10.
+#define MOD 1000000000;
 
 int main()
 {
+	std::cin.tie(NULL);
+	std::cout.tie(NULL);
+	std::ios::sync_with_stdio(false);
+
 	int N{};
+	long long num{};
+	long long arry[101][10]{};
 
 	std::cin >> N;
 
-	for (int i = 2; i <= N; i++)
-	{		
-	
-		array[i] = array[i - 1] + 1;
-
-		if (i % 3 == 0)
-		{
-			array[i] = std::min(array[i], array[i / 3] + 1);
-		}
-
-		if (i % 2 == 0)
-		{
-			array[i] = std::min(array[i], array[i / 2] + 1);
-		}
-		
+	for (int i = 1; i <= 9; i++)
+	{
+		arry[1][i] = 1;
 	}
 
-	std::cout << array[N] << '\n';
+	for (int i = 2; i <= N;i++)
+	{
+		for (int j = 0;j <= 9;j++)
+		{
+			if (j == 0)
+			{
+				arry[i][0] = arry[i - 1][1] % MOD;
+			}
+			else if (j == 9)
+			{
+				arry[i][9] = arry[i - 1][8] % MOD;
+			}
+			else
+			{
+				arry[i][j] = (arry[i - 1][j - 1] + arry[i - 1][j + 1]) % MOD;
+			}
+			
+		}
+	}
+
+	for (int i = 0; i <= 9; i++)
+	{
+		num += arry[N][i];
+	}
+
+	std::cout << num % MOD;
 }
