@@ -364,29 +364,63 @@
 //}
 
 //11.
+//int main()
+//{
+//	std::vector<int> arry{0,};
+//	std::vector<int> check{0,};
+//
+//	int n{};
+//
+//	std::cin >> n;
+//
+//	for (int i = 1; i <= n;i++)
+//	{
+//		int x{};
+//		std::cin >> x;
+//		arry.push_back(x);
+//	}
+//
+//	check.push_back(arry[1]);
+//	check.push_back(arry[1] + arry[2]);
+//
+//	for (int i = 3;i <= n;i++)
+//	{
+//		check.push_back(std::max(check[i - 3] + arry[i - 1] + arry[i], std::max(arry[i] + check[i - 2], check[i - 1])));
+//	}
+//
+//	std::cout << check[n] << '\n';
+//}
+
+//12.
 int main()
 {
-	std::vector<int> arry{0,};
-	std::vector<int> check{0,};
-
-	int n{};
+	int n{}, max{};
+	int arry[1001]{};
+	int check[1001]{};
 
 	std::cin >> n;
 
-	for (int i = 1; i <= n;i++)
+	for (int i = 0; i < n;i++)
 	{
-		int x{};
-		std::cin >> x;
-		arry.push_back(x);
+		std::cin >> arry[i];
 	}
 
-	check.push_back(arry[1]);
-	check.push_back(arry[1] + arry[2]);
-
-	for (int i = 3;i <= n;i++)
+	for (int i = 0; i < n;i++)
 	{
-		check.push_back(std::max(check[i - 3] + arry[i - 1] + arry[i], std::max(arry[i] + check[i - 2], check[i - 1])));
+		check[i] = 1;
+
+		for (int j = 0; j < i;j++)
+		{
+			if (arry[i] > arry[j])
+			{
+				check[i] = std::max(check[i], check[j] + 1);
+			}
+		}
+		if (max < check[i])
+		{
+			max = check[i];
+		}
 	}
 
-	std::cout << check[n] << '\n';
-}
+	std::cout << max << '\n';
+} 
