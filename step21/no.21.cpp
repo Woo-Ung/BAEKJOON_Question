@@ -397,6 +397,7 @@ int main()
 	int n{}, max{};
 	int arry[1001]{};
 	int check[1001]{};
+	int check2[1001]{};
 
 	std::cin >> n;
 
@@ -416,11 +417,28 @@ int main()
 				check[i] = std::max(check[i], check[j] + 1);
 			}
 		}
-		if (max < check[i])
+	}
+
+	for (int i = n - 1;i >= 0;i--)
+	{
+		check2[i] = 1;
+
+		for (int j = n-1; j > i;j--)
 		{
-			max = check[i];
+			if (arry[i] > arry[j])
+			{
+				check2[i] = std::max(check2[i], check2[j] + 1);
+			}
+		}		
+	}
+
+	for (int i = 0; i < n;i++)
+	{
+		if (max < check[i] + check2[i])
+		{
+			max = check[i] + check2[i];
 		}
 	}
 
-	std::cout << max << '\n';
+	std::cout << max-1 << '\n';
 } 
