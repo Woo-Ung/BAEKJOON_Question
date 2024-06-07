@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <algorithm>
 
 //1.
 //int count1{};
@@ -392,53 +393,92 @@
 //}
 
 //12.
+//int main()
+//{
+//	int n{}, max{};
+//	int arry[1001]{};
+//	int check[1001]{};
+//	int check2[1001]{};
+//
+//	std::cin >> n;
+//
+//	for (int i = 0; i < n;i++)
+//	{
+//		std::cin >> arry[i];
+//	}
+//
+//	for (int i = 0; i < n;i++)
+//	{
+//		check[i] = 1;
+//
+//		for (int j = 0; j < i;j++)
+//		{
+//			if (arry[i] > arry[j])
+//			{
+//				check[i] = std::max(check[i], check[j] + 1);
+//			}
+//		}
+//	}
+//
+//	for (int i = n - 1;i >= 0;i--)
+//	{
+//		check2[i] = 1;
+//
+//		for (int j = n-1; j > i;j--)
+//		{
+//			if (arry[i] > arry[j])
+//			{
+//				check2[i] = std::max(check2[i], check2[j] + 1);
+//			}
+//		}		
+//	}
+//
+//	for (int i = 0; i < n;i++)
+//	{
+//		if (max < check[i] + check2[i])
+//		{
+//			max = check[i] + check2[i];
+//		}
+//	}
+//
+//	std::cout << max-1 << '\n';
+//} 
+
+//13.
+
 int main()
 {
-	int n{}, max{};
-	int arry[1001]{};
-	int check[1001]{};
-	int check2[1001]{};
+	int n{}, count{};
+	int check[101]{};
+	std::vector<std::pair<int, int>> arry;
 
 	std::cin >> n;
 
-	for (int i = 0; i < n;i++)
+	for (int i = 0; i < n; i++)
 	{
-		std::cin >> arry[i];
+		int x{}, y{};
+
+		std::cin >> x >> y;
+		arry.push_back({ x, y });
 	}
 
-	for (int i = 0; i < n;i++)
+	std::sort(arry.begin(), arry.end());
+
+	for (int i = 0; i < n; i++)
 	{
 		check[i] = 1;
 
 		for (int j = 0; j < i;j++)
 		{
-			if (arry[i] > arry[j])
+			if (arry[i].second > arry[j].second)
 			{
 				check[i] = std::max(check[i], check[j] + 1);
 			}
 		}
+
+		count = std::max(count, check[i]);
 	}
+	
+	std::cout << n - count << '\n';
 
-	for (int i = n - 1;i >= 0;i--)
-	{
-		check2[i] = 1;
-
-		for (int j = n-1; j > i;j--)
-		{
-			if (arry[i] > arry[j])
-			{
-				check2[i] = std::max(check2[i], check2[j] + 1);
-			}
-		}		
-	}
-
-	for (int i = 0; i < n;i++)
-	{
-		if (max < check[i] + check2[i])
-		{
-			max = check[i] + check2[i];
-		}
-	}
-
-	std::cout << max-1 << '\n';
-} 
+}
