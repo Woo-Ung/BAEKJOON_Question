@@ -445,40 +445,68 @@
 //} 
 
 //13.
+//
+//int main()
+//{
+//	int n{}, count{};
+//	int check[101]{};
+//	std::vector<std::pair<int, int>> arry;
+//
+//	std::cin >> n;
+//
+//	for (int i = 0; i < n; i++)
+//	{
+//		int x{}, y{};
+//
+//		std::cin >> x >> y;
+//		arry.push_back({ x, y });
+//	}
+//
+//	std::sort(arry.begin(), arry.end());
+//
+//	for (int i = 0; i < n; i++)
+//	{
+//		check[i] = 1;
+//
+//		for (int j = 0; j < i;j++)
+//		{
+//			if (arry[i].second > arry[j].second)
+//			{
+//				check[i] = std::max(check[i], check[j] + 1);
+//			}
+//		}
+//
+//		count = std::max(count, check[i]);
+//	}
+//	
+//	std::cout << n - count << '\n';
+//
+//}
+
+//14.
 
 int main()
 {
-	int n{}, count{};
-	int check[101]{};
-	std::vector<std::pair<int, int>> arry;
+	int arry[1001][1001];
 
-	std::cin >> n;
+	std::string a{}, b{};
 
-	for (int i = 0; i < n; i++)
+	std::cin >> a >> b;
+
+	for (int i = 1; i <= size(a);i++)
 	{
-		int x{}, y{};
-
-		std::cin >> x >> y;
-		arry.push_back({ x, y });
-	}
-
-	std::sort(arry.begin(), arry.end());
-
-	for (int i = 0; i < n; i++)
-	{
-		check[i] = 1;
-
-		for (int j = 0; j < i;j++)
+		for (int j = 1; j <= size(b); j++)
 		{
-			if (arry[i].second > arry[j].second)
+			if (a[i - 1] == b[j - 1])
 			{
-				check[i] = std::max(check[i], check[j] + 1);
+				arry[i][j] = arry[i - 1][j - 1] + 1;
+			}
+			else
+			{
+				arry[i][j] = std::max(arry[i - 1][j], arry[i][j - 1]);
 			}
 		}
-
-		count = std::max(count, check[i]);
 	}
-	
-	std::cout << n - count << '\n';
 
+	std::cout << arry[size(a)][size(b)] << '\n';
 }
