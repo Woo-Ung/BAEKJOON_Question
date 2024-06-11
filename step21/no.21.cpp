@@ -485,28 +485,62 @@
 
 //14.
 
+//int main()
+//{
+//	int arry[1001][1001];
+//
+//	std::string a{}, b{};
+//
+//	std::cin >> a >> b;
+//
+//	for (int i = 1; i <= size(a);i++)
+//	{
+//		for (int j = 1; j <= size(b); j++)
+//		{
+//			if (a[i - 1] == b[j - 1])
+//			{
+//				arry[i][j] = arry[i - 1][j - 1] + 1;
+//			}
+//			else
+//			{
+//				arry[i][j] = std::max(arry[i - 1][j], arry[i][j - 1]);
+//			}
+//		}
+//	}
+//
+//	std::cout << arry[size(a)][size(b)] << '\n';
+//}
+
+//15.
+
 int main()
 {
-	int arry[1001][1001];
+	int N{}, K{};
+	int dp[101][100001]{};
+	int W[101]{};
+	int V[101]{};
 
-	std::string a{}, b{};
+	std::cin >> N >> K;
 
-	std::cin >> a >> b;
-
-	for (int i = 1; i <= size(a);i++)
+	for (int i = 1; i <= N; i++)
 	{
-		for (int j = 1; j <= size(b); j++)
+		std::cin >>W[i] >> V[i];
+	}
+
+	for (int i = 1;i <= N;i++)
+	{
+		for (int j = 1; j <= K;j++)
 		{
-			if (a[i - 1] == b[j - 1])
+			if (j >= W[i])
 			{
-				arry[i][j] = arry[i - 1][j - 1] + 1;
+				dp[i][j] = std::max(dp[i - 1][j], dp[i - 1][j - W[i]] + V[i]);
 			}
 			else
 			{
-				arry[i][j] = std::max(arry[i - 1][j], arry[i][j - 1]);
+				dp[i][j] = dp[i - 1][j];
 			}
 		}
 	}
 
-	std::cout << arry[size(a)][size(b)] << '\n';
+	std::cout << dp[N][K];
 }
