@@ -40,30 +40,73 @@
 
 //2.
 
+//int main()
+//{
+//	std::ios::sync_with_stdio(false);
+//	std::cin.tie(NULL);
+//	std::cout.tie(NULL);
+//
+//	int N{}, K{}, mx{INT_MIN};
+//
+//	int arry[100001]{};
+//
+//	std::cin >> N >> K;
+//
+//	for (int i = 1; i <= N;i++)
+//	{
+//		int x{};
+//		std::cin >> x;		
+//
+//		arry[i] = arry[i - 1] + x;
+//	}
+//
+//	for (int i = K; i <= N; i++)
+//	{
+//		mx = std::max(mx, arry[i] - arry[i-K]);
+//	}
+//
+//	std::cout << mx << '\n';
+//}
+
+//3.
+int arry[26][200001]{};
+
 int main()
 {
 	std::ios::sync_with_stdio(false);
 	std::cin.tie(NULL);
 	std::cout.tie(NULL);
 
-	int N{}, K{}, mx{INT_MIN};
+	int N{}, l{}, r{};
 
-	int arry[100001]{};
+	char a;
+	std::string S;
+	std::cin >> S >> N;
 
-	std::cin >> N >> K;
-
-	for (int i = 1; i <= N;i++)
+	for (int i = 0; i < size(S);i++)
 	{
-		int x{};
-		std::cin >> x;		
-
-		arry[i] = arry[i - 1] + x;
+		if (i != 0)
+		{
+			for (int j = 0;j < 26;j++)
+			{
+				arry[j][i] += arry[j][i - 1];
+			}
+		}
+		arry[S[i] - 'a'][i]++;
 	}
 
-	for (int i = K; i <= N; i++)
-	{
-		mx = std::max(mx, arry[i] - arry[i-K]);
-	}
+	for (int i = 0; i < N;i++)
+	{		
+		std::cin >> a >> l >> r;
+	
+		if (l == 0)
+		{
+			std::cout << arry[a - 'a'][r] << '\n';
+		}
 
-	std::cout << mx << '\n';
+		else
+		{
+			std::cout << arry[a - 'a'][r] - arry[a - 'a'][l - 1] << '\n';
+		}
+	}
 }
