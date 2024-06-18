@@ -69,44 +69,75 @@
 //}
 
 //3.
-int arry[26][200001]{};
+//int arry[26][200001]{};
+//
+//int main()
+//{
+//	std::ios::sync_with_stdio(false);
+//	std::cin.tie(NULL);
+//	std::cout.tie(NULL);
+//
+//	int N{}, l{}, r{};
+//
+//	char a;
+//	std::string S;
+//	std::cin >> S >> N;
+//
+//	for (int i = 0; i < size(S);i++)
+//	{
+//		if (i != 0)
+//		{
+//			for (int j = 0;j < 26;j++)
+//			{
+//				arry[j][i] += arry[j][i - 1];
+//			}
+//		}
+//		arry[S[i] - 'a'][i]++;
+//	}
+//
+//	for (int i = 0; i < N;i++)
+//	{		
+//		std::cin >> a >> l >> r;
+//	
+//		if (l == 0)
+//		{
+//			std::cout << arry[a - 'a'][r] << '\n';
+//		}
+//
+//		else
+//		{
+//			std::cout << arry[a - 'a'][r] - arry[a - 'a'][l - 1] << '\n';
+//		}
+//	}
+//}
 
+//4.
 int main()
 {
 	std::ios::sync_with_stdio(false);
 	std::cin.tie(NULL);
 	std::cout.tie(NULL);
 
-	int N{}, l{}, r{};
+	int N{}, M{};
+	long long sum{}, ans{};
+	long long arry[1001]{};
 
-	char a;
-	std::string S;
-	std::cin >> S >> N;
+	std::cin >> N >> M;
 
-	for (int i = 0; i < size(S);i++)
+	for (int i = 0; i < N; i++)
 	{
-		if (i != 0)
-		{
-			for (int j = 0;j < 26;j++)
-			{
-				arry[j][i] += arry[j][i - 1];
-			}
-		}
-		arry[S[i] - 'a'][i]++;
+		int x{};
+		std::cin >> x;
+
+		sum += x;
+
+		arry[sum % M]++;
 	}
 
-	for (int i = 0; i < N;i++)
-	{		
-		std::cin >> a >> l >> r;
-	
-		if (l == 0)
-		{
-			std::cout << arry[a - 'a'][r] << '\n';
-		}
-
-		else
-		{
-			std::cout << arry[a - 'a'][r] - arry[a - 'a'][l - 1] << '\n';
-		}
+	for (int i = 0; i < M;i++)
+	{
+		ans += (arry[i] * (arry[i] - 1)) / 2;
 	}
+
+	std::cout << arry[0] + ans << '\n';
 }
