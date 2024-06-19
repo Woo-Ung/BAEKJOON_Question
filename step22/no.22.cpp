@@ -112,32 +112,67 @@
 //}
 
 //4.
+//int main()
+//{
+//	std::ios::sync_with_stdio(false);
+//	std::cin.tie(NULL);
+//	std::cout.tie(NULL);
+//
+//	int N{}, M{};
+//	long long sum{}, ans{};
+//	long long arry[1001]{};
+//
+//	std::cin >> N >> M;
+//
+//	for (int i = 0; i < N; i++)
+//	{
+//		int x{};
+//		std::cin >> x;
+//
+//		sum += x;
+//
+//		arry[sum % M]++;
+//	}
+//
+//	for (int i = 0; i < M;i++)
+//	{
+//		ans += (arry[i] * (arry[i] - 1)) / 2;
+//	}
+//
+//	std::cout << arry[0] + ans << '\n';
+//}
+
+//5.
+int arry[1025][1025]{};
+int dp[1025][1025]{};
+
 int main()
 {
 	std::ios::sync_with_stdio(false);
 	std::cin.tie(NULL);
 	std::cout.tie(NULL);
 
-	int N{}, M{};
-	long long sum{}, ans{};
-	long long arry[1001]{};
+	int N{}, M{}, a{}, b{}, c{}, d{}, ans{};
+
 
 	std::cin >> N >> M;
 
-	for (int i = 0; i < N; i++)
+	for (int i = 1; i <= N; i++)
 	{
-		int x{};
-		std::cin >> x;
+		for (int j = 1; j <= N;j++)
+		{
+			std::cin >> arry[i][j];
 
-		sum += x;
-
-		arry[sum % M]++;
+			dp[i][j] = arry[i][j] + dp[i - 1][j] + dp[i][j - 1] - dp[i - 1][j - 1];
+		}
 	}
 
-	for (int i = 0; i < M;i++)
+	for (int i = 0;i < M;i++)
 	{
-		ans += (arry[i] * (arry[i] - 1)) / 2;
-	}
+		std::cin >> a >> b >> c >> d;
 
-	std::cout << arry[0] + ans << '\n';
+		ans = dp[c][d]  - dp[a - 1][d] - dp[c][b - 1] + dp[a - 1][b - 1];
+
+		std::cout << ans << '\n';
+	}
 }
