@@ -143,8 +143,43 @@
 //}
 
 //5.
-int arry[1025][1025]{};
-int dp[1025][1025]{};
+//int arry[1025][1025]{};
+//int dp[1025][1025]{};
+//
+//int main()
+//{
+//	std::ios::sync_with_stdio(false);
+//	std::cin.tie(NULL);
+//	std::cout.tie(NULL);
+//
+//	int N{}, M{}, a{}, b{}, c{}, d{}, ans{};
+//
+//
+//	std::cin >> N >> M;
+//
+//	for (int i = 1; i <= N; i++)
+//	{
+//		for (int j = 1; j <= N;j++)
+//		{
+//			std::cin >> arry[i][j];
+//
+//			dp[i][j] = arry[i][j] + dp[i - 1][j] + dp[i][j - 1] - dp[i - 1][j - 1];
+//		}
+//	}
+//
+//	for (int i = 0;i < M;i++)
+//	{
+//		std::cin >> a >> b >> c >> d;
+//
+//		ans = dp[c][d]  - dp[a - 1][d] - dp[c][b - 1] + dp[a - 1][b - 1];
+//
+//		std::cout << ans << '\n';
+//	}
+//}
+
+//6.
+
+int chess[2001][2001]{};
 
 int main()
 {
@@ -152,27 +187,34 @@ int main()
 	std::cin.tie(NULL);
 	std::cout.tie(NULL);
 
-	int N{}, M{}, a{}, b{}, c{}, d{}, ans{};
+	int N{}, M{}, K{}, min{4000000};
 
-
-	std::cin >> N >> M;
+	std::cin >> N >> M >> K;
 
 	for (int i = 1; i <= N; i++)
 	{
-		for (int j = 1; j <= N;j++)
+		for (int j = 1; j <= M; j++)
 		{
-			std::cin >> arry[i][j];
+			char c;
+			std::cin >> c;
 
-			dp[i][j] = arry[i][j] + dp[i - 1][j] + dp[i][j - 1] - dp[i - 1][j - 1];
+			if (((i + j) % 2 == 0 && c != 'B') || ((i+j) % 2 != 0 && c == 'B'))
+			{
+				chess[i][j] = 1;
+			}
+			chess[i][j] = chess[i][j] + chess[i - 1][j] + chess[i][j - 1] - chess[i - 1][j - 1];
 		}
 	}
 
-	for (int i = 0;i < M;i++)
-	{
-		std::cin >> a >> b >> c >> d;
-
-		ans = dp[c][d]  - dp[a - 1][d] - dp[c][b - 1] + dp[a - 1][b - 1];
-
-		std::cout << ans << '\n';
+	for (int i = K; i <= N;i++)
+	{		
+		for (int j = K;j <= M;j++)
+		{
+			int sum = chess[i][j] - chess[i - K][j] - chess[i][j - K] + chess[i - K][j - K];
+			sum = std::min(sum, K * K - sum);
+			min = std::min(sum, min);
+		}
 	}
+	
+	std::cout << min << '\n';
 }
