@@ -38,45 +38,82 @@
 //}
 
 //2.
-bool cmp(std::pair<int, int> a, std::pair<int, int> b)
-{
-	if (a.second == b.second)
-	{
-		return a.first < b.first;
-	}
+//bool cmp(std::pair<int, int> a, std::pair<int, int> b)
+//{
+//	if (a.second == b.second)
+//	{
+//		return a.first < b.first;
+//	}
+//
+//	return a.second < b.second;
+//}
+//
+//int main()
+//{
+//	int N{}, count{1};
+//
+//	std::vector<std::pair<int, int>> time;
+//
+//	std::cin >> N;
+//
+//	for (int i = 0; i < N;i++)
+//	{
+//		int x{}, y{};
+//		std::cin >> x >> y;
+//
+//		time.push_back({ x,y });
+//	}
+//
+//	std::sort(time.begin(), time.end(),cmp);
+//
+//	int start = time[0].second;
+//
+//	for (int i = 1; i < N;i++)
+//	{			
+//		if (time[i].first >= start)
+//		{
+//			count++;
+//
+//			start = time[i].second;
+//		}
+//	}
+//
+//	std::cout << count << '\n';
+//}
 
-	return a.second < b.second;
-}
+//3.
 
 int main()
 {
-	int N{}, count{1};
-
-	std::vector<std::pair<int, int>> time;
+	int N{}, time{};
 
 	std::cin >> N;
 
-	for (int i = 0; i < N;i++)
+	std::vector<int> arry;
+
+	for (int i = 0; i < N; i++)
 	{
-		int x{}, y{};
-		std::cin >> x >> y;
+		int x{};
 
-		time.push_back({ x,y });
+		std::cin >> x;
+
+		arry.push_back(x);
+
 	}
 
-	std::sort(time.begin(), time.end(),cmp);
+	std::sort(arry.begin(), arry.end());
 
-	int start = time[0].second;
-
-	for (int i = 1; i < N;i++)
-	{			
-		if (time[i].first >= start)
+	for (int i = 0; i < N; i++)
+	{
+		if (i > 0)
 		{
-			count++;
-
-			start = time[i].second;
+			arry[i] += arry[i - 1];
 		}
+
+		time += arry[i];
 	}
 
-	std::cout << count << '\n';
+
+	std::cout << time << '\n';
+
 }
