@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <string>
 
 //1.
 
@@ -83,37 +84,82 @@
 
 //3.
 
+//int main()
+//{
+//	int N{}, time{};
+//
+//	std::cin >> N;
+//
+//	std::vector<int> arry;
+//
+//	for (int i = 0; i < N; i++)
+//	{
+//		int x{};
+//
+//		std::cin >> x;
+//
+//		arry.push_back(x);
+//
+//	}
+//
+//	std::sort(arry.begin(), arry.end());
+//
+//	for (int i = 0; i < N; i++)
+//	{
+//		if (i > 0)
+//		{
+//			arry[i] += arry[i - 1];
+//		}
+//
+//		time += arry[i];
+//	}
+//
+//
+//	std::cout << time << '\n';
+//
+//}
+
+//4.
+
 int main()
 {
-	int N{}, time{};
+	int answer{};
+	bool min{ false };
 
-	std::cin >> N;
+	std::string expression{};
+	std::string num{};	
 
-	std::vector<int> arry;
+	std::cin >> expression;
 
-	for (int i = 0; i < N; i++)
-	{
-		int x{};
+	for (int i = 0; i <= size(expression); i++)
+	{	
+			if (expression[i] == '+' || expression[i] == '-' || i == size(expression))
+			{
+				if (min)
+				{
+					answer -= std::stoi(num);
+					num = "";
+				}
 
-		std::cin >> x;
+				else if(!min)
+				{
+					answer += std::stoi(num);
+					num = "";
+				}
+			}
 
-		arry.push_back(x);
+			else
+			{
+				num += expression[i];
+			}
+
+
+			if (expression[i] == '-')
+			{
+				min = true;
+			}
 
 	}
 
-	std::sort(arry.begin(), arry.end());
-
-	for (int i = 0; i < N; i++)
-	{
-		if (i > 0)
-		{
-			arry[i] += arry[i - 1];
-		}
-
-		time += arry[i];
-	}
-
-
-	std::cout << time << '\n';
-
+	std::cout << answer << '\n';
 }
