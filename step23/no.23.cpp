@@ -121,45 +121,88 @@
 
 //4.
 
+//int main()
+//{
+//	int answer{};
+//	bool min{ false };
+//
+//	std::string expression{};
+//	std::string num{};	
+//
+//	std::cin >> expression;
+//
+//	for (int i = 0; i <= size(expression); i++)
+//	{	
+//			if (expression[i] == '+' || expression[i] == '-' || i == size(expression))
+//			{
+//				if (min)
+//				{
+//					answer -= std::stoi(num);
+//					num = "";
+//				}
+//
+//				else if(!min)
+//				{
+//					answer += std::stoi(num);
+//					num = "";
+//				}
+//			}
+//
+//			else
+//			{
+//				num += expression[i];
+//			}
+//
+//
+//			if (expression[i] == '-')
+//			{
+//				min = true;
+//			}
+//
+//	}
+//
+//	std::cout << answer << '\n';
+//}
+
+//5.
+std::vector<long long> Km{};
+std::vector<long long> L{};
+
 int main()
 {
-	int answer{};
-	bool min{ false };
+	long long N{}, min{ 1000000001 };
+	long long money{};
 
-	std::string expression{};
-	std::string num{};	
+	std::cin >> N;
 
-	std::cin >> expression;
+	for (int i = 0; i < N-1;i++)
+	{
+		long long x{};
 
-	for (int i = 0; i <= size(expression); i++)
-	{	
-			if (expression[i] == '+' || expression[i] == '-' || i == size(expression))
-			{
-				if (min)
-				{
-					answer -= std::stoi(num);
-					num = "";
-				}
+		std::cin >> x;
 
-				else if(!min)
-				{
-					answer += std::stoi(num);
-					num = "";
-				}
-			}
+		Km.push_back(x);
+	}
 
-			else
-			{
-				num += expression[i];
-			}
+	for (int i = 0; i < N;i++)
+	{
+		long long x{};
 
+		std::cin >> x;
 
-			if (expression[i] == '-')
-			{
-				min = true;
-			}
+		L.push_back(x);
+	}
+	
+	for (int i = 0; i < N-1; i++)
+	{
+		if (min > L[i])
+		{
+			min = L[i];
+		}
+
+		money += min * Km[i];
 
 	}
 
-	std::cout << answer << '\n';
+	std::cout << money << '\n';
 }
