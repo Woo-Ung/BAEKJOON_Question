@@ -121,74 +121,109 @@
 //}
 
 //3.
+//
+//int one{}, zero{}, mone{};
+//int ret[2187][2187];
+//
+//void check(int a, int b, int c)
+//{
+//	bool cut{ false };
+//
+//	int point = ret[a][b];
+//
+//	for (int i = a; i < a + c; i++)
+//	{
+//		for (int j = b; j < b + c; j++)
+//		{
+//			if (ret[i][j] != point)
+//			{
+//				cut = true;
+//				break;
+//			}
+//		}
+//	}
+//
+//	if (cut)
+//	{
+//		check(a, b, c / 3);
+//		check(a + c / 3, b, c / 3);
+//		check(a + c * 2 / 3, b, c / 3);
+//		check(a, b + c / 3, c / 3);
+//		check(a + c / 3, b + c / 3, c / 3);
+//		check(a + c * 2/ 3, b + c / 3, c / 3);
+//		check(a, b + c * 2 / 3, c / 3);
+//		check(a + c / 3, b + c * 2 / 3, c / 3);
+//		check(a + c * 2 / 3, b + c * 2 / 3, c / 3);
+//	}
+//
+//	else
+//	{
+//		if (point == 1)
+//		{
+//			one++;
+//		}
+//		else if (point == 0)
+//		{
+//			zero++;
+//		}
+//		else
+//		{
+//			mone++;
+//		}
+//	}
+//}
+//
+//int main()
+//{
+//	int N{};
+//
+//	std::cin >> N;
+//
+//	for (int i = 0; i < N; i++)
+//	{
+//		for (int j = 0; j < N; j++)
+//		{
+//			std::cin >> ret[i][j];
+//		}
+//	}
+//
+//	check(0, 0, N);
+//
+//	std::cout << mone << '\n' << zero << '\n' << one << '\n';
+//
+//}
 
-int one{}, zero{}, mone{};
-int ret[2187][2187];
+//4.
 
-void check(int a, int b, int c)
+long long x{}, A{}, B{}, C{};
+
+long long power(long long b)
 {
-	bool cut{ false };
-
-	int point = ret[a][b];
-
-	for (int i = a; i < a + c; i++)
+	if (b == 0)
 	{
-		for (int j = b; j < b + c; j++)
-		{
-			if (ret[i][j] != point)
-			{
-				cut = true;
-				break;
-			}
-		}
+		return 1;
 	}
 
-	if (cut)
+	if (b == 1)
 	{
-		check(a, b, c / 3);
-		check(a + c / 3, b, c / 3);
-		check(a + c * 2 / 3, b, c / 3);
-		check(a, b + c / 3, c / 3);
-		check(a + c / 3, b + c / 3, c / 3);
-		check(a + c * 2/ 3, b + c / 3, c / 3);
-		check(a, b + c * 2 / 3, c / 3);
-		check(a + c / 3, b + c * 2 / 3, c / 3);
-		check(a + c * 2 / 3, b + c * 2 / 3, c / 3);
+		return A % C;
 	}
 
-	else
+	x = power(b / 2) % C;
+
+	if (b % 2 == 0)
 	{
-		if (point == 1)
-		{
-			one++;
-		}
-		else if (point == 0)
-		{
-			zero++;
-		}
-		else
-		{
-			mone++;
-		}
+		return x * x % C;
 	}
+
+	return x * x % C * A % C;
 }
 
 int main()
 {
-	int N{};
 
-	std::cin >> N;
+	std::cin >> A >> B >> C;
 
-	for (int i = 0; i < N; i++)
-	{
-		for (int j = 0; j < N; j++)
-		{
-			std::cin >> ret[i][j];
-		}
-	}
-
-	check(0, 0, N);
-
-	std::cout << mone << '\n' << zero << '\n' << one << '\n';
+	std::cout << power(B) << '\n';
 
 }
