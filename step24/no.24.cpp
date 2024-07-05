@@ -194,36 +194,82 @@
 //}
 
 //4.
+//
+//long long x{}, A{}, B{}, C{};
+//
+//long long power(long long b)
+//{
+//	if (b == 0)
+//	{
+//		return 1;
+//	}
+//
+//	if (b == 1)
+//	{
+//		return A % C;
+//	}
+//
+//	x = power(b / 2) % C;
+//
+//	if (b % 2 == 0)
+//	{
+//		return x * x % C;
+//	}
+//
+//	return x * x % C * A % C;
+//}
+//
+//int main()
+//{
+//
+//	std::cin >> A >> B >> C;
+//
+//	std::cout << power(B) << '\n';
+//
+//}
 
-long long x{}, A{}, B{}, C{};
+//5.
+const long long mod = 1000000007;
 
-long long power(long long b)
+long long N{}, K{}, A{}, B{};
+
+int BC(int a)
 {
-	if (b == 0)
+	if (a == 0)
 	{
 		return 1;
 	}
 
-	if (b == 1)
+	if (a % 2 == 1)
 	{
-		return A % C;
+		return B * BC(a - 1) % mod;
 	}
 
-	x = power(b / 2) % C;
-
-	if (b % 2 == 0)
+	else
 	{
-		return x * x % C;
+		long long x = BC(a / 2);
+		return x * x % mod;
 	}
-
-	return x * x % C * A % C;
 }
 
 int main()
 {
+	std::cin >> N >> K;
 
-	std::cin >> A >> B >> C;
+	A = 1;
+	for (int i = N; i >= N - K + 1;i--)
+	{
+		A = (A * i) % mod;
+	}
 
-	std::cout << power(B) << '\n';
+	B = 1;
+	for (int i = 1; i <= K;i++)
+	{
+		B = (B * i) % mod;
+	}
+
+	B = BC(mod - 2);
+
+	std::cout << (A * B) % mod << '\n';
 
 }
