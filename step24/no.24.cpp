@@ -229,47 +229,97 @@
 //}
 
 //5.
-const long long mod = 1000000007;
+//const long long mod = 1000000007;
+//
+//long long N{}, K{}, A{}, B{};
+//
+//int BC(int a)
+//{
+//	if (a == 0)
+//	{
+//		return 1;
+//	}
+//
+//	if (a % 2 == 1)
+//	{
+//		return B * BC(a - 1) % mod;
+//	}
+//
+//	else
+//	{
+//		long long x = BC(a / 2);
+//		return x * x % mod;
+//	}
+//}
+//
+//int main()
+//{
+//	std::cin >> N >> K;
+//
+//	A = 1;
+//	for (int i = N; i >= N - K + 1;i--)
+//	{
+//		A = (A * i) % mod;
+//	}
+//
+//	B = 1;
+//	for (int i = 1; i <= K;i++)
+//	{
+//		B = (B * i) % mod;
+//	}
+//
+//	B = BC(mod - 2);
+//
+//	std::cout << (A * B) % mod << '\n';
+//
+//}
 
-long long N{}, K{}, A{}, B{};
-
-int BC(int a)
-{
-	if (a == 0)
-	{
-		return 1;
-	}
-
-	if (a % 2 == 1)
-	{
-		return B * BC(a - 1) % mod;
-	}
-
-	else
-	{
-		long long x = BC(a / 2);
-		return x * x % mod;
-	}
-}
+//6.
 
 int main()
 {
-	std::cin >> N >> K;
+	int A[100][100]{};
+	int B[100][100]{};
+	int C[100][100]{};
+	int N{}, M{}, K{};
 
-	A = 1;
-	for (int i = N; i >= N - K + 1;i--)
+	std::cin >> N >> M;
+
+	for (int i = 0; i < N;i++)
 	{
-		A = (A * i) % mod;
+		for (int j = 0;j < M;j++)
+		{
+			std::cin >> A[i][j];
+		}
 	}
 
-	B = 1;
-	for (int i = 1; i <= K;i++)
+	std::cin >> M >> K;
+
+	for (int i = 0; i < M;i++)
 	{
-		B = (B * i) % mod;
+		for (int j = 0; j < K;j++)
+		{
+			std::cin >> B[i][j];
+		}
 	}
 
-	B = BC(mod - 2);
+	for (int i = 0; i < N;i++)
+	{		
+		for (int j = 0; j < K;j++)
+		{
+			 for(int k = 0; k < M;k++)
+			 {
+				 C[i][j] += A[i][k] * B[k][j];
+			 }
+		}
+	}
 
-	std::cout << (A * B) % mod << '\n';
-
+	for (int i = 0; i < N;i++)
+	{
+		for (int j = 0; j < K;j++)
+		{
+			std::cout << C[i][j] << " ";
+		}
+		std::cout << '\n';
+	}
 }
