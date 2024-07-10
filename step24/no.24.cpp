@@ -276,49 +276,123 @@
 
 //6.
 
+//int main()
+//{
+//	int A[100][100]{};
+//	int B[100][100]{};
+//	int C[100][100]{};
+//	int N{}, M{}, K{};
+//
+//	std::cin >> N >> M;
+//
+//	for (int i = 0; i < N;i++)
+//	{
+//		for (int j = 0;j < M;j++)
+//		{
+//			std::cin >> A[i][j];
+//		}
+//	}
+//
+//	std::cin >> M >> K;
+//
+//	for (int i = 0; i < M;i++)
+//	{
+//		for (int j = 0; j < K;j++)
+//		{
+//			std::cin >> B[i][j];
+//		}
+//	}
+//
+//	for (int i = 0; i < N;i++)
+//	{		
+//		for (int j = 0; j < K;j++)
+//		{
+//			 for(int k = 0; k < M;k++)
+//			 {
+//				 C[i][j] += A[i][k] * B[k][j];
+//			 }
+//		}
+//	}
+//
+//	for (int i = 0; i < N;i++)
+//	{
+//		for (int j = 0; j < K;j++)
+//		{
+//			std::cout << C[i][j] << " ";
+//		}
+//		std::cout << '\n';
+//	}
+//}
+
+//7.
+
+#define DIV 1000
+
+long long N{}, M{};
+
+long long A[5][5]{};
+long long B[5][5]{};
+
+
+void Mpower(long long a[5][5], long long b[5][5])
+{
+	long long temp[5][5]{};
+	
+
+	for (int i = 0; i < N;i++)
+	{		
+		for (int j = 0; j < N;j++)
+		{
+			long long z{};
+			 for(int k = 0; k < N;k++)
+			 {
+				 z += (a[i][k] * b[k][j]) % DIV;				  
+			 }
+
+			 temp[i][j] = z % DIV;
+		}
+	}
+
+	for (int i = 0; i < N;i++)
+	{
+		for (int j = 0; j < N;j++)
+		{
+			a[i][j] = temp[i][j];
+		}
+	}
+
+}
+
 int main()
 {
-	int A[100][100]{};
-	int B[100][100]{};
-	int C[100][100]{};
-	int N{}, M{}, K{};
-
 	std::cin >> N >> M;
 
 	for (int i = 0; i < N;i++)
 	{
-		for (int j = 0;j < M;j++)
+		for (int j = 0; j < N;j++)
 		{
-			std::cin >> A[i][j];
+			std::cin >> A[i][j];			
 		}
+		B[i][i] = 1;
 	}
 
-	std::cin >> M >> K;
-
-	for (int i = 0; i < M;i++)
+	
+	while (M > 0)
 	{
-		for (int j = 0; j < K;j++)
+		if (M % 2 == 1)
 		{
-			std::cin >> B[i][j];
+			Mpower(B,A);
 		}
-	}
 
-	for (int i = 0; i < N;i++)
-	{		
-		for (int j = 0; j < K;j++)
-		{
-			 for(int k = 0; k < M;k++)
-			 {
-				 C[i][j] += A[i][k] * B[k][j];
-			 }
-		}
+		Mpower(A, A);
+		M /= 2;
 	}
 
 	for (int i = 0; i < N;i++)
 	{
-		for (int j = 0; j < K;j++)
+		for (int j = 0; j < N;j++)
 		{
-			std::cout << C[i][j] << " ";
+			std::cout << B[i][j] << " ";
 		}
 		std::cout << '\n';
 	}
