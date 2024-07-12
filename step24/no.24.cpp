@@ -1,4 +1,5 @@
 #include <iostream>
+#include <map>
 
 //1.
 //int W{}, B{};
@@ -326,74 +327,109 @@
 
 //7.
 
-#define DIV 1000
+//#define DIV 1000
+//
+//long long N{}, M{};
+//
+//long long A[5][5]{};
+//long long B[5][5]{};
+//
+//
+//void Mpower(long long a[5][5], long long b[5][5])
+//{
+//	long long temp[5][5]{};
+//
+//	for (int i = 0; i < N;i++)
+//	{		
+//		for (int j = 0; j < N;j++)
+//		{
+//			long long z{};
+//			 for(int k = 0; k < N;k++)
+//			 {
+//				 z += (a[i][k] * b[k][j]) % DIV;				  
+//			 }
+//
+//			 temp[i][j] = z % DIV;
+//		}
+//	}
+//
+//	for (int i = 0; i < N;i++)
+//	{
+//		for (int j = 0; j < N;j++)
+//		{
+//			a[i][j] = temp[i][j];
+//		}
+//	}
+//}
+//
+//int main()
+//{
+//	std::cin >> N >> M;
+//
+//	for (int i = 0; i < N;i++)
+//	{
+//		for (int j = 0; j < N;j++)
+//		{
+//			std::cin >> A[i][j];			
+//		}
+//		B[i][i] = 1;
+//	}
+//	
+//	while (M > 0)
+//	{
+//		if (M % 2 == 1)
+//		{
+//			Mpower(B,A);
+//		}
+//
+//		Mpower(A, A);
+//
+//		M /= 2;
+//	}	
+//
+//	for (int i = 0; i < N;i++)
+//	{
+//		for (int j = 0; j < N;j++)
+//		{
+//			std::cout << B[i][j] << " ";
+//		}
+//		std::cout << '\n';
+//	}
+//}
 
-long long N{}, M{};
+//8.
 
-long long A[5][5]{};
-long long B[5][5]{};
+#define DIV 1000000007
 
+std::map<long long, long long> FB{ {0,0},{1,1},{2,1} };
 
-void Mpower(long long a[5][5], long long b[5][5])
+long long fibo(long long a)
 {
-	long long temp[5][5]{};
-	
-
-	for (int i = 0; i < N;i++)
-	{		
-		for (int j = 0; j < N;j++)
-		{
-			long long z{};
-			 for(int k = 0; k < N;k++)
-			 {
-				 z += (a[i][k] * b[k][j]) % DIV;				  
-			 }
-
-			 temp[i][j] = z % DIV;
-		}
-	}
-
-	for (int i = 0; i < N;i++)
+	if (FB[a])
 	{
-		for (int j = 0; j < N;j++)
-		{
-			a[i][j] = temp[i][j];
-		}
+		return FB[a];
 	}
 
+	long long temp;
+
+	if (a % 2 == 0)
+	{
+		temp = (fibo(a / 2) * (fibo((a / 2) + 1) + fibo((a / 2) - 1))) % DIV;
+	}
+
+	else if (a % 2 == 1)
+	{
+		temp = ((fibo((a + 1) / 2) * fibo((a + 1) / 2)) % DIV) + ((fibo((a - 1) / 2) * fibo((a - 1) / 2)) % DIV) % DIV;
+	}
+
+	return FB[a] = temp % DIV;
 }
 
 int main()
 {
-	std::cin >> N >> M;
+	long long n{};
 
-	for (int i = 0; i < N;i++)
-	{
-		for (int j = 0; j < N;j++)
-		{
-			std::cin >> A[i][j];			
-		}
-		B[i][i] = 1;
-	}
+	std::cin >> n;
 
-	
-	while (M > 0)
-	{
-		if (M % 2 == 1)
-		{
-			Mpower(B,A);
-		}
-
-		Mpower(A, A);
-		M /= 2;
-	}
-
-	for (int i = 0; i < N;i++)
-	{
-		for (int j = 0; j < N;j++)
-		{
-			std::cout << B[i][j] << " ";
-		}
-		std::cout << '\n';
-	}
+	std::cout << fibo(n) << '\n';
 }
