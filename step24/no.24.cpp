@@ -1,5 +1,7 @@
 #include <iostream>
 #include <map>
+#include <vector>
+#include <algorithm>
 
 //1.
 //int W{}, B{};
@@ -399,37 +401,100 @@
 
 //8.
 
-#define DIV 1000000007
+//#define DIV 1000000007
+//
+//std::map<long long, long long> FB{ {0,0},{1,1},{2,1} };
+//
+//long long fibo(long long a)
+//{
+//	if (FB[a])
+//	{
+//		return FB[a];
+//	}
+//
+//	long long temp;
+//
+//	if (a % 2 == 0)
+//	{
+//		temp = (fibo(a / 2) * (fibo((a / 2) + 1) + fibo((a / 2) - 1))) % DIV;
+//	}
+//
+//	else if (a % 2 == 1)
+//	{
+//		temp = ((fibo((a + 1) / 2) * fibo((a + 1) / 2)) % DIV) + ((fibo((a - 1) / 2) * fibo((a - 1) / 2)) % DIV) % DIV;
+//	}
+//
+//	return FB[a] = temp % DIV;
+//}
+//
+//int main()
+//{
+//	long long n{};
+//
+//	std::cin >> n;
+//
+//	std::cout << fibo(n) << '\n';
+//}
 
-std::map<long long, long long> FB{ {0,0},{1,1},{2,1} };
+//9.
 
-long long fibo(long long a)
+std::vector<long long> histo;
+
+long long solve(long long left, long long right)
 {
-	if (FB[a])
+	long long mid = (left + right) / 2;
+	long long mBox = histo[mid];
+	long long height = histo[mid];
+	long long l = mid - 1, r = mid + 1;
+
+	if (left + 1 >= right)
 	{
-		return FB[a];
+		return mBox;
 	}
 
-	long long temp;
-
-	if (a % 2 == 0)
+	while (l > left || r < right)
 	{
-		temp = (fibo(a / 2) * (fibo((a / 2) + 1) + fibo((a / 2) - 1))) % DIV;
+		if (l <= left || (r < right && histo[l] <= histo[r]))
+		{
+			height = std::min(histo[r], height);
+			r++;
+		}
+		else
+		{
+			height = std::min(height, histo[l]);
+			l--;
+		}
+		long long width = r - 1 - l;
+		mBox = std::max(mBox, width * height);
 	}
 
-	else if (a % 2 == 1)
-	{
-		temp = ((fibo((a + 1) / 2) * fibo((a + 1) / 2)) % DIV) + ((fibo((a - 1) / 2) * fibo((a - 1) / 2)) % DIV) % DIV;
-	}
-
-	return FB[a] = temp % DIV;
+	return std::max(mBox, std::max(solve(left, mid), solve(mid, right)));
 }
 
 int main()
 {
-	long long n{};
 
-	std::cin >> n;
+	while (true)
+	{
+		histo.clear();
+		long long N{};
+		std::cin >> N;
+		
+		if (N == 0)
+		{
+			break;
+		}
 
-	std::cout << fibo(n) << '\n';
+		histo.push_back(0);
+		for (int i = 0; i < N;i++)
+		{
+			long long x{};
+			std::cin >> x;
+			histo.push_back(x);
+		}
+		histo.push_back(0);
+
+		std::cout << solve(0, N + 1) << '\n';
+	}
+
 }
