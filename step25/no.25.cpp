@@ -63,35 +63,90 @@
 
 //3.
 
+//int main()
+//{
+//	long long K{}, N{}, ans{}, m{};
+//	std::vector<long long> arry;
+//
+//	std::cin >> K >> N;
+//
+//	for (int i = 0; i < K;i++)
+//	{
+//		long long x{};
+//		std::cin >> x;
+//		m = std::max(m, x);
+//		arry.push_back(x);
+//	}
+//	
+//	long long left{ 1 }, right{ m }, mid{};
+//
+//	while (left <= right)
+//	{
+//		long long count{};
+//
+//		mid = (left + right) / 2;
+//
+//		for (int i = 0; i < K;i++)
+//		{
+//			count += arry[i] / mid;
+//		}		
+//
+//		if (count >= N)
+//		{
+//			left = mid + 1;
+//
+//			ans = std::max(ans, mid);
+//		}
+//
+//		else
+//		{
+//			right = mid - 1;
+//		}
+//	}
+//
+//	std::cout << ans << '\n';
+//}
+
+//4.
+
 int main()
 {
-	long long K{}, N{}, ans{}, m{};
-	std::vector<long long> arry;
+	std::ios_base::sync_with_stdio(false);
+	std::cout.tie(NULL);
+	std::cin.tie(NULL);
 
-	std::cin >> K >> N;
+	long long N{}, M{}, max{}, ans{};
+	std::vector<long long> tree;
 
-	for (int i = 0; i < K;i++)
+	std::cin >> N >> M;
+
+	for (int i = 0;i < N;i++)
 	{
 		long long x{};
 		std::cin >> x;
-		m = std::max(m, x);
-		arry.push_back(x);
+
+		max = std::max(max, x);
+
+		tree.push_back(x);
 	}
-	
-	long long left{ 1 }, right{ m }, mid{};
+
+	long long left{0}, right{max}, mid{};
 
 	while (left <= right)
 	{
-		long long count{};
+		long long temp{};
 
 		mid = (left + right) / 2;
 
-		for (int i = 0; i < K;i++)
+		for (int i = 0; i < N;i++)
 		{
-			count += arry[i] / mid;
-		}		
+			if (tree[i] > mid)
+			{
+				temp += tree[i] - mid;
+			}
+		}
 
-		if (count >= N)
+		if (temp >= M)
 		{
 			left = mid + 1;
 
@@ -102,6 +157,7 @@ int main()
 		{
 			right = mid - 1;
 		}
+
 	}
 
 	std::cout << ans << '\n';
