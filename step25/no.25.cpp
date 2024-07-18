@@ -109,55 +109,108 @@
 
 //4.
 
+//int main()
+//{
+//	std::ios_base::sync_with_stdio(false);
+//	std::cout.tie(NULL);
+//	std::cin.tie(NULL);
+//
+//	long long N{}, M{}, max{}, ans{};
+//	std::vector<long long> tree;
+//
+//	std::cin >> N >> M;
+//
+//	for (int i = 0;i < N;i++)
+//	{
+//		long long x{};
+//		std::cin >> x;
+//
+//		max = std::max(max, x);
+//
+//		tree.push_back(x);
+//	}
+//
+//	long long left{0}, right{max}, mid{};
+//
+//	while (left <= right)
+//	{
+//		long long temp{};
+//
+//		mid = (left + right) / 2;
+//
+//		for (int i = 0; i < N;i++)
+//		{
+//			if (tree[i] > mid)
+//			{
+//				temp += tree[i] - mid;
+//			}
+//		}
+//
+//		if (temp >= M)
+//		{
+//			left = mid + 1;
+//
+//			ans = std::max(ans, mid);
+//		}
+//
+//		else
+//		{
+//			right = mid - 1;
+//		}
+//
+//	}
+//
+//	std::cout << ans << '\n';
+//}
+
+//5.
 int main()
 {
-	std::ios_base::sync_with_stdio(false);
-	std::cout.tie(NULL);
-	std::cin.tie(NULL);
+	int N{}, C{}, ans{};
+	std::vector<int> arry;
 
-	long long N{}, M{}, max{}, ans{};
-	std::vector<long long> tree;
-
-	std::cin >> N >> M;
+	std::cin >> N >> C;
 
 	for (int i = 0;i < N;i++)
 	{
-		long long x{};
+		int x{};
+
 		std::cin >> x;
 
-		max = std::max(max, x);
-
-		tree.push_back(x);
+		arry.push_back(x);
 	}
 
-	long long left{0}, right{max}, mid{};
+	std::sort(arry.begin(), arry.end());
+
+	int left{ 1 }, right{}, mid{};
+
+	right = arry[N - 1] - arry[0];
 
 	while (left <= right)
 	{
-		long long temp{};
-
 		mid = (left + right) / 2;
 
-		for (int i = 0; i < N;i++)
+		int count{ 1 };
+		int temp = arry[0];
+
+		for (int i = 1;i < N;i++)
 		{
-			if (tree[i] > mid)
+			if (arry[i] - temp >= mid)
 			{
-				temp += tree[i] - mid;
+				count++;
+				temp = arry[i];
 			}
 		}
 
-		if (temp >= M)
+		if (count >= C)
 		{
-			left = mid + 1;
-
 			ans = std::max(ans, mid);
+			left = mid + 1;
 		}
-
 		else
 		{
 			right = mid - 1;
 		}
-
 	}
 
 	std::cout << ans << '\n';
