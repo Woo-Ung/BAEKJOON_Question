@@ -164,54 +164,90 @@
 //}
 
 //5.
+//int main()
+//{
+//	int N{}, C{}, ans{};
+//	std::vector<int> arry;
+//
+//	std::cin >> N >> C;
+//
+//	for (int i = 0;i < N;i++)
+//	{
+//		int x{};
+//
+//		std::cin >> x;
+//
+//		arry.push_back(x);
+//	}
+//
+//	std::sort(arry.begin(), arry.end());
+//
+//	int left{ 1 }, right{}, mid{};
+//
+//	right = arry[N - 1] - arry[0];
+//
+//	while (left <= right)
+//	{
+//		mid = (left + right) / 2;
+//
+//		int count{ 1 };
+//		int temp = arry[0];
+//
+//		for (int i = 1;i < N;i++)
+//		{
+//			if (arry[i] - temp >= mid)
+//			{
+//				count++;
+//				temp = arry[i];
+//			}
+//		}
+//
+//		if (count >= C)
+//		{
+//			ans = std::max(ans, mid);
+//			left = mid + 1;
+//		}
+//		else
+//		{
+//			right = mid - 1;
+//		}
+//	}
+//
+//	std::cout << ans << '\n';
+//}
+
+//6.
+
 int main()
 {
-	int N{}, C{}, ans{};
-	std::vector<int> arry;
+	long long N{}, k{};
 
-	std::cin >> N >> C;
+	std::cin >> N >> k;
 
-	for (int i = 0;i < N;i++)
-	{
-		int x{};
+	long long left{ 1 }, right{}, mid{};
 
-		std::cin >> x;
-
-		arry.push_back(x);
-	}
-
-	std::sort(arry.begin(), arry.end());
-
-	int left{ 1 }, right{}, mid{};
-
-	right = arry[N - 1] - arry[0];
+	right = N * N;
 
 	while (left <= right)
 	{
+		long long count{};
 		mid = (left + right) / 2;
 
-		int count{ 1 };
-		int temp = arry[0];
-
-		for (int i = 1;i < N;i++)
+		for (int i = 1;i <= N;i++)
 		{
-			if (arry[i] - temp >= mid)
-			{
-				count++;
-				temp = arry[i];
-			}
+			count += std::min(N, mid / i);
 		}
 
-		if (count >= C)
+		if (count < k)
 		{
-			ans = std::max(ans, mid);
 			left = mid + 1;
 		}
 		else
 		{
 			right = mid - 1;
 		}
+
 	}
 
-	std::cout << ans << '\n';
+	std::cout << left << '\n';
 }
