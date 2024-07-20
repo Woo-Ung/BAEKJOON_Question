@@ -218,36 +218,97 @@
 
 //6.
 
-int main()
+//int main()
+//{
+//	long long N{}, k{};
+//
+//	std::cin >> N >> k;
+//
+//	long long left{ 1 }, right{}, mid{};
+//
+//	right = N * N;
+//
+//	while (left <= right)
+//	{
+//		long long count{};
+//		mid = (left + right) / 2;
+//
+//		for (int i = 1;i <= N;i++)
+//		{
+//			count += std::min(N, mid / i);
+//		}
+//
+//		if (count < k)
+//		{
+//			left = mid + 1;
+//		}
+//		else
+//		{
+//			right = mid - 1;
+//		}
+//
+//	}
+//
+//	std::cout << left << '\n';
+//}
+
+//7.
+
+int N{};
+
+int A[1000001];
+int B[1000001];
+
+int Slove(int left, int right, int x)
 {
-	long long N{}, k{};
-
-	std::cin >> N >> k;
-
-	long long left{ 1 }, right{}, mid{};
-
-	right = N * N;
-
-	while (left <= right)
+	int mid{};
+	while (left < right)
 	{
-		long long count{};
 		mid = (left + right) / 2;
-
-		for (int i = 1;i <= N;i++)
-		{
-			count += std::min(N, mid / i);
-		}
-
-		if (count < k)
+		if (B[mid] < x)
 		{
 			left = mid + 1;
 		}
 		else
 		{
-			right = mid - 1;
+			right = mid;
+		}
+	}
+
+	return right;
+}
+
+int main()
+{
+	std::ios_base::sync_with_stdio(false);
+	std::cin.tie(NULL);
+	std::cout.tie(NULL);
+
+	std::cin >> N;
+
+	for (int i = 0; i < N;i++)
+	{		
+		std::cin >> A[i];
+	}
+
+	int j{};
+	B[0] = A[0];
+
+	for (int i = 1;i < N;i++)
+	{
+		if (B[j] < A[i])
+		{
+			j++;
+			B[j] = A[i];
+		}
+
+		else if (B[j] > A[i])
+		{
+			int x = Slove(0, j, A[i]);
+			B[x] = A[i];
 		}
 
 	}
 
-	std::cout << left << '\n';
+	std::cout << j + 1 << '\n';
 }
