@@ -262,7 +262,7 @@ int B[1000001];
 int Slove(int left, int right, int x)
 {
 	int mid{};
-	while (left < right)
+	while (left <= right)
 	{
 		mid = (left + right) / 2;
 		if (B[mid] < x)
@@ -271,11 +271,11 @@ int Slove(int left, int right, int x)
 		}
 		else
 		{
-			right = mid;
+			right = mid - 1;
 		}
 	}
 
-	return right;
+	return left;
 }
 
 int main()
