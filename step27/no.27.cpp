@@ -54,31 +54,82 @@
 
 //2.
 
-int N{};
-int arry[501][2]{};
-int dp[501][501]{};
+//int N{};
+//int arry[501][2]{};
+//int dp[501][501]{};
+//
+//int main()
+//{
+//	std::cin >> N;
+//
+//	for (int i = 1; i <= N;i++)
+//	{
+//		std::cin >> arry[i][0] >> arry[i][1];
+//	}
+//
+//	for (int i = 1; i < N; i++)
+//	{
+//		for (int j = 1; i + j <= N; j++)
+//		{
+//			dp[j][i + j] = INT_MAX;
+//
+//			for (int k = j; k <= i + j; k++)
+//			{
+//				dp[j][i + j] = std::min(dp[j][i + j], dp[j][k] + dp[k + 1][i + j] + arry[j][0] * arry[k][1] * arry[i + j][1]);
+//			}
+//		}
+//	}
+//
+//	std::cout << dp[1][N] << '\n';
+//}
 
-int main()
+//3.
+
+int N{}, M{};
+int arry[501][501];
+int check[501][501];
+int dx[] = { -1,1,0,0 };
+int dy[] = { 0,0,-1,1 };
+
+int find(int x, int y)
 {
-	std::cin >> N;
-
-	for (int i = 1; i <= N;i++)
+	if (x == N - 1 && y == M - 1)
 	{
-		std::cin >> arry[i][0] >> arry[i][1];
+		return 1;
 	}
 
-	for (int i = 1; i < N; i++)
+	if (check[x][y] == -1)
 	{
-		for (int j = 1; i + j <= N; j++)
+		check[x][y] = 0;
+		for (int i = 0; i < 4; i++)
 		{
-			dp[j][i + j] = INT_MAX;
-
-			for (int k = j; k <= i + j; k++)
+			int nx = dx[i] + x;
+			int ny = dy[i] + y;
+			if (nx >= 0 && nx < N && ny >= 0 && ny < M)
 			{
-				dp[j][i + j] = std::min(dp[j][i + j], dp[j][k] + dp[k + 1][i + j] + arry[j][0] * arry[k][1] * arry[i + j][1]);
+				if (arry[nx][ny] < arry[x][y])
+				{
+					check[x][y] = check[x][y] + find(nx, ny);
+				}
 			}
 		}
 	}
 
-	std::cout << dp[1][N] << '\n';
+	return check[x][y];
+}
+
+int main()
+{	
+	std::cin >> N >> M;
+
+	for (int i = 0; i < N;i++)
+	{
+		for (int j = 0; j < M;j++)
+		{
+			std::cin >> arry[i][j];
+			check[i][j] = -1;
+		}
+	}
+
+	std::cout << find(0, 0) << '\n';
 }
