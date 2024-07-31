@@ -85,51 +85,106 @@
 
 //3.
 
+//int N{}, M{};
+//int arry[501][501];
+//int check[501][501];
+//int dx[] = { -1,1,0,0 };
+//int dy[] = { 0,0,-1,1 };
+//
+//int find(int x, int y)
+//{
+//	if (x == N - 1 && y == M - 1)
+//	{
+//		return 1;
+//	}
+//
+//	if (check[x][y] == -1)
+//	{
+//		check[x][y] = 0;
+//		for (int i = 0; i < 4; i++)
+//		{
+//			int nx = dx[i] + x;
+//			int ny = dy[i] + y;
+//			if (nx >= 0 && nx < N && ny >= 0 && ny < M)
+//			{
+//				if (arry[nx][ny] < arry[x][y])
+//				{
+//					check[x][y] = check[x][y] + find(nx, ny);
+//				}
+//			}
+//		}
+//	}
+//
+//	return check[x][y];
+//}
+//
+//int main()
+//{	
+//	std::cin >> N >> M;
+//
+//	for (int i = 0; i < N;i++)
+//	{
+//		for (int j = 0; j < M;j++)
+//		{
+//			std::cin >> arry[i][j];
+//			check[i][j] = -1;
+//		}
+//	}
+//
+//	std::cout << find(0, 0) << '\n';
+//}
+
+//4.
 int N{}, M{};
-int arry[501][501];
-int check[501][501];
-int dx[] = { -1,1,0,0 };
-int dy[] = { 0,0,-1,1 };
+int weight[31];
+bool check[31][15001];
 
-int find(int x, int y)
+void solve(int a, int b)
 {
-	if (x == N - 1 && y == M - 1)
+	if (a > N || check[a][b])
 	{
-		return 1;
+		return;
 	}
 
-	if (check[x][y] == -1)
-	{
-		check[x][y] = 0;
-		for (int i = 0; i < 4; i++)
-		{
-			int nx = dx[i] + x;
-			int ny = dy[i] + y;
-			if (nx >= 0 && nx < N && ny >= 0 && ny < M)
-			{
-				if (arry[nx][ny] < arry[x][y])
-				{
-					check[x][y] = check[x][y] + find(nx, ny);
-				}
-			}
-		}
-	}
+	check[a][b] = true;
 
-	return check[x][y];
+	solve(a + 1, b + weight[a]);
+	solve(a + 1, b);
+	solve(a + 1, abs(b - weight[a]));
 }
 
 int main()
-{	
-	std::cin >> N >> M;
+{
+	std::cin >> N;
 
-	for (int i = 0; i < N;i++)
+	for (int i = 0; i < N; i++)
 	{
-		for (int j = 0; j < M;j++)
-		{
-			std::cin >> arry[i][j];
-			check[i][j] = -1;
-		}
+		std::cin >> weight[i];
 	}
 
-	std::cout << find(0, 0) << '\n';
+	solve(0, 0);
+
+	std::cin >> M;
+
+	for (int i = 0; i < M; i++)
+	{
+		int x{};
+		std::cin >> x;
+
+		if (x > 15000)
+		{
+			std::cout << "N" << '\n';
+		}
+
+		else if (check[N][x])
+		{
+			std::cout << "Y" << '\n';
+		}
+
+		else
+		{
+			std::cout << "N" << '\n';
+		}
+
+	}
 }
