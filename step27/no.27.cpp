@@ -185,6 +185,5 @@ int main()
 		{
 			std::cout << "N" << '\n';
 		}
-
 	}
 }
