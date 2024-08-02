@@ -1,6 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include <limits.h>
+#include <vector>
 
 //1.
 
@@ -135,55 +136,83 @@
 //}
 
 //4.
-int N{}, M{};
-int weight[31];
-bool check[31][15001];
+//int N{}, M{};
+//int weight[31];
+//bool check[31][15001];
+//
+//void solve(int a, int b)
+//{
+//	if (a > N || check[a][b])
+//	{
+//		return;
+//	}
+//
+//	check[a][b] = true;
+//
+//	solve(a + 1, b + weight[a]);
+//	solve(a + 1, b);
+//	solve(a + 1, abs(b - weight[a]));
+//}
+//
+//int main()
+//{
+//	std::cin >> N;
+//
+//	for (int i = 0; i < N; i++)
+//	{
+//		std::cin >> weight[i];
+//	}
+//
+//	solve(0, 0);
+//
+//	std::cin >> M;
+//
+//	for (int i = 0; i < M; i++)
+//	{
+//		int x{};
+//		std::cin >> x;
+//
+//		if (x > 15000)
+//		{
+//			std::cout << "N" << '\n';
+//		}
+//
+//		else if (check[N][x])
+//		{
+//			std::cout << "Y" << '\n';
+//		}
+//
+//		else
+//		{
+//			std::cout << "N" << '\n';
+//		}
+//	}
+//}
 
-void solve(int a, int b)
-{
-	if (a > N || check[a][b])
-	{
-		return;
-	}
-
-	check[a][b] = true;
-
-	solve(a + 1, b + weight[a]);
-	solve(a + 1, b);
-	solve(a + 1, abs(b - weight[a]));
-}
+//5.
 
 int main()
 {
-	std::cin >> N;
+	int n{}, k{};
 
-	for (int i = 0; i < N; i++)
+	int coin[101]{};
+	int dp[10001]{};
+
+	std::cin >> n >> k;
+
+	for (int i = 0; i < n;i++)
+	{		
+		std::cin >> coin[i];
+	}		
+
+	dp[0] = 1;
+	for (int i = 0; i < n;i++)
 	{
-		std::cin >> weight[i];
-	}
-
-	solve(0, 0);
-
-	std::cin >> M;
-
-	for (int i = 0; i < M; i++)
-	{
-		int x{};
-		std::cin >> x;
-
-		if (x > 15000)
+		for (int j = coin[i];j <= k;j++)
 		{
-			std::cout << "N" << '\n';
-		}
-
-		else if (check[N][x])
-		{
-			std::cout << "Y" << '\n';
-		}
-
-		else
-		{
-			std::cout << "N" << '\n';
+			dp[j] += dp[j - coin[i]];
 		}
 	}
+	
+	std::cout << dp[k] << '\n';
 }
