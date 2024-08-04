@@ -191,28 +191,83 @@
 
 //5.
 
-int main()
+//int main()
+//{
+//	int n{}, k{};
+//
+//	int coin[101]{};
+//	int dp[10001]{};
+//
+//	std::cin >> n >> k;
+//
+//	for (int i = 0; i < n;i++)
+//	{		
+//		std::cin >> coin[i];
+//	}		
+//
+//	dp[0] = 1;
+//	for (int i = 0; i < n;i++)
+//	{
+//		for (int j = coin[i];j <= k;j++)
+//		{
+//			dp[j] += dp[j - coin[i]];
+//		}
+//	}
+//	
+//	std::cout << dp[k] << '\n';
+//}
+
+//6.
+int N{}, M{};
+std::vector<std::pair<int, int>> arry(101);
+int dp[10001] {};
+
+bool cmp(std::pair<int,int> a, std::pair<int,int> b)
 {
-	int n{}, k{};
-
-	int coin[101]{};
-	int dp[10001]{};
-
-	std::cin >> n >> k;
-
-	for (int i = 0; i < n;i++)
-	{		
-		std::cin >> coin[i];
-	}		
-
-	dp[0] = 1;
-	for (int i = 0; i < n;i++)
+	if (a.second == b.second)
 	{
-		for (int j = coin[i];j <= k;j++)
+		return a.first > b.first;
+	}
+
+	return a.second < b.second;
+}
+
+int main()
+{	
+	int Mcost{};
+	std::cin >> N >> M;
+
+	for (int i = 0; i < N; i++)
+	{
+		std::cin >> arry[i].first;
+	}
+
+	for (int i = 0; i < N; i++)
+	{
+		std::cin >> arry[i].second;
+		Mcost += arry[i].second;
+	}
+
+	std::sort(arry.begin(), arry.begin()+N, cmp);
+
+	for (int i = 0;i < N;i++)
+	{
+		for (int j = Mcost; j >= 0;j--)
 		{
-			dp[j] += dp[j - coin[i]];
+			if (j >= arry[i].second)
+			{
+				dp[j] = std::max(dp[j], dp[j - arry[i].second] + arry[i].first);
+			}
 		}
 	}
-	
-	std::cout << dp[k] << '\n';
+
+	for (int i = 0; i <= Mcost;i++)
+	{	
+		if (dp[i] >= M)
+		{
+			std::cout << i << '\n';
+			break;
+		}
+	}
+
 }
