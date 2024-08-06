@@ -222,15 +222,15 @@ int N{}, M{};
 std::vector<std::pair<int, int>> arry(101);
 int dp[10001] {};
 
-bool cmp(std::pair<int,int> a, std::pair<int,int> b)
-{
-	if (a.second == b.second)
-	{
-		return a.first > b.first;
-	}
-
-	return a.second < b.second;
-}
+//bool cmp(std::pair<int,int> a, std::pair<int,int> b)
+//{
+//	if (a.second == b.second)
+//	{
+//		return a.first > b.first;
+//	}
+//
+//	return a.second < b.second;
+//}
 
 int main()
 {	
@@ -248,7 +248,7 @@ int main()
 		Mcost += arry[i].second;
 	}
 
-	std::sort(arry.begin(), arry.begin()+N, cmp);
+	/*std::sort(arry.begin(), arry.begin()+N, cmp);*/
 
 	for (int i = 0;i < N;i++)
 	{
@@ -269,5 +269,4 @@ int main()
 			break;
 		}
 	}
-
 }
