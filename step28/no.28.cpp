@@ -1,52 +1,98 @@
 #include <iostream>
 #include <string>
+#include <stack>
 
 //1.
 
+//int main()
+//{
+//	char x{};
+//	std::string line{};
+//	std::string temp{};
+//	std::string bomb{};
+//
+//	std::cin >> line >> bomb;
+//
+//	x = bomb[bomb.size()-1];
+//
+//	for(int i = 0; i< line.size(); i++)
+//	{
+//		temp.push_back(line[i]);
+//
+//		if (line[i] == x && temp.size() >= bomb.size())
+//		{
+//			bool check{ true };
+//			for (int j = 0; j < bomb.size();j++)
+//			{
+//				if (bomb[j] != temp[temp.size() - bomb.size() + j])
+//				{
+//					check = false;
+//					break;
+//				}
+//			}
+//
+//			if (check)
+//			{
+//				for (int j = 0; j < bomb.size();j++)
+//				{
+//					temp.pop_back();
+//				}
+//			}
+//		}
+//	}
+//
+//	if (temp.empty())
+//	{
+//		std::cout << "FRULA" << '\n';
+//	}
+//
+//	else
+//	{
+//		std::cout << temp << '\n';
+//	}
+//}
+
+//2.
+
 int main()
 {
-	char x{};
-	std::string line{};
-	std::string temp{};
-	std::string bomb{};
+	std::ios::sync_with_stdio(false);
+	std::cin.tie(NULL);
+	std::cout.tie(NULL);
 
-	std::cin >> line >> bomb;
+	int N{};
+	int num[1000001]{};
+	int ans[1000001]{};
+	std::stack<int> arry;
 
-	x = bomb[bomb.size()-1];
+	std::cin >> N;
 
-	for(int i = 0; i< line.size(); i++)
+	for (int i = 0; i < N;i++)
 	{
-		temp.push_back(line[i]);
+		std::cin >> num[i];
+	}
 
-		if (line[i] == x && temp.size() >= bomb.size())
+	for (int i = N-1; i >= 0; i--)
+	{
+		while (!arry.empty() && arry.top() <= num[i])
 		{
-			bool check{ true };
-			for (int j = 0; j < bomb.size();j++)
-			{
-				if (bomb[j] != temp[temp.size() - bomb.size() + j])
-				{
-					check = false;
-					break;
-				}
-			}
-
-			if (check)
-			{
-				for (int j = 0; j < bomb.size();j++)
-				{
-					temp.pop_back();
-				}
-			}
+			arry.pop();
 		}
+
+		if (arry.empty())
+		{
+			ans[i] = -1;
+		}
+		else
+		{
+			ans[i] = arry.top();
+		}
+
+		arry.push(num[i]);
 	}
 
-	if (temp.empty())
+	for (int i = 0; i < N; i++)
 	{
-		std::cout << "FRULA" << '\n';
-	}
-
-	else
-	{
-		std::cout << temp << '\n';
-	}
+		std::cout << ans[i] << " ";
+	}std::cout << '\n';
 }
