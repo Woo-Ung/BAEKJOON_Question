@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <stack>
+#include <map>
 
 //1.
 
@@ -54,27 +55,75 @@
 
 //2.
 
+//int main()
+//{
+//	std::ios::sync_with_stdio(false);
+//	std::cin.tie(NULL);
+//	std::cout.tie(NULL);
+//
+//	int N{};
+//	int num[1000001]{};
+//	int ans[1000001]{};
+//	std::stack<int> arry;
+//
+//	std::cin >> N;
+//
+//	for (int i = 0; i < N;i++)
+//	{
+//		std::cin >> num[i];
+//	}
+//
+//	for (int i = N-1; i >= 0; i--)
+//	{
+//		while (!arry.empty() && arry.top() <= num[i])
+//		{
+//			arry.pop();
+//		}
+//
+//		if (arry.empty())
+//		{
+//			ans[i] = -1;
+//		}
+//		else
+//		{
+//			ans[i] = arry.top();
+//		}
+//
+//		arry.push(num[i]);
+//	}
+//
+//	for (int i = 0; i < N; i++)
+//	{
+//		std::cout << ans[i] << " ";
+//	}std::cout << '\n';
+//}
+
+//3.
+
+int N{};
+int num[1000001]{};
+int ans[1000001]{};
+int count[1000001]{};
+
+std::stack<int> arry;
+
 int main()
 {
 	std::ios::sync_with_stdio(false);
 	std::cin.tie(NULL);
 	std::cout.tie(NULL);
 
-	int N{};
-	int num[1000001]{};
-	int ans[1000001]{};
-	std::stack<int> arry;
-
 	std::cin >> N;
 
 	for (int i = 0; i < N;i++)
 	{
 		std::cin >> num[i];
+		count[num[i]]++;
 	}
 
-	for (int i = N-1; i >= 0; i--)
+	for (int i = N - 1; i >= 0;i--)
 	{
-		while (!arry.empty() && arry.top() <= num[i])
+		while (!arry.empty() && count[arry.top()] <= count[num[i]])
 		{
 			arry.pop();
 		}
@@ -83,6 +132,7 @@ int main()
 		{
 			ans[i] = -1;
 		}
+
 		else
 		{
 			ans[i] = arry.top();
@@ -91,7 +141,7 @@ int main()
 		arry.push(num[i]);
 	}
 
-	for (int i = 0; i < N; i++)
+	for (int i = 0; i < N;i++)
 	{
 		std::cout << ans[i] << " ";
 	}std::cout << '\n';
