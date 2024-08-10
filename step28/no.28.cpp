@@ -2,6 +2,7 @@
 #include <string>
 #include <stack>
 #include <map>
+#include <algorithm>
 
 //1.
 
@@ -100,49 +101,82 @@
 
 //3.
 
-int N{};
-int num[1000001]{};
-int ans[1000001]{};
-int count[1000001]{};
+//int N{};
+//int num[1000001]{};
+//int ans[1000001]{};
+//int count[1000001]{};
+//
+//std::stack<int> arry;
+//
+//int main()
+//{
+//	std::ios::sync_with_stdio(false);
+//	std::cin.tie(NULL);
+//	std::cout.tie(NULL);
+//
+//	std::cin >> N;
+//
+//	for (int i = 0; i < N;i++)
+//	{
+//		std::cin >> num[i];
+//		count[num[i]]++;
+//	}
+//
+//	for (int i = N - 1; i >= 0;i--)
+//	{
+//		while (!arry.empty() && count[arry.top()] <= count[num[i]])
+//		{
+//			arry.pop();
+//		}
+//
+//		if (arry.empty())
+//		{
+//			ans[i] = -1;
+//		}
+//
+//		else
+//		{
+//			ans[i] = arry.top();
+//		}
+//
+//		arry.push(num[i]);
+//	}
+//
+//	for (int i = 0; i < N;i++)
+//	{
+//		std::cout << ans[i] << " ";
+//	}std::cout << '\n';
+//}
 
-std::stack<int> arry;
+//4.
 
 int main()
 {
-	std::ios::sync_with_stdio(false);
-	std::cin.tie(NULL);
-	std::cout.tie(NULL);
+	int N{}, ans{};
+	int arry[100001];
+
+	std::stack<int> rect;
 
 	std::cin >> N;
 
-	for (int i = 0; i < N;i++)
+	for (int i = 1; i <= N; i++)
 	{
-		std::cin >> num[i];
-		count[num[i]]++;
+		std::cin >> arry[i];
 	}
 
-	for (int i = N - 1; i >= 0;i--)
+	rect.push(0);
+
+	for (int i = 0; i <= N + 1;i++)
 	{
-		while (!arry.empty() && count[arry.top()] <= count[num[i]])
+		while (!rect.empty() && arry[rect.top()] > arry[i])
 		{
-			arry.pop();
+			int check{ rect.top() };
+			rect.pop();
+			ans = std::max(ans, arry[check] * (i - rect.top() - 1));
 		}
 
-		if (arry.empty())
-		{
-			ans[i] = -1;
-		}
-
-		else
-		{
-			ans[i] = arry.top();
-		}
-
-		arry.push(num[i]);
+		rect.push(i);
 	}
 
-	for (int i = 0; i < N;i++)
-	{
-		std::cout << ans[i] << " ";
-	}std::cout << '\n';
+	std::cout << ans << '\n';
 }
