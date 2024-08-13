@@ -150,32 +150,77 @@
 
 //4.
 
+//int main()
+//{
+//	int N{}, ans{};
+//	int arry[100001];
+//
+//	std::stack<int> rect;
+//
+//	std::cin >> N;
+//
+//	for (int i = 1; i <= N; i++)
+//	{
+//		std::cin >> arry[i];
+//	}
+//
+//	rect.push(0);
+//
+//	for (int i = 0; i <= N + 1;i++)
+//	{
+//		while (!rect.empty() && arry[rect.top()] > arry[i])
+//		{
+//			int check{ rect.top() };
+//			rect.pop();
+//			ans = std::max(ans, arry[check] * (i - rect.top() - 1));
+//		}
+//
+//		rect.push(i);
+//	}
+//
+//	std::cout << ans << '\n';
+//}
+
+//5.
+
+int N{};
+long long ans{};
+
+std::stack<std::pair<int,int>> arry;
+
 int main()
 {
-	int N{}, ans{};
-	int arry[100001];
-
-	std::stack<int> rect;
+	std::ios::sync_with_stdio(false);
+	std::cin.tie(NULL);
+	std::cout.tie(NULL);
 
 	std::cin >> N;
 
-	for (int i = 1; i <= N; i++)
+	for (int i = 0; i < N; i++)
 	{
-		std::cin >> arry[i];
-	}
+		int x{};
+		int count{ 1 };
 
-	rect.push(0);
+		std::cin >> x;
 
-	for (int i = 0; i <= N + 1;i++)
-	{
-		while (!rect.empty() && arry[rect.top()] > arry[i])
+		while(!arry.empty() && arry.top().first <= x)
 		{
-			int check{ rect.top() };
-			rect.pop();
-			ans = std::max(ans, arry[check] * (i - rect.top() - 1));
+			ans += arry.top().second;
+
+			if (arry.top().first == x)
+			{
+				count += arry.top().second;
+			}
+
+			arry.pop();
 		}
 
-		rect.push(i);
+		if (!arry.empty())
+		{
+			ans++;
+		}
+
+		arry.push({x,count});
 	}
 
 	std::cout << ans << '\n';
