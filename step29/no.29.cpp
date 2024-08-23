@@ -175,63 +175,108 @@
 
 //4.
 
-int visited[100001]{ 0, };
-int result[100001]{};
+//int visited[100001]{ 0, };
+//int result[100001]{};
+//int count{};
+//
+//std::vector<int> graph[100001];
+//std::queue<int> q;
+//
+//void bfs(int a)
+//{
+//	q.push(a);
+//
+//	while (!q.empty())
+//	{
+//		int b = q.front();
+//
+//		q.pop();
+//
+//		visited[b] = 1;
+//		count++;
+//		result[b] = count;
+//
+//		for (int i = 0; i < graph[b].size();i++)
+//		{
+//			if (!visited[graph[b][i]])
+//			{
+//				visited[graph[b][i]] = 1;
+//				q.push(graph[b][i]);
+//			}
+//		}
+//	}
+//}
+//
+//int main()
+//{
+//	int N{}, M{}, R{};
+//
+//	std::cin >> N >> M >> R;
+//
+//	for (int i = 1;i <= M;i++)
+//	{
+//		int x{}, y{};
+//
+//		std::cin >> x >> y;
+//
+//		graph[x].push_back(y);
+//		graph[y].push_back(x);
+//	}
+//
+//	for (int i = 1;i <= N;i++)
+//	{
+//		std::sort(graph[i].begin(), graph[i].end(), std::greater<int>());
+//	}
+//
+//	bfs(R);
+//
+//	for (int i = 1;i <= N;i++)
+//	{
+//		std::cout << result[i] << '\n';
+//	}
+//}
+
+//5.
+
+int visited[101]{ 0, };
 int count{};
 
-std::vector<int> graph[100001];
-std::queue<int> q;
+std::vector<int> cpt[101];
 
-void bfs(int a)
+void virus(int a)
 {
-	q.push(a);
-
-	while (!q.empty())
+	if (visited[a] == 1)
 	{
-		int b = q.front();
-
-		q.pop();
-
-		visited[b] = 1;
-		count++;
-		result[b] = count;
-
-		for (int i = 0; i < graph[b].size();i++)
-		{
-			if (!visited[graph[b][i]])
-			{
-				visited[graph[b][i]] = 1;
-				q.push(graph[b][i]);
-			}
-		}
+		return;
 	}
+
+	visited[a] = 1;
+	count++;
+	
+	for (int i = 0; i < cpt[a].size();i++)
+	{
+		virus(cpt[a][i]);
+	}
+
 }
 
 int main()
 {
-	int N{}, M{}, R{};
+	int N{}, M{};
 
-	std::cin >> N >> M >> R;
+	std::cin >> N >> M;
 
-	for (int i = 1;i <= M;i++)
+	for (int i = 1; i <= M;i++)
 	{
 		int x{}, y{};
 
 		std::cin >> x >> y;
 
-		graph[x].push_back(y);
-		graph[y].push_back(x);
+		cpt[x].push_back(y);
+		cpt[y].push_back(x);
 	}
 
-	for (int i = 1;i <= N;i++)
-	{
-		std::sort(graph[i].begin(), graph[i].end(), std::greater<int>());
-	}
+	virus(1);
 
-	bfs(R);
-
-	for (int i = 1;i <= N;i++)
-	{
-		std::cout << result[i] << '\n';
-	}
+	std::cout << count - 1 << '\n';
 }
