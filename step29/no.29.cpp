@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include <queue>
+#include <string.h>
 
 //1.
 
@@ -238,12 +239,58 @@
 
 //5.
 
-int visited[101]{ 0, };
-int count{};
+//int visited[101]{ 0, };
+//int count{};
+//
+//std::vector<int> cpt[101];
+//
+//void virus(int a)
+//{
+//	if (visited[a] == 1)
+//	{
+//		return;
+//	}
+//
+//	visited[a] = 1;
+//	count++;
+//	
+//	for (int i = 0; i < cpt[a].size();i++)
+//	{
+//		virus(cpt[a][i]);
+//	}
+//
+//}
+//
+//int main()
+//{
+//	int N{}, M{};
+//
+//	std::cin >> N >> M;
+//
+//	for (int i = 1; i <= M;i++)
+//	{
+//		int x{}, y{};
+//
+//		std::cin >> x >> y;
+//
+//		cpt[x].push_back(y);
+//		cpt[y].push_back(x);
+//	}
+//
+//	virus(1);
+//
+//	std::cout << count - 1 << '\n';
+//}
 
-std::vector<int> cpt[101];
+//6.
 
-void virus(int a)
+int visited[1001]{ 0, };
+
+std::vector<int> Dresult;
+std::vector<int> Bresult;
+std::vector<int> graph[10001];
+
+void DFS(int a)
 {
 	if (visited[a] == 1)
 	{
@@ -251,20 +298,42 @@ void virus(int a)
 	}
 
 	visited[a] = 1;
-	count++;
-	
-	for (int i = 0; i < cpt[a].size();i++)
-	{
-		virus(cpt[a][i]);
-	}
+	Dresult.push_back(a);
 
+	for (int i = 0; i < graph[a].size();i++)
+	{
+		DFS(graph[a][i]);
+	}
+}
+
+void BFS(int a)
+{
+	std::queue<int> q;
+	q.push(a);
+	visited[a] = 1;
+
+	while (!q.empty())
+	{
+		int x = q.front();
+		q.pop();
+		Bresult.push_back(x);
+
+		for (int i = 0; i < graph[x].size(); i++)
+		{
+			if (!visited[graph[x][i]])
+			{
+				q.push(graph[x][i]);
+				visited[graph[x][i]] = 1;
+			}
+		}
+	}	
 }
 
 int main()
 {
-	int N{}, M{};
+	int N{}, M{}, R{};
 
-	std::cin >> N >> M;
+	std::cin >> N >> M >> R;
 
 	for (int i = 1; i <= M;i++)
 	{
@@ -272,11 +341,29 @@ int main()
 
 		std::cin >> x >> y;
 
-		cpt[x].push_back(y);
-		cpt[y].push_back(x);
+		graph[x].push_back(y);
+		graph[y].push_back(x);
 	}
 
-	virus(1);
+	for (int i = 1;i <= N;i++)
+	{
+		std::sort(graph[i].begin(), graph[i].end());
+	}
 
-	std::cout << count - 1 << '\n';
+	DFS(R);
+
+	memset(visited, 0, sizeof(visited));
+
+	BFS(R);
+
+	for (auto e : Dresult)
+	{
+		std::cout << e << " ";
+	}std::cout << '\n';
+
+	for (auto e : Bresult)
+	{
+		std::cout << e << " ";
+	}std::cout << '\n';
+
 }
