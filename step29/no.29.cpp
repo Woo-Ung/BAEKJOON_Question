@@ -284,86 +284,159 @@
 
 //6.
 
-int visited[1001]{ 0, };
+//int visited[1001]{ 0, };
+//
+//std::vector<int> Dresult;
+//std::vector<int> Bresult;
+//std::vector<int> graph[10001];
+//
+//void DFS(int a)
+//{
+//	if (visited[a] == 1)
+//	{
+//		return;
+//	}
+//
+//	visited[a] = 1;
+//	Dresult.push_back(a);
+//
+//	for (int i = 0; i < graph[a].size();i++)
+//	{
+//		DFS(graph[a][i]);
+//	}
+//}
+//
+//void BFS(int a)
+//{
+//	std::queue<int> q;
+//	q.push(a);
+//	visited[a] = 1;
+//
+//	while (!q.empty())
+//	{
+//		int x = q.front();
+//		q.pop();
+//		Bresult.push_back(x);
+//
+//		for (int i = 0; i < graph[x].size(); i++)
+//		{
+//			if (!visited[graph[x][i]])
+//			{
+//				q.push(graph[x][i]);
+//				visited[graph[x][i]] = 1;
+//			}
+//		}
+//	}	
+//}
+//
+//int main()
+//{
+//	int N{}, M{}, R{};
+//
+//	std::cin >> N >> M >> R;
+//
+//	for (int i = 1; i <= M;i++)
+//	{
+//		int x{}, y{};
+//
+//		std::cin >> x >> y;
+//
+//		graph[x].push_back(y);
+//		graph[y].push_back(x);
+//	}
+//
+//	for (int i = 1;i <= N;i++)
+//	{
+//		std::sort(graph[i].begin(), graph[i].end());
+//	}
+//
+//	DFS(R);
+//
+//	memset(visited, 0, sizeof(visited));
+//
+//	BFS(R);
+//
+//	for (auto e : Dresult)
+//	{
+//		std::cout << e << " ";
+//	}std::cout << '\n';
+//
+//	for (auto e : Bresult)
+//	{
+//		std::cout << e << " ";
+//	}std::cout << '\n';
+//
+//}
 
-std::vector<int> Dresult;
-std::vector<int> Bresult;
-std::vector<int> graph[10001];
+//7.
 
-void DFS(int a)
+int N{}, count{};
+std::string arry[26];
+int visited[26][26]{0,};
+
+int dx[4] = { 1,-1,0,0 };
+int dy[4] = { 0,0,1,-1 };
+
+std::vector<int> result;
+
+void bfs(int a, int b)
 {
-	if (visited[a] == 1)
-	{
-		return;
-	}
-
-	visited[a] = 1;
-	Dresult.push_back(a);
-
-	for (int i = 0; i < graph[a].size();i++)
-	{
-		DFS(graph[a][i]);
-	}
-}
-
-void BFS(int a)
-{
-	std::queue<int> q;
-	q.push(a);
-	visited[a] = 1;
+	std::queue<std::pair<int, int>> q;
+	q.push({ a, b });
+	visited[a][b] = 1;
+	count++;
 
 	while (!q.empty())
 	{
-		int x = q.front();
+		int x = q.front().first;
+		int y = q.front().second;
 		q.pop();
-		Bresult.push_back(x);
 
-		for (int i = 0; i < graph[x].size(); i++)
+		for (int i = 0;i < 4;i++)
 		{
-			if (!visited[graph[x][i]])
+			int nx = x + dx[i];
+			int ny = y + dy[i];
+
+			if (0 <= nx && 0 <= ny && nx < N && ny < N && visited[nx][ny] == 0 && arry[nx][ny] == '1')
 			{
-				q.push(graph[x][i]);
-				visited[graph[x][i]] = 1;
+				q.push({ nx,ny });
+				visited[nx][ny] = 1;
+				count++;
 			}
 		}
-	}	
+	}
+
+	result.push_back(count);
 }
 
 int main()
 {
-	int N{}, M{}, R{};
+	std::cin >> N;
 
-	std::cin >> N >> M >> R;
-
-	for (int i = 1; i <= M;i++)
-	{
-		int x{}, y{};
-
-		std::cin >> x >> y;
-
-		graph[x].push_back(y);
-		graph[y].push_back(x);
+	for (int i = 0;i < N;i++)
+	{		
+		std::cin >> arry[i];
 	}
 
-	for (int i = 1;i <= N;i++)
+	for (int i = 0; i < N;i++)
 	{
-		std::sort(graph[i].begin(), graph[i].end());
+		for (int j = 0; j < N;j++)
+		{
+			if (arry[i][j] == '1' && visited[i][j] == 0)
+			{
+				count = 0;
+				bfs(i, j);
+			}
+		}
 	}
 
-	DFS(R);
+	std::sort(result.begin(), result.end());
 
-	memset(visited, 0, sizeof(visited));
+	std::cout << result.size() << '\n';
 
-	BFS(R);
-
-	for (auto e : Dresult)
+	for (int i = 0; i < result.size();i++)
 	{
-		std::cout << e << " ";
-	}std::cout << '\n';
-
-	for (auto e : Bresult)
-	{
-		std::cout << e << " ";
-	}std::cout << '\n';
+		std::cout << result[i] << '\n';
+	}
 
 }
