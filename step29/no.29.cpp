@@ -370,19 +370,91 @@
 
 //7.
 
-int N{}, count{};
-std::string arry[26];
-int visited[26][26]{0,};
+//int N{}, count{};
+//std::string arry[26];
+//int visited[26][26]{0,};
+//
+//int dx[4] = { 1,-1,0,0 };
+//int dy[4] = { 0,0,1,-1 };
+//
+//std::vector<int> result;
+//
+//void bfs(int a, int b)
+//{
+//	std::queue<std::pair<int, int>> q;
+//	q.push({ a, b });
+//	visited[a][b] = 1;
+//	count++;
+//
+//	while (!q.empty())
+//	{
+//		int x = q.front().first;
+//		int y = q.front().second;
+//		q.pop();
+//
+//		for (int i = 0;i < 4;i++)
+//		{
+//			int nx = x + dx[i];
+//			int ny = y + dy[i];
+//
+//			if (0 <= nx && 0 <= ny && nx < N && ny < N && visited[nx][ny] == 0 && arry[nx][ny] == '1')
+//			{
+//				q.push({ nx,ny });
+//				visited[nx][ny] = 1;
+//				count++;
+//			}
+//		}
+//	}
+//
+//	result.push_back(count);
+//}
+//
+//int main()
+//{
+//	std::cin >> N;
+//
+//	for (int i = 0;i < N;i++)
+//	{		
+//		std::cin >> arry[i];
+//	}
+//
+//	for (int i = 0; i < N;i++)
+//	{
+//		for (int j = 0; j < N;j++)
+//		{
+//			if (arry[i][j] == '1' && visited[i][j] == 0)
+//			{
+//				count = 0;
+//				bfs(i, j);
+//			}
+//		}
+//	}
+//
+//	std::sort(result.begin(), result.end());
+//
+//	std::cout << result.size() << '\n';
+//
+//	for (int i = 0; i < result.size();i++)
+//	{
+//		std::cout << result[i] << '\n';
+//	}
+//
+//}
+
+//8.
+
+int T{}, N{}, M{}, K{}, count{};
+int field[51][51]{};
+int visited[51][51]{0,};
 
 int dx[4] = { 1,-1,0,0 };
 int dy[4] = { 0,0,1,-1 };
 
-std::vector<int> result;
-
 void bfs(int a, int b)
 {
 	std::queue<std::pair<int, int>> q;
-	q.push({ a, b });
+
+	q.push({ a,b });
 	visited[a][b] = 1;
 	count++;
 
@@ -397,46 +469,47 @@ void bfs(int a, int b)
 			int nx = x + dx[i];
 			int ny = y + dy[i];
 
-			if (0 <= nx && 0 <= ny && nx < N && ny < N && visited[nx][ny] == 0 && arry[nx][ny] == '1')
+			if (0 <= nx && 0 <= ny && nx < N && ny < M && visited[nx][ny] == 0 && field[nx][ny] == 1)
 			{
 				q.push({ nx,ny });
-				visited[nx][ny] = 1;
-				count++;
+				visited[nx][ny] = 1;				
 			}
 		}
 	}
-
-	result.push_back(count);
 }
 
 int main()
 {
-	std::cin >> N;
+	std::cin >> T;
 
-	for (int i = 0;i < N;i++)
-	{		
-		std::cin >> arry[i];
-	}
-
-	for (int i = 0; i < N;i++)
+	for (int z = 0;z < T;z++)
 	{
-		for (int j = 0; j < N;j++)
+		count = 0;
+		memset(field, 0, sizeof(field));
+		memset(visited, 0, sizeof(visited));
+
+		std::cin >> M >> N >> K;
+
+		for (int i = 0; i < K;i++)
 		{
-			if (arry[i][j] == '1' && visited[i][j] == 0)
+			int x{}, y{};
+
+			std::cin >> x >> y;
+
+			field[y][x] = 1;
+		}
+
+		for (int i = 0; i < N;i++)
+		{
+			for (int j = 0; j < M;j++)
 			{
-				count = 0;
-				bfs(i, j);
+				if (field[i][j] == 1 && visited[i][j] == 0)
+				{					
+					bfs(i, j);
+				}
 			}
 		}
+
+		std::cout << count << '\n';
 	}
-
-	std::sort(result.begin(), result.end());
-
-	std::cout << result.size() << '\n';
-
-	for (int i = 0; i < result.size();i++)
-	{
-		std::cout << result[i] << '\n';
-	}
-
 }
