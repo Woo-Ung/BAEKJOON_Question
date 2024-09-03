@@ -443,73 +443,129 @@
 
 //8.
 
-int T{}, N{}, M{}, K{}, count{};
-int field[51][51]{};
-int visited[51][51]{0,};
+//int T{}, N{}, M{}, K{}, count{};
+//int field[51][51]{};
+//int visited[51][51]{0,};
+//
+//int dx[4] = { 1,-1,0,0 };
+//int dy[4] = { 0,0,1,-1 };
+//
+//void bfs(int a, int b)
+//{
+//	std::queue<std::pair<int, int>> q;
+//
+//	q.push({ a,b });
+//	visited[a][b] = 1;
+//	count++;
+//
+//	while (!q.empty())
+//	{
+//		int x = q.front().first;
+//		int y = q.front().second;
+//		q.pop();
+//
+//		for (int i = 0;i < 4;i++)
+//		{
+//			int nx = x + dx[i];
+//			int ny = y + dy[i];
+//
+//			if (0 <= nx && 0 <= ny && nx < N && ny < M && visited[nx][ny] == 0 && field[nx][ny] == 1)
+//			{
+//				q.push({ nx,ny });
+//				visited[nx][ny] = 1;				
+//			}
+//		}
+//	}
+//}
+//
+//int main()
+//{
+//	std::cin >> T;
+//
+//	for (int z = 0;z < T;z++)
+//	{
+//		count = 0;
+//		memset(field, 0, sizeof(field));
+//		memset(visited, 0, sizeof(visited));
+//
+//		std::cin >> M >> N >> K;
+//
+//		for (int i = 0; i < K;i++)
+//		{
+//			int x{}, y{};
+//
+//			std::cin >> x >> y;
+//
+//			field[y][x] = 1;
+//		}
+//
+//		for (int i = 0; i < N;i++)
+//		{
+//			for (int j = 0; j < M;j++)
+//			{
+//				if (field[i][j] == 1 && visited[i][j] == 0)
+//				{					
+//					bfs(i, j);
+//				}
+//			}
+//		}
+//
+//		std::cout << count << '\n';
+//	}
+//}
+
+//9.
+
+int N{}, M{}, min{}, count{};
+int visited[101][101]{};
+int check[101][101]{};
 
 int dx[4] = { 1,-1,0,0 };
 int dy[4] = { 0,0,1,-1 };
 
+std::string board[101];
+
 void bfs(int a, int b)
 {
-	std::queue<std::pair<int, int>> q;
+	std::queue<std::pair<int,int>> q;
 
 	q.push({ a,b });
 	visited[a][b] = 1;
-	count++;
+	check[a][b]++;
 
 	while (!q.empty())
 	{
 		int x = q.front().first;
 		int y = q.front().second;
+
 		q.pop();
 
 		for (int i = 0;i < 4;i++)
-		{
+		{			
 			int nx = x + dx[i];
 			int ny = y + dy[i];
 
-			if (0 <= nx && 0 <= ny && nx < N && ny < M && visited[nx][ny] == 0 && field[nx][ny] == 1)
+			if (0 <= nx && 0 <= ny && nx < N && ny < M && board[nx][ny] == '1' && visited[nx][ny] == 0)
 			{
 				q.push({ nx,ny });
-				visited[nx][ny] = 1;				
-			}
+				visited[nx][ny] = 1;
+
+				check[nx][ny] = check[x][y] + 1;
+			}			
 		}
 	}
 }
 
 int main()
 {
-	std::cin >> T;
+	std::cin >> N >> M;
 
-	for (int z = 0;z < T;z++)
-	{
-		count = 0;
-		memset(field, 0, sizeof(field));
-		memset(visited, 0, sizeof(visited));
-
-		std::cin >> M >> N >> K;
-
-		for (int i = 0; i < K;i++)
-		{
-			int x{}, y{};
-
-			std::cin >> x >> y;
-
-			field[y][x] = 1;
-		}
-
-		for (int i = 0; i < N;i++)
-		{
-			for (int j = 0; j < M;j++)
-			{
-				if (field[i][j] == 1 && visited[i][j] == 0)
-				{					
-					bfs(i, j);
-				}
-			}
-		}
-
-		std::cout << count << '\n';
+	for (int i = 0;i < N;i++)
+	{	
+		std::cin >> board[i];
 	}
+
+	bfs(0, 0);
+
+	std::cout << check[N-1][M-1] << '\n';
 }
