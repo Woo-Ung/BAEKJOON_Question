@@ -516,56 +516,112 @@
 
 //9.
 
-int N{}, M{}, min{}, count{};
-int visited[101][101]{};
-int check[101][101]{};
+//int N{}, M{}, min{}, count{};
+//int visited[101][101]{};
+//int check[101][101]{};
+//
+//int dx[4] = { 1,-1,0,0 };
+//int dy[4] = { 0,0,1,-1 };
+//
+//std::string board[101];
+//
+//void bfs(int a, int b)
+//{
+//	std::queue<std::pair<int,int>> q;
+//
+//	q.push({ a,b });
+//	visited[a][b] = 1;
+//	check[a][b]++;
+//
+//	while (!q.empty())
+//	{
+//		int x = q.front().first;
+//		int y = q.front().second;
+//
+//		q.pop();
+//
+//		for (int i = 0;i < 4;i++)
+//		{			
+//			int nx = x + dx[i];
+//			int ny = y + dy[i];
+//
+//			if (0 <= nx && 0 <= ny && nx < N && ny < M && board[nx][ny] == '1' && visited[nx][ny] == 0)
+//			{
+//				q.push({ nx,ny });
+//				visited[nx][ny] = 1;
+//
+//				check[nx][ny] = check[x][y] + 1;
+//			}			
+//		}
+//	}
+//}
+//
+//int main()
+//{
+//	std::cin >> N >> M;
+//
+//	for (int i = 0;i < N;i++)
+//	{	
+//		std::cin >> board[i];
+//	}
+//
+//	bfs(0, 0);
+//
+//	std::cout << check[N-1][M-1] << '\n';
+//}
 
-int dx[4] = { 1,-1,0,0 };
-int dy[4] = { 0,0,1,-1 };
+//10.
 
-std::string board[101];
+int N{}, K{}, ans{};
+int visited[100001]{};
+int count[100001]{};
 
-void bfs(int a, int b)
+void bfs(int a)
 {
-	std::queue<std::pair<int,int>> q;
+	std::queue<int> q;
 
-	q.push({ a,b });
-	visited[a][b] = 1;
-	check[a][b]++;
-
+	q.push(a);
+	visited[a] = 1;
+	
 	while (!q.empty())
 	{
-		int x = q.front().first;
-		int y = q.front().second;
-
+		int x = q.front();
 		q.pop();
 
-		for (int i = 0;i < 4;i++)
-		{			
-			int nx = x + dx[i];
-			int ny = y + dy[i];
+		if (x == K)
+		{
+			ans = count[x];
+			break;
+		}
 
-			if (0 <= nx && 0 <= ny && nx < N && ny < M && board[nx][ny] == '1' && visited[nx][ny] == 0)
-			{
-				q.push({ nx,ny });
-				visited[nx][ny] = 1;
+		if (visited[x - 1] == 0 && x - 1 >= 0 && x - 1 <= 100000)
+		{
+			q.push(x - 1);
+			visited[x - 1] = 1;
+			count[x - 1] = count[x] + 1;
+		}
 
-				check[nx][ny] = check[x][y] + 1;
-			}			
+		if (visited[x+1] == 0 && x + 1 >= 0 && x + 1 <= 100000)
+		{
+			q.push(x + 1);
+			visited[x + 1] = 1;
+			count[x + 1] = count[x] + 1;
+		}
+
+		if (visited[x * 2] == 0 && x * 2 >= 0 && x * 2 <= 100000)
+		{
+			q.push(x * 2);
+			visited[x * 2] = 1;
+			count[x * 2] = count[x] + 1;
 		}
 	}
 }
 
 int main()
 {
-	std::cin >> N >> M;
+	std::cin >> N >> K;
 
-	for (int i = 0;i < N;i++)
-	{	
-		std::cin >> board[i];
-	}
+	bfs(N);
 
-	bfs(0, 0);
-
-	std::cout << check[N-1][M-1] << '\n';
+	std::cout << ans << '\n';
 }
