@@ -572,56 +572,129 @@
 
 //10.
 
-int N{}, K{}, ans{};
-int visited[100001]{};
-int count[100001]{};
+//int N{}, K{}, ans{};
+//int visited[100001]{};
+//int count[100001]{};
+//
+//void bfs(int a)
+//{
+//	std::queue<int> q;
+//
+//	q.push(a);
+//	visited[a] = 1;
+//	
+//	while (!q.empty())
+//	{
+//		int x = q.front();
+//		q.pop();
+//
+//		if (x == K)
+//		{
+//			ans = count[x];
+//			break;
+//		}
+//
+//		if (visited[x - 1] == 0 && x - 1 >= 0 && x - 1 <= 100000)
+//		{
+//			q.push(x - 1);
+//			visited[x - 1] = 1;
+//			count[x - 1] = count[x] + 1;
+//		}
+//
+//		if (visited[x+1] == 0 && x + 1 >= 0 && x + 1 <= 100000)
+//		{
+//			q.push(x + 1);
+//			visited[x + 1] = 1;
+//			count[x + 1] = count[x] + 1;
+//		}
+//
+//		if (visited[x * 2] == 0 && x * 2 >= 0 && x * 2 <= 100000)
+//		{
+//			q.push(x * 2);
+//			visited[x * 2] = 1;
+//			count[x * 2] = count[x] + 1;
+//		}
+//	}
+//}
+//
+//int main()
+//{
+//	std::cin >> N >> K;
+//
+//	bfs(N);
+//
+//	std::cout << ans << '\n';
+//}
 
-void bfs(int a)
+//11.
+
+int L{};
+int start[2]{}, end[2]{};
+int visited[301][301]{}, count[301][301]{};
+
+int dx[8]{ 2,2,-2,-2,1,-1,1,-1 };
+int dy[8]{ 1,-1,1,-1,-2,-2,2,2 };
+
+void bfs(int a, int b)
 {
-	std::queue<int> q;
+	std::queue<std::pair<int, int>> q;
 
-	q.push(a);
-	visited[a] = 1;
+	q.push({ a,b });
+	visited[a][b] = 1;
 	
 	while (!q.empty())
 	{
-		int x = q.front();
+		int x = q.front().first;
+		int y = q.front().second;
+
 		q.pop();
-
-		if (x == K)
+	
+		for (int i = 0;i < 8;i++)
 		{
-			ans = count[x];
-			break;
-		}
+			int nx = x + dx[i];
+			int ny = y + dy[i];
 
-		if (visited[x - 1] == 0 && x - 1 >= 0 && x - 1 <= 100000)
-		{
-			q.push(x - 1);
-			visited[x - 1] = 1;
-			count[x - 1] = count[x] + 1;
-		}
+			if (nx == end[0] && ny == end[1])
+			{
+				count[nx][ny] = count[x][y] + 1;
+				return;
+			}
 
-		if (visited[x+1] == 0 && x + 1 >= 0 && x + 1 <= 100000)
-		{
-			q.push(x + 1);
-			visited[x + 1] = 1;
-			count[x + 1] = count[x] + 1;
-		}
-
-		if (visited[x * 2] == 0 && x * 2 >= 0 && x * 2 <= 100000)
-		{
-			q.push(x * 2);
-			visited[x * 2] = 1;
-			count[x * 2] = count[x] + 1;
+			if (nx >= 0 && ny >= 0 && nx < L && ny < L && visited[nx][ny] == 0)
+			{
+				q.push({ nx,ny });
+				visited[nx][ny] = 1;
+				count[nx][ny] = count[x][y] + 1;
+			}
 		}
 	}
 }
 
 int main()
 {
-	std::cin >> N >> K;
+	int N{};
 
-	bfs(N);
+	std::cin >> N;
 
-	std::cout << ans << '\n';
+	for (int i = 0;i < N;i++)
+	{
+		memset(visited, 0, sizeof(visited));
+		memset(count, 0, sizeof(count));
+
+		std::cin >> L;
+		std::cin >> start[0] >> start[1];
+		std::cin >> end[0] >> end[1];
+
+		if (start[0] == end[0] && start[1] == end[1])
+		{
+			std::cout << 0 << '\n';
+		}
+		
+		else
+		{
+			bfs(start[0], start[1]);
+
+			std::cout << count[end[0]][end[1]] << '\n';
+		}
+	}
 }
