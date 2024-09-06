@@ -628,73 +628,141 @@
 
 //11.
 
-int L{};
-int start[2]{}, end[2]{};
-int visited[301][301]{}, count[301][301]{};
+//int L{};
+//int start[2]{}, end[2]{};
+//int visited[301][301]{}, count[301][301]{};
+//
+//int dx[8]{ 2,2,-2,-2,1,-1,1,-1 };
+//int dy[8]{ 1,-1,1,-1,-2,-2,2,2 };
+//
+//void bfs(int a, int b)
+//{
+//	std::queue<std::pair<int, int>> q;
+//
+//	q.push({ a,b });
+//	visited[a][b] = 1;
+//	
+//	while (!q.empty())
+//	{
+//		int x = q.front().first;
+//		int y = q.front().second;
+//
+//		q.pop();
+//	
+//		for (int i = 0;i < 8;i++)
+//		{
+//			int nx = x + dx[i];
+//			int ny = y + dy[i];
+//
+//			if (nx == end[0] && ny == end[1])
+//			{
+//				count[nx][ny] = count[x][y] + 1;
+//				return;
+//			}
+//
+//			if (nx >= 0 && ny >= 0 && nx < L && ny < L && visited[nx][ny] == 0)
+//			{
+//				q.push({ nx,ny });
+//				visited[nx][ny] = 1;
+//				count[nx][ny] = count[x][y] + 1;
+//			}
+//		}
+//	}
+//}
+//
+//int main()
+//{
+//	int N{};
+//
+//	std::cin >> N;
+//
+//	for (int i = 0;i < N;i++)
+//	{
+//		memset(visited, 0, sizeof(visited));
+//		memset(count, 0, sizeof(count));
+//
+//		std::cin >> L;
+//		std::cin >> start[0] >> start[1];
+//		std::cin >> end[0] >> end[1];
+//
+//		if (start[0] == end[0] && start[1] == end[1])
+//		{
+//			std::cout << 0 << '\n';
+//		}
+//		
+//		else
+//		{
+//			bfs(start[0], start[1]);
+//
+//			std::cout << count[end[0]][end[1]] << '\n';
+//		}
+//	}
+//}
 
-int dx[8]{ 2,2,-2,-2,1,-1,1,-1 };
-int dy[8]{ 1,-1,1,-1,-2,-2,2,2 };
+//12.
 
-void bfs(int a, int b)
+int N{}, M{}, max{};
+int visited[1001][1001]{};
+int count[1001][1001]{};
+
+int dx[4]{ 1,-1,0,0 };
+int dy[4]{ 0,0,-1,1 };
+
+std::queue<std::pair<int,int>> q;
+
+void bfs()
 {
-	std::queue<std::pair<int, int>> q;
-
-	q.push({ a,b });
-	visited[a][b] = 1;
-	
 	while (!q.empty())
 	{
 		int x = q.front().first;
 		int y = q.front().second;
-
 		q.pop();
-	
-		for (int i = 0;i < 8;i++)
+
+		for (int i = 0;i < 4;i++)
 		{
 			int nx = x + dx[i];
 			int ny = y + dy[i];
 
-			if (nx == end[0] && ny == end[1])
-			{
-				count[nx][ny] = count[x][y] + 1;
-				return;
-			}
-
-			if (nx >= 0 && ny >= 0 && nx < L && ny < L && visited[nx][ny] == 0)
+			if (nx >= 0 && ny >= 0 && nx < N && ny < M && visited[nx][ny] == 0)
 			{
 				q.push({ nx,ny });
 				visited[nx][ny] = 1;
 				count[nx][ny] = count[x][y] + 1;
+				max = std::max(max, count[nx][ny]);
 			}
+		}
+	}
+
+	for (int i = 0;i < N;i++)
+	{
+		for (int j = 0;j < M;j++)
+		{
+			if (visited[i][j] == 0)
+			{
+				max = -1;
+				break;
+			}			
 		}
 	}
 }
 
 int main()
 {
-	int N{};
-
-	std::cin >> N;
+	std::cin >> M >> N;
 
 	for (int i = 0;i < N;i++)
 	{
-		memset(visited, 0, sizeof(visited));
-		memset(count, 0, sizeof(count));
-
-		std::cin >> L;
-		std::cin >> start[0] >> start[1];
-		std::cin >> end[0] >> end[1];
-
-		if (start[0] == end[0] && start[1] == end[1])
+		for (int j = 0;j < M;j++)
 		{
-			std::cout << 0 << '\n';
-		}
-		
-		else
-		{
-			bfs(start[0], start[1]);
-
-			std::cout << count[end[0]][end[1]] << '\n';
+			std::cin >> visited[i][j];
+			if (visited[i][j] == 1)
+			{
+				q.push({ i,j });				
+			}
 		}
 	}
+
+	bfs();
+
+	std::cout << max << '\n';
 }
