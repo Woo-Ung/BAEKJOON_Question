@@ -701,63 +701,142 @@
 
 //12.
 
-int N{}, M{}, max{};
-int visited[1001][1001]{};
-int count[1001][1001]{};
+//int N{}, M{}, max{};
+//int visited[1001][1001]{};
+//int count[1001][1001]{};
+//
+//int dx[4]{ 1,-1,0,0 };
+//int dy[4]{ 0,0,-1,1 };
+//
+//std::queue<std::pair<int,int>> q;
+//
+//void bfs()
+//{
+//	while (!q.empty())
+//	{
+//		int x = q.front().first;
+//		int y = q.front().second;
+//		q.pop();
+//
+//		for (int i = 0;i < 4;i++)
+//		{
+//			int nx = x + dx[i];
+//			int ny = y + dy[i];
+//
+//			if (nx >= 0 && ny >= 0 && nx < N && ny < M && visited[nx][ny] == 0)
+//			{
+//				q.push({ nx,ny });
+//				visited[nx][ny] = 1;
+//				count[nx][ny] = count[x][y] + 1;
+//				max = std::max(max, count[nx][ny]);
+//			}
+//		}
+//	}
+//
+//	for (int i = 0;i < N;i++)
+//	{
+//		for (int j = 0;j < M;j++)
+//		{
+//			if (visited[i][j] == 0)
+//			{
+//				max = -1;
+//				break;
+//			}			
+//		}
+//	}
+//}
+//
+//int main()
+//{
+//	std::cin >> M >> N;
+//
+//	for (int i = 0;i < N;i++)
+//	{
+//		for (int j = 0;j < M;j++)
+//		{
+//			std::cin >> visited[i][j];
+//			if (visited[i][j] == 1)
+//			{
+//				q.push({ i,j });				
+//			}
+//		}
+//	}
+//
+//	bfs();
+//
+//	std::cout << max << '\n';
+//}
 
-int dx[4]{ 1,-1,0,0 };
-int dy[4]{ 0,0,-1,1 };
+//13.
 
-std::queue<std::pair<int,int>> q;
+int N{}, M{}, H{}, max{};
+int visited[101][101][101]{};
+int count[101][101][101]{};
+
+int dx[6]{ 1,-1,0,0,0,0 };
+int dy[6]{ 0,0,-1,1,0,0 };
+int dz[6]{ 0,0,0,0,1,-1 };
+
+std::queue<std::pair<int,std::pair<int, int>>> q;
 
 void bfs()
 {
 	while (!q.empty())
 	{
-		int x = q.front().first;
-		int y = q.front().second;
+		int z = q.front().first;
+		int x = q.front().second.first;
+		int y = q.front().second.second;
 		q.pop();
 
-		for (int i = 0;i < 4;i++)
+			
+		for (int i = 0;i < 6;i++)
 		{
 			int nx = x + dx[i];
 			int ny = y + dy[i];
+			int nz = z + dz[i];
 
-			if (nx >= 0 && ny >= 0 && nx < N && ny < M && visited[nx][ny] == 0)
+			if (nx >= 0 && ny >= 0 && nz >= 0 && nz < H && nx < N && ny < M && visited[nz][nx][ny] == 0)
 			{
-				q.push({ nx,ny });
-				visited[nx][ny] = 1;
-				count[nx][ny] = count[x][y] + 1;
-				max = std::max(max, count[nx][ny]);
+				q.push({ nz,{ nx,ny } });
+				visited[nz][nx][ny] = 1;
+				count[nz][nx][ny] = count[z][x][y] + 1;
+				max = std::max(max, count[nz][nx][ny]);
 			}
 		}
+		
 	}
 
-	for (int i = 0;i < N;i++)
+	for (int k = 0; k < H;k++)
 	{
-		for (int j = 0;j < M;j++)
+		for (int i = 0;i < N;i++)
 		{
-			if (visited[i][j] == 0)
+			for (int j = 0;j < M;j++)
 			{
-				max = -1;
-				break;
-			}			
+				if (visited[k][i][j] == 0)
+				{
+					max = -1;
+					break;
+				}
+			}
 		}
 	}
 }
 
 int main()
 {
-	std::cin >> M >> N;
+	std::cin >> M >> N >> H;
 
-	for (int i = 0;i < N;i++)
+	for (int k = 0; k < H;k++)
 	{
-		for (int j = 0;j < M;j++)
+		for (int i = 0;i < N;i++)
 		{
-			std::cin >> visited[i][j];
-			if (visited[i][j] == 1)
+			for (int j = 0;j < M;j++)
 			{
-				q.push({ i,j });				
+				std::cin >> visited[k][i][j];
+				if (visited[k][i][j] == 1)
+				{
+					q.push({ k,{ i,j } });
+				}
 			}
 		}
 	}
