@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <queue>
 #include <string.h>
+#include <map>
 
 //1.
 
@@ -769,79 +770,169 @@
 
 //13.
 
-int N{}, M{}, H{}, max{};
-int visited[101][101][101]{};
-int count[101][101][101]{};
+//int N{}, M{}, H{}, max{};
+//int visited[101][101][101]{};
+//int count[101][101][101]{};
+//
+//int dx[6]{ 1,-1,0,0,0,0 };
+//int dy[6]{ 0,0,-1,1,0,0 };
+//int dz[6]{ 0,0,0,0,1,-1 };
+//
+//std::queue<std::pair<int,std::pair<int, int>>> q;
+//
+//void bfs()
+//{
+//	while (!q.empty())
+//	{
+//		int z = q.front().first;
+//		int x = q.front().second.first;
+//		int y = q.front().second.second;
+//		q.pop();
+//
+//			
+//		for (int i = 0;i < 6;i++)
+//		{
+//			int nx = x + dx[i];
+//			int ny = y + dy[i];
+//			int nz = z + dz[i];
+//
+//			if (nx >= 0 && ny >= 0 && nz >= 0 && nz < H && nx < N && ny < M && visited[nz][nx][ny] == 0)
+//			{
+//				q.push({ nz,{ nx,ny } });
+//				visited[nz][nx][ny] = 1;
+//				count[nz][nx][ny] = count[z][x][y] + 1;
+//				max = std::max(max, count[nz][nx][ny]);
+//			}
+//		}
+//		
+//	}
+//
+//	for (int k = 0; k < H;k++)
+//	{
+//		for (int i = 0;i < N;i++)
+//		{
+//			for (int j = 0;j < M;j++)
+//			{
+//				if (visited[k][i][j] == 0)
+//				{
+//					max = -1;
+//					break;
+//				}
+//			}
+//		}
+//	}
+//}
+//
+//int main()
+//{
+//	std::cin >> M >> N >> H;
+//
+//	for (int k = 0; k < H;k++)
+//	{
+//		for (int i = 0;i < N;i++)
+//		{
+//			for (int j = 0;j < M;j++)
+//			{
+//				std::cin >> visited[k][i][j];
+//				if (visited[k][i][j] == 1)
+//				{
+//					q.push({ k,{ i,j } });
+//				}
+//			}
+//		}
+//	}
+//
+//	bfs();
+//
+//	std::cout << max << '\n';
+//}
 
-int dx[6]{ 1,-1,0,0,0,0 };
-int dy[6]{ 0,0,-1,1,0,0 };
-int dz[6]{ 0,0,0,0,1,-1 };
+//14.
 
-std::queue<std::pair<int,std::pair<int, int>>> q;
+int N{}, M{};
 
-void bfs()
+int visited[101]{};
+int board[101]{};
+int count[101]{};
+std::map<int, int> ladder;
+std::map<int, int> snake;
+
+void bfs(int a)
 {
+	std::queue<int> q;
+
+	q.push(a);
+	visited[a] = 1;
+
 	while (!q.empty())
 	{
-		int z = q.front().first;
-		int x = q.front().second.first;
-		int y = q.front().second.second;
+		int x = q.front();
 		q.pop();
 
-			
-		for (int i = 0;i < 6;i++)
+		for (int i = 1;i <= 6;i++)
 		{
-			int nx = x + dx[i];
-			int ny = y + dy[i];
-			int nz = z + dz[i];
+			int dx = x + i;
 
-			if (nx >= 0 && ny >= 0 && nz >= 0 && nz < H && nx < N && ny < M && visited[nz][nx][ny] == 0)
+			if (dx == 100)
 			{
-				q.push({ nz,{ nx,ny } });
-				visited[nz][nx][ny] = 1;
-				count[nz][nx][ny] = count[z][x][y] + 1;
-				max = std::max(max, count[nz][nx][ny]);
+				count[dx] = count[x] + 1;
+				return;
 			}
-		}
-		
-	}
-
-	for (int k = 0; k < H;k++)
-	{
-		for (int i = 0;i < N;i++)
-		{
-			for (int j = 0;j < M;j++)
+			if (dx > 100)
 			{
-				if (visited[k][i][j] == 0)
-				{
-					max = -1;
-					break;
-				}
+				break;
+			}
+				
+			if (ladder[dx] && visited[ladder[dx]] == 0)
+			{
+				q.push(ladder[dx]);
+				visited[ladder[dx]] = 1;
+				count[ladder[dx]] = count[x] + 1;
+				continue;
+			}
+			if (snake[dx] && visited[snake[dx]] == 0)
+			{
+				q.push(snake[dx]);
+				visited[snake[dx]] = 1;
+				count[snake[dx]] = count[x] + 1;
+				continue;
+			}			
+
+			else if (visited[dx] == 0 && !snake[dx] && !ladder[dx])
+			{
+				q.push(dx);
+				visited[dx] = 1;
+				count[dx] = count[x] + 1;
+				continue;
 			}
 		}
 	}
 }
 
+
 int main()
 {
-	std::cin >> M >> N >> H;
+	std::cin >> N >> M;
 
-	for (int k = 0; k < H;k++)
+	for (int i = 0;i < N;i++)
 	{
-		for (int i = 0;i < N;i++)
-		{
-			for (int j = 0;j < M;j++)
-			{
-				std::cin >> visited[k][i][j];
-				if (visited[k][i][j] == 1)
-				{
-					q.push({ k,{ i,j } });
-				}
-			}
-		}
+		int x{}, y{};
+
+		std::cin >> x >> y;
+
+		ladder[x] = y;
 	}
 
-	bfs();
+	for (int i = 0;i < M;i++)
+	{
+		int x{}, y{};
 
-	std::cout << max << '\n';
+		std::cin >> x >> y;
+
+		snake[x] = y;
+	}
+
+	bfs(1);
+
+	std::cout << count[100] << '\n';
 }
