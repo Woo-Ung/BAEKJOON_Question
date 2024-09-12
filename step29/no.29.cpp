@@ -939,74 +939,163 @@
 
 //15.
 
-int N{}, M{}, min{1000001};
+//int N{}, M{}, min{1000001};
+//
+//std::string map[1001];
+//int visited[1001][1001][2]{};
+//int count[1001][1001][2]{};
+//
+//int dx[4] = { -1,1,0,0 };
+//int dy[4] = { 0,0,-1,1 };
+//
+//void bfs(int a, int b)
+//{
+//	std::queue<std::pair<std::pair<int,int>,int>> q;
+//
+//	q.push({{ a,b },0});
+//	visited[a][b][0] = 1;
+//	count[a][b][0] = 1;
+//
+//	while (!q.empty())
+//	{
+//		int x = q.front().first.first;
+//		int y = q.front().first.second;
+//		int z = q.front().second;
+//
+//		q.pop();
+//
+//		if (x == N-1 && y == M-1)
+//		{
+//			min = std::min(min, count[x][y][z]);
+//			return;
+//		}
+//
+//		for (int i = 0; i < 4; i++)
+//		{
+//			int nx = x + dx[i];
+//			int ny = y + dy[i];
+//
+//			if (nx >= 0 && ny >= 0 && nx < N && ny < M)
+//			{
+//				if (visited[nx][ny][z] == 0 && map[nx][ny] == '0')
+//				{
+//					q.push({{ nx,ny },z});
+//					visited[nx][ny][z] = 1;
+//					count[nx][ny][z] = count[x][y][z] + 1;
+//				}
+//
+//				if (z == 0 && map[nx][ny] == '1')
+//				{
+//					visited[nx][ny][1] = 1;
+//					count[nx][ny][1] = count[x][y][z] + 1;
+//					q.push({ {nx,ny},1 });
+//				}
+//			}
+//		}
+//	}
+//	
+//	min = -1;
+//}
+//
+//int main()
+//{
+//	std::cin >> N >> M;
+//
+//	for (int i = 0; i < N; i++)
+//	{
+//		std::cin >> map[i];
+//	}
+//
+//	bfs(0, 0);
+//
+//	std::cout << min << '\n';
+//}
 
-std::string map[1001];
-int visited[1001][1001][2]{};
-int count[1001][1001][2]{};
+//16.
 
-int dx[4] = { -1,1,0,0 };
-int dy[4] = { 0,0,-1,1 };
+int K{}, V{}, E{};
+std::vector<int> graph[20001];
+int visited[20001];
 
-void bfs(int a, int b)
+void bfs(int a)
 {
-	std::queue<std::pair<std::pair<int,int>,int>> q;
+	std::queue<int> q;
 
-	q.push({{ a,b },0});
-	visited[a][b][0] = 1;
-	count[a][b][0] = 1;
+	visited[a] = 1;
+	q.push(a);
 
 	while (!q.empty())
 	{
-		int x = q.front().first.first;
-		int y = q.front().first.second;
-		int z = q.front().second;
-
+		int x = q.front();
 		q.pop();
 
-		if (x == N-1 && y == M-1)
+		for (int i = 0; i < graph[x].size();i++)
 		{
-			min = std::min(min, count[x][y][z]);
-			return;
-		}
-
-		for (int i = 0; i < 4; i++)
-		{
-			int nx = x + dx[i];
-			int ny = y + dy[i];
-
-			if (nx >= 0 && ny >= 0 && nx < N && ny < M)
+			if (visited[graph[x][i]] == 0)
 			{
-				if (visited[nx][ny][z] == 0 && map[nx][ny] == '0')
+				q.push(graph[x][i]);
+
+				if (visited[x] == 1)
 				{
-					q.push({{ nx,ny },z});
-					visited[nx][ny][z] = 1;
-					count[nx][ny][z] = count[x][y][z] + 1;
+					visited[graph[x][i]] = 2;
 				}
 
-				if (z == 0 && map[nx][ny] == '1')
+				else if (visited[x] == 2)
 				{
-					visited[nx][ny][1] = 1;
-					count[nx][ny][1] = count[x][y][z] + 1;
-					q.push({ {nx,ny},1 });
+					visited[graph[x][i]] = 1;
 				}
+
 			}
 		}
 	}
-	
-	min = -1;
+}
+
+void check()
+{
+	for (int i = 1;i <= V;i++)
+	{
+		for (int j = 0; j < graph[i].size();j++)
+		{
+			if (visited[i] == visited[graph[i][j]])
+			{
+				std::cout << "NO" << '\n';
+				return;
+			}
+		}
+	}
+	std::cout << "YES" << '\n';
+	return;
 }
 
 int main()
 {
-	std::cin >> N >> M;
+	std::cin >> K;
 
-	for (int i = 0; i < N; i++)
-	{
-		std::cin >> map[i];
+	for (int z = 0; z < K;z++)
+	{		
+		std::cin >> V >> E;
+
+		for (int i = 0; i < E; i++)
+		{
+			int x{}, y{};
+
+			std::cin >> x >> y;
+
+			graph[x].push_back(y);
+			graph[y].push_back(x);
+		}
+
+		for (int i = 1;i <= V;i++)
+		{
+			if (visited[i] == 0)
+			{
+				bfs(i);
+			}
+		}
+
+		check();
+
+		memset(graph, 0, sizeof(graph));
+		memset(visited, 0, sizeof(visited));
 	}
-
-	bfs(0, 0);
-
-	std::cout << min << '\n';
 }
