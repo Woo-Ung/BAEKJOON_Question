@@ -70,84 +70,136 @@
 
 //2.
 
-int N{}, E{}, INF{ 9999999 };
-int dp[801]{};
+//int N{}, E{}, INF{ 9999999 };
+//int dp[801]{};
+//
+//std::vector<std::pair<int, int>> graph[801];
+//
+//void bfs(int a)
+//{
+//	memset(dp,INF, sizeof(dp));
+//
+//	std::priority_queue<std::pair<int, int>, std::vector<std::pair<int,int>>, std::greater<std::pair<int,int>>> q;
+//
+//	q.push({ 0, a });
+//	dp[a] = 0;
+//
+//	
+//	while (!q.empty())
+//	{
+//		int sum = q.top().first;
+//		int x = q.top().second;
+//		q.pop();
+//
+//		if (dp[x] < sum)
+//		{
+//			continue;
+//		}
+//
+//		for (int i = 0; i < graph[x].size(); i++)
+//		{
+//			int nx = graph[x][i].first;
+//			int ncost = sum + graph[x][i].second;
+//
+//			if (dp[nx] > ncost)
+//			{
+//				q.push({ ncost, nx });
+//				dp[nx] = ncost;
+//			}
+//		}
+//	}
+//}
+//
+//
+//int main()
+//{
+//	std::cin >> N >> E;
+//
+//	for (int i = 0;i < E;i++)
+//	{
+//		int x{}, y{}, z{};
+//		std::cin >> x >> y >> z;
+//
+//		graph[x].push_back({ y,z });
+//		graph[y].push_back({ x,z });
+//	}
+//	int V1{}, V2{};
+//	std::cin >> V1 >> V2;
+//
+//	bfs(1);
+//	int toV1 = dp[V1];
+//	int toV2 = dp[V2];
+//
+//	bfs(V1);
+//	int V1toV2 = dp[V2];
+//	int V1toN = dp[N];
+//
+//	bfs(V2);
+//	int V2toN = dp[N];
+//
+//	int ans{};
+//
+//	ans = std::min(INF, toV1 + V1toV2 + V2toN);
+//	ans = std::min(ans, toV2 + V1toV2 + V1toN);
+//
+//	if (ans >= INF)
+//	{
+//		std::cout << -1 << '\n';
+//	}
+//	else
+//	{
+//		std::cout << ans << '\n';
+//	}
+//}
 
-std::vector<std::pair<int, int>> graph[801];
+//3.
+
+int N{}, K{}, ans{};
+int visited[100001]{};
 
 void bfs(int a)
 {
-	memset(dp,INF, sizeof(dp));
+	std::priority_queue<std::pair<int, int>,std::vector<std::pair<int,int>>,std::greater<std::pair<int,int>>> q;
+	q.push({ 0,a });
 
-	std::priority_queue<std::pair<int, int>, std::vector<std::pair<int,int>>, std::greater<std::pair<int,int>>> q;
-
-	q.push({ 0, a });
-	dp[a] = 0;
-
-	
 	while (!q.empty())
 	{
-		int sum = q.top().first;
+		int time = q.top().first;
 		int x = q.top().second;
+
 		q.pop();
 
-		if (dp[x] < sum)
+		if (x == K)
 		{
-			continue;
+			ans = time;
+			return;
 		}
 
-		for (int i = 0; i < graph[x].size(); i++)
+		if (x * 2 < 100001 && visited[x*2] == 0)
 		{
-			int nx = graph[x][i].first;
-			int ncost = sum + graph[x][i].second;
+			q.push({ time,x * 2 });
+			visited[x * 2] = 1;
+		}
 
-			if (dp[nx] > ncost)
-			{
-				q.push({ ncost, nx });
-				dp[nx] = ncost;
-			}
+		if (x + 1 < 100001 && visited[x + 1] == 0)
+		{
+			q.push({ time + 1,x + 1 });
+			visited[x + 1] = 1;
+		}
+
+		if (x - 1 >= 0 && visited[x - 1] == 0)
+		{
+			q.push({ time + 1,x - 1 });
+			visited[x - 1] = 1;
 		}
 	}
 }
 
-
 int main()
 {
-	std::cin >> N >> E;
+	std::cin >> N >> K;
 
-	for (int i = 0;i < E;i++)
-	{
-		int x{}, y{}, z{};
-		std::cin >> x >> y >> z;
+	bfs(N);
 
-		graph[x].push_back({ y,z });
-		graph[y].push_back({ x,z });
-	}
-	int V1{}, V2{};
-	std::cin >> V1 >> V2;
-
-	bfs(1);
-	int toV1 = dp[V1];
-	int toV2 = dp[V2];
-
-	bfs(V1);
-	int V1toV2 = dp[V2];
-	int V1toN = dp[N];
-
-	bfs(V2);
-	int V2toN = dp[N];
-
-	int ans{};
-
-	ans = std::min(INF, toV1 + V1toV2 + V2toN);
-	ans = std::min(ans, toV2 + V1toV2 + V1toN);
-
-	if (ans >= INF)
-	{
-		std::cout << -1 << '\n';
-	}
-	else
-	{
-		std::cout << ans << '\n';
-	}
+	std::cout << ans << '\n';
 }
