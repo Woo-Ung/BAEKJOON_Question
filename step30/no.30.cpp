@@ -2,6 +2,7 @@
 #include <vector>
 #include <queue>
 #include <cstring>
+#include <algorithm>
 
 //1.
 
@@ -154,52 +155,154 @@
 
 //3.
 
-int N{}, K{}, ans{};
-int visited[100001]{};
+//int N{}, K{}, ans{};
+//int visited[100001]{};
+//
+//void bfs(int a)
+//{
+//	std::priority_queue<std::pair<int, int>,std::vector<std::pair<int,int>>,std::greater<std::pair<int,int>>> q;
+//	q.push({ 0,a });
+//
+//	while (!q.empty())
+//	{
+//		int time = q.top().first;
+//		int x = q.top().second;
+//
+//		q.pop();
+//
+//		if (x == K)
+//		{
+//			ans = time;
+//			return;
+//		}
+//
+//		if (x * 2 < 100001 && visited[x*2] == 0)
+//		{
+//			q.push({ time,x * 2 });
+//			visited[x * 2] = 1;
+//		}
+//
+//		if (x + 1 < 100001 && visited[x + 1] == 0)
+//		{
+//			q.push({ time + 1,x + 1 });
+//			visited[x + 1] = 1;
+//		}
+//
+//		if (x - 1 >= 0 && visited[x - 1] == 0)
+//		{
+//			q.push({ time + 1,x - 1 });
+//			visited[x - 1] = 1;
+//		}
+//	}
+//}
+//
+//int main()
+//{
+//	std::cin >> N >> K;
+//
+//	bfs(N);
+//
+//	std::cout << ans << '\n';
+//}
 
-void bfs(int a)
+//4.
+
+#define INF 9999999
+
+int N{}, M{}, T{}, S{}, G{}, H{}, Dist_GH{};
+
+int Dist_S[2001]{};
+int Dist_G[2001]{};
+int Dist_H[2001]{};
+
+std::vector<std::pair<int, int>> V[2001];
+std::vector<int> C;
+
+void bfs(int start, int* a)
 {
-	std::priority_queue<std::pair<int, int>,std::vector<std::pair<int,int>>,std::greater<std::pair<int,int>>> q;
-	q.push({ 0,a });
+	std::priority_queue<std::pair<int, int>> q;
+	q.push({ 0,start });
+	a[start] = 0;
 
-	while (!q.empty())
+	while(!q.empty())
 	{
-		int time = q.top().first;
-		int x = q.top().second;
-
+		int cost = -q.top().first;
+		int cur = q.top().second;
 		q.pop();
 
-		if (x == K)
+		for (int i = 0; i < V[cur].size(); i++)
 		{
-			ans = time;
-			return;
-		}
+			int next = V[cur][i].first;
+			int ncost = V[cur][i].second;
 
-		if (x * 2 < 100001 && visited[x*2] == 0)
-		{
-			q.push({ time,x * 2 });
-			visited[x * 2] = 1;
+			if (a[next] > cost + ncost)
+			{
+				a[next] = cost + ncost;
+				q.push({ -a[next],next });
+			}
 		}
-
-		if (x + 1 < 100001 && visited[x + 1] == 0)
-		{
-			q.push({ time + 1,x + 1 });
-			visited[x + 1] = 1;
-		}
-
-		if (x - 1 >= 0 && visited[x - 1] == 0)
-		{
-			q.push({ time + 1,x - 1 });
-			visited[x - 1] = 1;
-		}
+	
 	}
+
+
 }
 
 int main()
 {
-	std::cin >> N >> K;
+	int TT{};
 
-	bfs(N);
+	std::cin >> TT;
 
-	std::cout << ans << '\n';
+	for (int i = 0;i < TT;i++)
+	{		
+		memset(Dist_S, INF, sizeof(Dist_S));
+		memset(Dist_G, INF, sizeof(Dist_G));
+		memset(Dist_H, INF, sizeof(Dist_H));
+		for (int i = 0;i < 2001;i++)
+		{
+			V[i].clear();
+		}
+		C.clear();
+
+		std::cin >> N >> M >> T;
+		std::cin >> S >> G >> H;
+
+		for (int i = 0;i < M;i++)
+		{
+			int x{}, y{}, z{};
+			std::cin >> x >> y >> z;
+
+			V[x].push_back({ y,z });
+			V[y].push_back({ x,z });
+		}
+
+		for (int i = 0; i < T;i++)
+		{
+			int x{};
+			std::cin >> x;
+			C.push_back(x);
+		}
+
+		bfs(S, Dist_S);
+		bfs(G, Dist_G);
+
+		Dist_GH = Dist_G[H];
+
+		bfs(H, Dist_H);
+
+		std::sort(C.begin(), C.end());
+
+		for (int i = 0; i < C.size();i++)
+		{
+			int ans = C[i];
+			if (Dist_S[ans] == Dist_S[G] + Dist_GH + Dist_H[ans])
+			{
+				std::cout << ans << " ";
+			}
+			else if (Dist_S[ans] == Dist_S[H] + Dist_GH + Dist_G[ans])
+			{
+				std::cout << ans << " ";
+			}
+		}std::cout << '\n';
+	}	
 }
