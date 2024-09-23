@@ -207,102 +207,170 @@
 
 //4.
 
+//#define INF 9999999
+//
+//int N{}, M{}, T{}, S{}, G{}, H{}, Dist_GH{};
+//
+//int Dist_S[2001]{};
+//int Dist_G[2001]{};
+//int Dist_H[2001]{};
+//
+//std::vector<std::pair<int, int>> V[2001];
+//std::vector<int> C;
+//
+//void bfs(int start, int* a)
+//{
+//	std::priority_queue<std::pair<int, int>> q;
+//	q.push({ 0,start });
+//	a[start] = 0;
+//
+//	while(!q.empty())
+//	{
+//		int cost = -q.top().first;
+//		int cur = q.top().second;
+//		q.pop();
+//
+//		for (int i = 0; i < V[cur].size(); i++)
+//		{
+//			int next = V[cur][i].first;
+//			int ncost = V[cur][i].second;
+//
+//			if (a[next] > cost + ncost)
+//			{
+//				a[next] = cost + ncost;
+//				q.push({ -a[next],next });
+//			}
+//		}
+//	
+//	}
+//
+//
+//}
+//
+//int main()
+//{
+//	int TT{};
+//
+//	std::cin >> TT;
+//
+//	for (int i = 0;i < TT;i++)
+//	{		
+//		memset(Dist_S, INF, sizeof(Dist_S));
+//		memset(Dist_G, INF, sizeof(Dist_G));
+//		memset(Dist_H, INF, sizeof(Dist_H));
+//		for (int i = 0;i < 2001;i++)
+//		{
+//			V[i].clear();
+//		}
+//		C.clear();
+//
+//		std::cin >> N >> M >> T;
+//		std::cin >> S >> G >> H;
+//
+//		for (int i = 0;i < M;i++)
+//		{
+//			int x{}, y{}, z{};
+//			std::cin >> x >> y >> z;
+//
+//			V[x].push_back({ y,z });
+//			V[y].push_back({ x,z });
+//		}
+//
+//		for (int i = 0; i < T;i++)
+//		{
+//			int x{};
+//			std::cin >> x;
+//			C.push_back(x);
+//		}
+//
+//		bfs(S, Dist_S);
+//		bfs(G, Dist_G);
+//
+//		Dist_GH = Dist_G[H];
+//
+//		bfs(H, Dist_H);
+//
+//		std::sort(C.begin(), C.end());
+//
+//		for (int i = 0; i < C.size();i++)
+//		{
+//			int ans = C[i];
+//			if (Dist_S[ans] == Dist_S[G] + Dist_GH + Dist_H[ans])
+//			{
+//				std::cout << ans << " ";
+//			}
+//			else if (Dist_S[ans] == Dist_S[H] + Dist_GH + Dist_G[ans])
+//			{
+//				std::cout << ans << " ";
+//			}
+//		}std::cout << '\n';
+//	}	
+//}
+
+//5.
+
 #define INF 9999999
 
-int N{}, M{}, T{}, S{}, G{}, H{}, Dist_GH{};
+int N{}, M{};
+long long dist[501]{};
+bool cycle;
 
-int Dist_S[2001]{};
-int Dist_G[2001]{};
-int Dist_H[2001]{};
+std::vector<std::pair<int, int>> city[501];
 
-std::vector<std::pair<int, int>> V[2001];
-std::vector<int> C;
-
-void bfs(int start, int* a)
+void bellmanFord()
 {
-	std::priority_queue<std::pair<int, int>> q;
-	q.push({ 0,start });
-	a[start] = 0;
-
-	while(!q.empty())
+	for (int i = 1; i <= N;i++)
 	{
-		int cost = -q.top().first;
-		int cur = q.top().second;
-		q.pop();
+		dist[i] = INF;
+	}
+	dist[1] = 0;
 
-		for (int i = 0; i < V[cur].size(); i++)
+	for (int i = 1; i <= N;i++)
+	{
+		for (int j = 1; j <= N;j++)
 		{
-			int next = V[cur][i].first;
-			int ncost = V[cur][i].second;
-
-			if (a[next] > cost + ncost)
+			for (int k = 0; k < city[j].size();k++)
 			{
-				a[next] = cost + ncost;
-				q.push({ -a[next],next });
+				int next = city[j][k].first;
+				int x = city[j][k].second;
+
+				if (dist[j] != INF && dist[next] > dist[j] + x)
+				{
+					dist[next] = dist[j] + x;
+					if (i == N)
+					{
+						cycle = true;
+					}
+				}
 			}
 		}
-	
 	}
 
-
+	if (cycle)
+	{
+		std::cout << -1 << '\n';
+	}
+	else
+	{
+		for (int i = 2; i <= N;i++)
+		{
+			std::cout << (dist[i] != INF ? dist[i] : -1) << '\n';
+		}
+	}
 }
 
 int main()
 {
-	int TT{};
+	std::cin >> N >> M;
 
-	std::cin >> TT;
+	for (int i = 0; i < M;i++)
+	{
+		int  A{}, B{}, C{};
 
-	for (int i = 0;i < TT;i++)
-	{		
-		memset(Dist_S, INF, sizeof(Dist_S));
-		memset(Dist_G, INF, sizeof(Dist_G));
-		memset(Dist_H, INF, sizeof(Dist_H));
-		for (int i = 0;i < 2001;i++)
-		{
-			V[i].clear();
-		}
-		C.clear();
+		std::cin >> A >> B >> C;
 
-		std::cin >> N >> M >> T;
-		std::cin >> S >> G >> H;
+		city[A].push_back({ B,C });
+	}
 
-		for (int i = 0;i < M;i++)
-		{
-			int x{}, y{}, z{};
-			std::cin >> x >> y >> z;
-
-			V[x].push_back({ y,z });
-			V[y].push_back({ x,z });
-		}
-
-		for (int i = 0; i < T;i++)
-		{
-			int x{};
-			std::cin >> x;
-			C.push_back(x);
-		}
-
-		bfs(S, Dist_S);
-		bfs(G, Dist_G);
-
-		Dist_GH = Dist_G[H];
-
-		bfs(H, Dist_H);
-
-		std::sort(C.begin(), C.end());
-
-		for (int i = 0; i < C.size();i++)
-		{
-			int ans = C[i];
-			if (Dist_S[ans] == Dist_S[G] + Dist_GH + Dist_H[ans])
-			{
-				std::cout << ans << " ";
-			}
-			else if (Dist_S[ans] == Dist_S[H] + Dist_GH + Dist_G[ans])
-			{
-				std::cout << ans << " ";
-			}
-		}std::cout << '\n';
-	}	
+	bellmanFord();
 }
