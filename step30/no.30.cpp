@@ -309,68 +309,120 @@
 
 //5.
 
+//#define INF 9999999
+//
+//int N{}, M{};
+//long long dist[501]{};
+//bool cycle;
+//
+//std::vector<std::pair<int, int>> city[501];
+//
+//void bellmanFord()
+//{
+//	for (int i = 1; i <= N;i++)
+//	{
+//		dist[i] = INF;
+//	}
+//	dist[1] = 0;
+//
+//	for (int i = 1; i <= N;i++)
+//	{
+//		for (int j = 1; j <= N;j++)
+//		{
+//			for (int k = 0; k < city[j].size();k++)
+//			{
+//				int next = city[j][k].first;
+//				int x = city[j][k].second;
+//
+//				if (dist[j] != INF && dist[next] > dist[j] + x)
+//				{
+//					dist[next] = dist[j] + x;
+//					if (i == N)
+//					{
+//						cycle = true;
+//					}
+//				}
+//			}
+//		}
+//	}
+//
+//	if (cycle)
+//	{
+//		std::cout << -1 << '\n';
+//	}
+//	else
+//	{
+//		for (int i = 2; i <= N;i++)
+//		{
+//			std::cout << (dist[i] != INF ? dist[i] : -1) << '\n';
+//		}
+//	}
+//}
+//
+//int main()
+//{
+//	std::cin >> N >> M;
+//
+//	for (int i = 0; i < M;i++)
+//	{
+//		int  A{}, B{}, C{};
+//
+//		std::cin >> A >> B >> C;
+//
+//		city[A].push_back({ B,C });
+//	}
+//
+//	bellmanFord();
+//}
+
+
+//6.
+
 #define INF 9999999
 
-int N{}, M{};
-long long dist[501]{};
-bool cycle;
+int n{}, m{};
+int dp[101][101]{};
 
-std::vector<std::pair<int, int>> city[501];
-
-void bellmanFord()
+int main()
 {
-	for (int i = 1; i <= N;i++)
+	std::cin >> n >> m;
+
+	std::fill(dp[0], dp[101], INF);
+
+	for (int i = 1;i <= n;i++)
 	{
-		dist[i] = INF;
+		dp[i][i] = 0;
 	}
-	dist[1] = 0;
 
-	for (int i = 1; i <= N;i++)
+	for (int i = 0; i < m ;i++)
 	{
-		for (int j = 1; j <= N;j++)
-		{
-			for (int k = 0; k < city[j].size();k++)
-			{
-				int next = city[j][k].first;
-				int x = city[j][k].second;
+		int x{}, y{}, z{};
 
-				if (dist[j] != INF && dist[next] > dist[j] + x)
-				{
-					dist[next] = dist[j] + x;
-					if (i == N)
-					{
-						cycle = true;
-					}
-				}
+		std::cin >> x >> y >> z;
+		dp[x][y] = std::min(dp[x][y], z);
+	}
+
+	for (int i = 1; i <= n;i++)
+	{
+		for (int j = 1; j <= n;j++)
+		{
+			for (int k = 1; k <= n;k++)
+			{
+				dp[j][k] = std::min(dp[j][k], dp[j][i] + dp[i][k]);
 			}
 		}
 	}
 
-	if (cycle)
+	for (int i = 1; i <= n;i++)
 	{
-		std::cout << -1 << '\n';
-	}
-	else
-	{
-		for (int i = 2; i <= N;i++)
+		for (int j = 1;j <= n;j++)
 		{
-			std::cout << (dist[i] != INF ? dist[i] : -1) << '\n';
-		}
+			if (dp[i][j] == INF)
+			{
+				std::cout << 0 << " ";
+				continue;
+			}
+			std::cout << dp[i][j] << " ";
+		}std::cout << '\n';
 	}
-}
-
-int main()
-{
-	std::cin >> N >> M;
-
-	for (int i = 0; i < M;i++)
-	{
-		int  A{}, B{}, C{};
-
-		std::cin >> A >> B >> C;
-
-		city[A].push_back({ B,C });
-	}
-
-	bellmanFord();
 }
