@@ -378,51 +378,95 @@
 
 //6.
 
+//#define INF 9999999
+//
+//int n{}, m{};
+//int dp[101][101]{};
+//
+//int main()
+//{
+//	std::cin >> n >> m;
+//
+//	std::fill(dp[0], dp[101], INF);
+//
+//	for (int i = 1;i <= n;i++)
+//	{
+//		dp[i][i] = 0;
+//	}
+//
+//	for (int i = 0; i < m ;i++)
+//	{
+//		int x{}, y{}, z{};
+//
+//		std::cin >> x >> y >> z;
+//		dp[x][y] = std::min(dp[x][y], z);
+//	}
+//
+//	for (int i = 1; i <= n;i++)
+//	{
+//		for (int j = 1; j <= n;j++)
+//		{
+//			for (int k = 1; k <= n;k++)
+//			{
+//				dp[j][k] = std::min(dp[j][k], dp[j][i] + dp[i][k]);
+//			}
+//		}
+//	}
+//
+//	for (int i = 1; i <= n;i++)
+//	{
+//		for (int j = 1;j <= n;j++)
+//		{
+//			if (dp[i][j] == INF)
+//			{
+//				std::cout << 0 << " ";
+//				continue;
+//			}
+//			std::cout << dp[i][j] << " ";
+//		}std::cout << '\n';
+//	}
+//}
+
+//7.
+
 #define INF 9999999
 
-int n{}, m{};
-int dp[101][101]{};
+int V{}, E{}, ans{INF};
+int dp[401][401]{};
 
 int main()
 {
-	std::cin >> n >> m;
+	std::cin >> V >> E;
 
-	std::fill(dp[0], dp[101], INF);
+	std::fill(dp[0], dp[401], INF);
 
-	for (int i = 1;i <= n;i++)
-	{
-		dp[i][i] = 0;
-	}
-
-	for (int i = 0; i < m ;i++)
+	for (int i = 0; i < E;i++)
 	{
 		int x{}, y{}, z{};
 
 		std::cin >> x >> y >> z;
-		dp[x][y] = std::min(dp[x][y], z);
+
+		dp[x][y] = z;
 	}
 
-	for (int i = 1; i <= n;i++)
+	for (int i = 1;i <= V;i++)
 	{
-		for (int j = 1; j <= n;j++)
+		for (int j = 1; j <= V;j++)
 		{
-			for (int k = 1; k <= n;k++)
+			for (int k = 1; k <= V;k++)
 			{
-				dp[j][k] = std::min(dp[j][k], dp[j][i] + dp[i][k]);
+				if (dp[j][k] > dp[j][i] + dp[i][k])
+				{
+					dp[j][k] = dp[j][i] + dp[i][k];
+				}
 			}
 		}
 	}
 
-	for (int i = 1; i <= n;i++)
+	for (int i = 1; i <= V;i++)
 	{
-		for (int j = 1;j <= n;j++)
-		{
-			if (dp[i][j] == INF)
-			{
-				std::cout << 0 << " ";
-				continue;
-			}
-			std::cout << dp[i][j] << " ";
-		}std::cout << '\n';
+		ans = std::min(ans, dp[i][i]);
 	}
+
+	std::cout << (ans == INF ? -1 : ans) << '\n';
 }
