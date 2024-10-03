@@ -1,7 +1,6 @@
 #include <iostream>
 #include <algorithm>
 
-
 //1.
 
 //int N{}, x{}, ans{};
@@ -50,49 +49,125 @@
 
 //2.
 
-int N{}, min{ 2000000001 }, a{}, b{};
+//int N{}, min{ 2000000001 }, a{}, b{};
+//int arr[100001]{};
+//
+//int main()
+//{
+//	std::cin >> N;
+//
+//	for (int i = 0; i < N;i++)
+//	{
+//		std::cin >> arr[i];
+//	}
+//
+//	std::sort(arr, arr + N);
+//
+//	int l = 0;
+//	int r = N - 1;
+//
+//	while (l<r)
+//	{
+//		int sum = arr[l] + arr[r];
+//
+//		if (min > abs(sum))
+//		{
+//			min = abs(sum);
+//			a = arr[l];
+//			b = arr[r];
+//
+//			if (sum == 0)
+//			{
+//				break;
+//			}
+//		}
+//
+//		if (sum < 0)
+//		{
+//			l++;
+//		}
+//
+//		else
+//		{
+//			r--;
+//		}
+//	}
+//
+//	std::cout << a << " " << b << '\n';
+//}
+
+//3.
+
+int N{}, S{}, min{100001}, arrSum;
+
 int arr[100001]{};
+
+bool sumOver{ false };
+bool oneOver{ false };
 
 int main()
 {
-	std::cin >> N;
+	std::ios_base::sync_with_stdio(false);
+	std::cout.tie(NULL);
+	std::cin.tie(NULL);
+
+	std::cin >> N >> S;
 
 	for (int i = 0; i < N;i++)
 	{
 		std::cin >> arr[i];
+		arrSum += arr[i];
+
+		if (arrSum >= S)
+		{
+			sumOver = true;
+		}
+		if (arr[i] >= S)
+		{
+			oneOver = true;
+		}
+	}
+	
+	if (!sumOver)
+	{
+		std::cout << 0 << '\n';
 	}
 
-	std::sort(arr, arr + N);
-
-	int l = 0;
-	int r = N - 1;
-
-	while (l<r)
+	else if (oneOver)
 	{
-		int sum = arr[l] + arr[r];
+		std::cout << 1 << '\n';
+	}
 
-		if (min > abs(sum))
+	else
+	{
+		int l = 0;
+		int r = 0;
+		int sum = arr[0];
+
+		while (l <= r && r<= N)
 		{
-			min = abs(sum);
-			a = arr[l];
-			b = arr[r];
-
-			if (sum == 0)
+			if (sum >= S)
 			{
-				break;
+				min = std::min(min, r - l + 1);
+				if (min == 2)
+				{
+					break;
+				}
+			}
+
+			if (sum < S)
+			{
+				r++;
+				sum += arr[r];
+			}
+
+			else
+			{
+				sum -= arr[l];
+				l++;
 			}
 		}
 
-		if (sum < 0)
-		{
-			l++;
-		}
-
-		else
-		{
-			r--;
-		}
+		std::cout << min << '\n';
 	}
-
-	std::cout << a << " " << b << '\n';
 }
