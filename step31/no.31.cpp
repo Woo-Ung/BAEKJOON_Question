@@ -1,5 +1,6 @@
 #include <iostream>
 #include <algorithm>
+#include <vector>
 
 //1.
 
@@ -98,76 +99,141 @@
 
 //3.
 
-int N{}, S{}, min{100001}, arrSum;
+//int N{}, S{}, min{100001}, arrSum;
+//
+//int arr[100001]{};
+//
+//bool sumOver{ false };
+//bool oneOver{ false };
+//
+//int main()
+//{
+//	std::ios_base::sync_with_stdio(false);
+//	std::cout.tie(NULL);
+//	std::cin.tie(NULL);
+//
+//	std::cin >> N >> S;
+//
+//	for (int i = 0; i < N;i++)
+//	{
+//		std::cin >> arr[i];
+//		arrSum += arr[i];
+//
+//		if (arrSum >= S)
+//		{
+//			sumOver = true;
+//		}
+//		if (arr[i] >= S)
+//		{
+//			oneOver = true;
+//		}
+//	}
+//	
+//	if (!sumOver)
+//	{
+//		std::cout << 0 << '\n';
+//	}
+//
+//	else if (oneOver)
+//	{
+//		std::cout << 1 << '\n';
+//	}
+//
+//	else
+//	{
+//		int l = 0;
+//		int r = 0;
+//		int sum = arr[0];
+//
+//		while (l <= r && r<= N)
+//		{
+//			if (sum >= S)
+//			{
+//				min = std::min(min, r - l + 1);
+//				if (min == 2)
+//				{
+//					break;
+//				}
+//			}
+//
+//			if (sum < S)
+//			{
+//				r++;
+//				sum += arr[r];
+//			}
+//
+//			else
+//			{
+//				sum -= arr[l];
+//				l++;
+//			}
+//		}
+//
+//		std::cout << min << '\n';
+//	}
+//}
 
-int arr[100001]{};
 
-bool sumOver{ false };
-bool oneOver{ false };
+//4.
+
+int N{}, ans{};
 
 int main()
 {
-	std::ios_base::sync_with_stdio(false);
-	std::cout.tie(NULL);
-	std::cin.tie(NULL);
+	std::cin >> N;
 
-	std::cin >> N >> S;
+	std::vector<bool> checkPrime(N + 1, true);
+	std::vector<int> prime;
 
-	for (int i = 0; i < N;i++)
+	for (int i = 2; i * i <= N;i++)
 	{
-		std::cin >> arr[i];
-		arrSum += arr[i];
-
-		if (arrSum >= S)
+		for (int j = i * 2;j <= N;j += i)
 		{
-			sumOver = true;
-		}
-		if (arr[i] >= S)
-		{
-			oneOver = true;
+			checkPrime[j] = false;
 		}
 	}
-	
-	if (!sumOver)
-	{
-		std::cout << 0 << '\n';
-	}
 
-	else if (oneOver)
+	for (int i = 2; i <= N;i++)
 	{
-		std::cout << 1 << '\n';
-	}
-
-	else
-	{
-		int l = 0;
-		int r = 0;
-		int sum = arr[0];
-
-		while (l <= r && r<= N)
+		if (checkPrime[i])
 		{
-			if (sum >= S)
-			{
-				min = std::min(min, r - l + 1);
-				if (min == 2)
-				{
-					break;
-				}
-			}
+			prime.push_back(i);
+		}
+	}
 
-			if (sum < S)
-			{
-				r++;
-				sum += arr[r];
-			}
+	int l = 0;
+	int r = 0;
+	int sum = 0;
 
-			else
-			{
-				sum -= arr[l];
-				l++;
-			}
+	while (true)
+	{
+		if (sum > N)
+		{
+			sum -= prime[l];
+			l++;
 		}
 
-		std::cout << min << '\n';
+		else if (sum < N)
+		{
+			if (r >= prime.size())
+			{
+				break;
+			}
+			sum += prime[r];
+			r++;
+		}
+		
+		else
+		{
+			ans++;
+			if (r >= prime.size())
+			{
+				break;
+			}
+			sum += prime[r];
+			r++;
+		}
 	}
+
+	std::cout << ans << '\n';
 }
