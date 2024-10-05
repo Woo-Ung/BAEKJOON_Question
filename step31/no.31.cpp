@@ -176,64 +176,114 @@
 
 //4.
 
-int N{}, ans{};
+//int N{}, ans{};
+//
+//int main()
+//{
+//	std::cin >> N;
+//
+//	std::vector<bool> checkPrime(N + 1, true);
+//	std::vector<int> prime;
+//
+//	for (int i = 2; i * i <= N;i++)
+//	{
+//		for (int j = i * 2;j <= N;j += i)
+//		{
+//			checkPrime[j] = false;
+//		}
+//	}
+//
+//	for (int i = 2; i <= N;i++)
+//	{
+//		if (checkPrime[i])
+//		{
+//			prime.push_back(i);
+//		}
+//	}
+//
+//	int l = 0;
+//	int r = 0;
+//	int sum = 0;
+//
+//	while (true)
+//	{
+//		if (sum > N)
+//		{
+//			sum -= prime[l];
+//			l++;
+//		}
+//
+//		else if (sum < N)
+//		{
+//			if (r >= prime.size())
+//			{
+//				break;
+//			}
+//			sum += prime[r];
+//			r++;
+//		}
+//		
+//		else
+//		{
+//			ans++;
+//			if (r >= prime.size())
+//			{
+//				break;
+//			}
+//			sum += prime[r];
+//			r++;
+//		}
+//	}
+//
+//	std::cout << ans << '\n';
+//}
+
+//5.
+
+int N{}, C{}, count{};
+
+std::vector<long long> arr;
+
+void cases(int start, int end, std::vector<long long>& p, long long x)
+{
+	if (start > end)
+	{
+		p.push_back(x);
+		return;
+	}
+
+	else
+	{
+		cases(start + 1, end, p, x);
+		cases(start + 1, end, p, x + arr[start]);
+	}
+
+}
 
 int main()
 {
-	std::cin >> N;
+	std::cin >> N >> C;
 
-	std::vector<bool> checkPrime(N + 1, true);
-	std::vector<int> prime;
+	arr.resize(N, 0);
 
-	for (int i = 2; i * i <= N;i++)
+	for (int i = 0; i < N; i++)
 	{
-		for (int j = i * 2;j <= N;j += i)
-		{
-			checkPrime[j] = false;
-		}
+		std::cin >> arr[i];
 	}
 
-	for (int i = 2; i <= N;i++)
+	std::vector<long long> p1;
+	std::vector<long long> p2;
+
+	cases(0, N / 2 - 1, p1, 0);
+	cases(N / 2, N - 1, p2, 0);
+
+	std::sort(p2.begin(), p2.end());
+
+	for (int i = 0; i < p1.size(); i++)
 	{
-		if (checkPrime[i])
-		{
-			prime.push_back(i);
-		}
+		long long x = C - p1[i];
+		count += std::upper_bound(p2.begin(), p2.end(), x) - p2.begin();
 	}
 
-	int l = 0;
-	int r = 0;
-	int sum = 0;
-
-	while (true)
-	{
-		if (sum > N)
-		{
-			sum -= prime[l];
-			l++;
-		}
-
-		else if (sum < N)
-		{
-			if (r >= prime.size())
-			{
-				break;
-			}
-			sum += prime[r];
-			r++;
-		}
-		
-		else
-		{
-			ans++;
-			if (r >= prime.size())
-			{
-				break;
-			}
-			sum += prime[r];
-			r++;
-		}
-	}
-
-	std::cout << ans << '\n';
+	std::cout << count << '\n';
 }
