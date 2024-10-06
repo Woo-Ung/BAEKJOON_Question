@@ -240,50 +240,110 @@
 
 //5.
 
-int N{}, C{}, count{};
+//int N{}, C{}, count{};
+//
+//std::vector<long long> arr;
+//
+//void cases(int start, int end, std::vector<long long>& p, long long x)
+//{
+//	if (start > end)
+//	{
+//		p.push_back(x);
+//		return;
+//	}
+//
+//	else
+//	{
+//		cases(start + 1, end, p, x);
+//		cases(start + 1, end, p, x + arr[start]);
+//	}
+//
+//}
+//
+//int main()
+//{
+//	std::cin >> N >> C;
+//
+//	arr.resize(N, 0);
+//
+//	for (int i = 0; i < N; i++)
+//	{
+//		std::cin >> arr[i];
+//	}
+//
+//	std::vector<long long> p1;
+//	std::vector<long long> p2;
+//
+//	cases(0, N / 2 - 1, p1, 0);
+//	cases(N / 2, N - 1, p2, 0);
+//
+//	std::sort(p2.begin(), p2.end());
+//
+//	for (int i = 0; i < p1.size(); i++)
+//	{
+//		long long x = C - p1[i];
+//		count += std::upper_bound(p2.begin(), p2.end(), x) - p2.begin();
+//	}
+//
+//	std::cout << count << '\n';
+//}
 
-std::vector<long long> arr;
+//6.
+int N{}, count{};
 
-void cases(int start, int end, std::vector<long long>& p, long long x)
-{
-	if (start > end)
-	{
-		p.push_back(x);
-		return;
-	}
-
-	else
-	{
-		cases(start + 1, end, p, x);
-		cases(start + 1, end, p, x + arr[start]);
-	}
-
-}
+int dp[1000001]{};
 
 int main()
 {
-	std::cin >> N >> C;
+	std::cin >> N;
 
-	arr.resize(N, 0);
-
-	for (int i = 0; i < N; i++)
+	for (int i = 1;i <= N;i++)
 	{
-		std::cin >> arr[i];
+		dp[i] = i;
 	}
 
-	std::vector<long long> p1;
-	std::vector<long long> p2;
-
-	cases(0, N / 2 - 1, p1, 0);
-	cases(N / 2, N - 1, p2, 0);
-
-	std::sort(p2.begin(), p2.end());
-
-	for (int i = 0; i < p1.size(); i++)
+	for (int i = 2; i <= N;i++)
 	{
-		long long x = C - p1[i];
-		count += std::upper_bound(p2.begin(), p2.end(), x) - p2.begin();
+		if (i % 2 == 0)
+		{
+			dp[i] = std::min(dp[i], dp[i / 2] +1);
+		}
+
+		if (i % 3 == 0)
+		{
+			dp[i] = std::min(dp[i], dp[i / 3] + 1);
+		}
+
+		dp[i] = std::min(dp[i], dp[i - 1] + 1);
 	}
 
-	std::cout << count << '\n';
+	std::cout << dp[N] - 1 << '\n';
+
+	std::cout << N << " ";
+
+	while (true)
+	{
+		if (N == 1)
+		{
+			break;
+		}
+
+		if (N % 3 == 0 && dp[N / 3] == dp[N] - 1)
+		{
+			N /= 3;
+			std::cout << N << " ";			
+		}
+
+		else if (N % 2 == 0 && dp[N / 2] == dp[N] - 1)
+		{
+			N /= 2;
+			std::cout << N << " ";			
+		}
+
+		else if (dp[N - 1] == dp[N] - 1)
+		{
+			N -= 1;
+			std::cout << N << " ";			
+		}
+	}
 }
