@@ -289,61 +289,116 @@
 //}
 
 //6.
-int N{}, count{};
+//int N{}, count{};
+//
+//int dp[1000001]{};
+//
+//int main()
+//{
+//	std::cin >> N;
+//
+//	for (int i = 1;i <= N;i++)
+//	{
+//		dp[i] = i;
+//	}
+//
+//	for (int i = 2; i <= N;i++)
+//	{
+//		if (i % 2 == 0)
+//		{
+//			dp[i] = std::min(dp[i], dp[i / 2] +1);
+//		}
+//
+//		if (i % 3 == 0)
+//		{
+//			dp[i] = std::min(dp[i], dp[i / 3] + 1);
+//		}
+//
+//		dp[i] = std::min(dp[i], dp[i - 1] + 1);
+//	}
+//
+//	std::cout << dp[N] - 1 << '\n';
+//
+//	std::cout << N << " ";
+//
+//	while (true)
+//	{
+//		if (N == 1)
+//		{
+//			break;
+//		}
+//
+//		if (N % 3 == 0 && dp[N / 3] == dp[N] - 1)
+//		{
+//			N /= 3;
+//			std::cout << N << " ";			
+//		}
+//
+//		else if (N % 2 == 0 && dp[N / 2] == dp[N] - 1)
+//		{
+//			N /= 2;
+//			std::cout << N << " ";			
+//		}
+//
+//		else if (dp[N - 1] == dp[N] - 1)
+//		{
+//			N -= 1;
+//			std::cout << N << " ";			
+//		}
+//	}
+//}
 
-int dp[1000001]{};
+//7.
+
+int N{}, ans{}, max{}, x{};
+
+int A[1001]{};
+int dp[1001]{};
+
+std::vector<int> arr;
 
 int main()
 {
 	std::cin >> N;
 
-	for (int i = 1;i <= N;i++)
+	for (int i = 0; i < N; i++)
 	{
-		dp[i] = i;
+		int count{};
+
+		std::cin >> A[i];
+
+		for (int j = 0; j < i;j++)
+		{
+			if (A[j]<A[i])
+			{
+				count = std::max(dp[j], count);
+			}			
+		}
+
+		dp[i] = count + 1;
+		
+		if (max < dp[i])
+		{
+			max = dp[i];
+			x = i;
+		}
 	}
 
-	for (int i = 2; i <= N;i++)
+	for (int i = x; i >= 0;i--)
 	{
-		if (i % 2 == 0)
+		if (dp[i] == max)
 		{
-			dp[i] = std::min(dp[i], dp[i / 2] +1);
+			arr.push_back(A[i]);
+			max--;
 		}
-
-		if (i % 3 == 0)
-		{
-			dp[i] = std::min(dp[i], dp[i / 3] + 1);
-		}
-
-		dp[i] = std::min(dp[i], dp[i - 1] + 1);
 	}
 
-	std::cout << dp[N] - 1 << '\n';
+	std::sort(arr.begin(), arr.end());
 
-	std::cout << N << " ";
+	std::cout << arr.size() << '\n';
 
-	while (true)
+	for (auto& e : arr)
 	{
-		if (N == 1)
-		{
-			break;
-		}
-
-		if (N % 3 == 0 && dp[N / 3] == dp[N] - 1)
-		{
-			N /= 3;
-			std::cout << N << " ";			
-		}
-
-		else if (N % 2 == 0 && dp[N / 2] == dp[N] - 1)
-		{
-			N /= 2;
-			std::cout << N << " ";			
-		}
-
-		else if (dp[N - 1] == dp[N] - 1)
-		{
-			N -= 1;
-			std::cout << N << " ";			
-		}
-	}
+		std::cout << e << " ";
+	}std::cout << '\n';
 }
