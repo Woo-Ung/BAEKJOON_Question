@@ -350,55 +350,109 @@
 
 //7.
 
-int N{}, ans{}, max{}, x{};
+//int N{}, ans{}, max{}, x{};
+//
+//int A[1001]{};
+//int dp[1001]{};
+//
+//std::vector<int> arr;
+//
+//int main()
+//{
+//	std::cin >> N;
+//
+//	for (int i = 0; i < N; i++)
+//	{
+//		int count{};
+//
+//		std::cin >> A[i];
+//
+//		for (int j = 0; j < i;j++)
+//		{
+//			if (A[j]<A[i])
+//			{
+//				count = std::max(dp[j], count);
+//			}			
+//		}
+//
+//		dp[i] = count + 1;
+//		
+//		if (max < dp[i])
+//		{
+//			max = dp[i];
+//			x = i;
+//		}
+//	}
+//
+//	for (int i = x; i >= 0;i--)
+//	{
+//		if (dp[i] == max)
+//		{
+//			arr.push_back(A[i]);
+//			max--;
+//		}
+//	}
+//
+//	std::sort(arr.begin(), arr.end());
+//
+//	std::cout << arr.size() << '\n';
+//
+//	for (auto& e : arr)
+//	{
+//		std::cout << e << " ";
+//	}std::cout << '\n';
+//}
 
-int A[1001]{};
-int dp[1001]{};
+//8.
 
-std::vector<int> arr;
+int N{}, count{};
+int A[1000001]{};
+int dp[1000001]{};
+std::vector<int> v;
+std::vector<int> ans;
 
 int main()
 {
 	std::cin >> N;
 
-	for (int i = 0; i < N; i++)
+	for (int i = 1; i <= N; i++)
 	{
-		int count{};
-
 		std::cin >> A[i];
+	}
 
-		for (int j = 0; j < i;j++)
+	v.push_back(A[1]);
+
+	for (int i = 2; i <= N;i++)
+	{
+		if (v[count] < A[i])
 		{
-			if (A[j]<A[i])
-			{
-				count = std::max(dp[j], count);
-			}			
+			v.push_back(A[i]);
+			count++;
+			dp[i] = count;
 		}
-
-		dp[i] = count + 1;
-		
-		if (max < dp[i])
+		else
 		{
-			max = dp[i];
-			x = i;
+			int temp = std::lower_bound(v.begin(), v.end(), A[i]) - v.begin();
+			v[temp] = A[i];
+			dp[i] = temp;
 		}
 	}
 
-	for (int i = x; i >= 0;i--)
+	for (int i = N; i >= 0;i--)
 	{
-		if (dp[i] == max)
+		if (dp[i] == count)
 		{
-			arr.push_back(A[i]);
-			max--;
+			ans.push_back(A[i]);
+			count--;
 		}
 	}
 
-	std::sort(arr.begin(), arr.end());
+	std::cout << ans.size() << '\n';
 
-	std::cout << arr.size() << '\n';
-
-	for (auto& e : arr)
+	int x = ans.size();
+	for (int i = 0; i < x;i++)
 	{
-		std::cout << e << " ";
-	}std::cout << '\n';
+		std::cout << ans.back() << " ";
+		ans.pop_back();
+	}
 }
