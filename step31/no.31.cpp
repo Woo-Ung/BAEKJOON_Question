@@ -405,54 +405,108 @@
 
 //8.
 
-int N{}, count{};
-int A[1000001]{};
-int dp[1000001]{};
-std::vector<int> v;
-std::vector<int> ans;
+//int N{}, count{};
+//int A[1000001]{};
+//int dp[1000001]{};
+//std::vector<int> v;
+//std::vector<int> ans;
+//
+//int main()
+//{
+//	std::cin >> N;
+//
+//	for (int i = 1; i <= N; i++)
+//	{
+//		std::cin >> A[i];
+//	}
+//
+//	v.push_back(A[1]);
+//
+//	for (int i = 2; i <= N;i++)
+//	{
+//		if (v[count] < A[i])
+//		{
+//			v.push_back(A[i]);
+//			count++;
+//			dp[i] = count;
+//		}
+//		else
+//		{
+//			int temp = std::lower_bound(v.begin(), v.end(), A[i]) - v.begin();
+//			v[temp] = A[i];
+//			dp[i] = temp;
+//		}
+//	}
+//
+//	for (int i = N; i >= 0;i--)
+//	{
+//		if (dp[i] == count)
+//		{
+//			ans.push_back(A[i]);
+//			count--;
+//		}
+//	}
+//
+//	std::cout << ans.size() << '\n';
+//
+//	int x = ans.size();
+//	for (int i = 0; i < x;i++)
+//	{
+//		std::cout << ans.back() << " ";
+//		ans.pop_back();
+//	}
+//}
+
+//9.
+
+int dp[1001][1001]{};
+std::string A{};
+std::string B{};
+std::string ans{};
 
 int main()
 {
-	std::cin >> N;
+	std::cin >> A >> B;
 
-	for (int i = 1; i <= N; i++)
+	int N = A.size();
+	int M = B.size();
+
+	for (int i = 1; i <= N;i++)
 	{
-		std::cin >> A[i];
+		for (int j = 1; j <= M;j++)
+		{
+			if (A[i - 1] == B[j - 1])
+			{
+				dp[i][j] = dp[i - 1][j - 1] + 1;
+			}
+			else
+			{
+				dp[i][j] = std::max(dp[i][j - 1], dp[i - 1][j]);
+			}
+		}
 	}
 
-	v.push_back(A[1]);
-
-	for (int i = 2; i <= N;i++)
+	while (N > 0 && M > 0)
 	{
-		if (v[count] < A[i])
+		if (dp[N][M] == dp[N - 1][M])
 		{
-			v.push_back(A[i]);
-			count++;
-			dp[i] = count;
+			N--;
+		}
+		else if (dp[N][M] == dp[N][M - 1])
+		{
+			M--;
 		}
 		else
 		{
-			int temp = std::lower_bound(v.begin(), v.end(), A[i]) - v.begin();
-			v[temp] = A[i];
-			dp[i] = temp;
-		}
-	}
-
-	for (int i = N; i >= 0;i--)
-	{
-		if (dp[i] == count)
-		{
-			ans.push_back(A[i]);
-			count--;
+			ans.push_back(A[N - 1]);
+			N--;
+			M--;
 		}
 	}
 
 	std::cout << ans.size() << '\n';
-
-	int x = ans.size();
-	for (int i = 0; i < x;i++)
+	for (int i = ans.size() - 1;i >= 0;i--)
 	{
-		std::cout << ans.back() << " ";
-		ans.pop_back();
+		std::cout << ans[i];
 	}
 }
