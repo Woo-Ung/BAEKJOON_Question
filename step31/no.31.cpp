@@ -459,54 +459,127 @@
 
 //9.
 
+//int dp[1001][1001]{};
+//std::string A{};
+//std::string B{};
+//std::string ans{};
+//
+//int main()
+//{
+//	std::cin >> A >> B;
+//
+//	int N = A.size();
+//	int M = B.size();
+//
+//	for (int i = 1; i <= N;i++)
+//	{
+//		for (int j = 1; j <= M;j++)
+//		{
+//			if (A[i - 1] == B[j - 1])
+//			{
+//				dp[i][j] = dp[i - 1][j - 1] + 1;
+//			}
+//			else
+//			{
+//				dp[i][j] = std::max(dp[i][j - 1], dp[i - 1][j]);
+//			}
+//		}
+//	}
+//
+//	while (N > 0 && M > 0)
+//	{
+//		if (dp[N][M] == dp[N - 1][M])
+//		{
+//			N--;
+//		}
+//		else if (dp[N][M] == dp[N][M - 1])
+//		{
+//			M--;
+//		}
+//		else
+//		{
+//			ans.push_back(A[N - 1]);
+//			N--;
+//			M--;
+//		}
+//	}
+//
+//	std::cout << ans.size() << '\n';
+//	for (int i = ans.size() - 1;i >= 0;i--)
+//	{
+//		std::cout << ans[i];
+//	}
+//}
+
+//10.
+
+int N{}, W{}, count{};
 int dp[1001][1001]{};
-std::string A{};
-std::string B{};
-std::string ans{};
+int dp2[1001][1001]{};
+
+std::vector<std::pair<int, int>> V;
+
+int solution(int a, int b)
+{
+	if (a == W + 1 || b == W + 1)
+	{
+		return 0;
+	}
+
+	if (dp[a][b] != 0)
+	{
+		return dp[a][b];
+	}
+
+	int next = std::max(a, b) + 1;
+
+	int c = solution(a, next) + abs(V[b].first - V[next].first) + abs(V[b].second - V[next].second);
+	int d = solution(next, b) + abs(V[a].first - V[next].first) + abs(V[a].second - V[next].second);
+
+	if (c < d)
+	{
+		dp2[a][b] = 2;
+	}
+	else
+	{
+		dp2[a][b] = 1;
+	}
+	dp[a][b] = std::min(c, d);
+
+	return dp[a][b];
+}
 
 int main()
 {
-	std::cin >> A >> B;
+	std::cin >> N >> W;
 
-	int N = A.size();
-	int M = B.size();
+	V.push_back({ 1,1 });
+	V.push_back({ N,N });
 
-	for (int i = 1; i <= N;i++)
+	
+	for (int i = 0; i < W;i++)
 	{
-		for (int j = 1; j <= M;j++)
-		{
-			if (A[i - 1] == B[j - 1])
-			{
-				dp[i][j] = dp[i - 1][j - 1] + 1;
-			}
-			else
-			{
-				dp[i][j] = std::max(dp[i][j - 1], dp[i - 1][j]);
-			}
-		}
+		int x{}, y{};
+		std::cin >> x >> y;
+
+		V.push_back({ x,y });
 	}
 
-	while (N > 0 && M > 0)
+	std::cout << solution(0, 1) << '\n';
+
+	int a{0}, b{1};
+
+	for (int i = 2;i < W + 2;i++)
 	{
-		if (dp[N][M] == dp[N - 1][M])
+		if (dp2[a][b] == 1)
 		{
-			N--;
-		}
-		else if (dp[N][M] == dp[N][M - 1])
-		{
-			M--;
+			std::cout << 1 << '\n';
+			a = i;
 		}
 		else
 		{
-			ans.push_back(A[N - 1]);
-			N--;
-			M--;
+			std::cout << 2 << '\n';
+			b = i;
 		}
-	}
-
-	std::cout << ans.size() << '\n';
-	for (int i = ans.size() - 1;i >= 0;i--)
-	{
-		std::cout << ans[i];
 	}
 }
