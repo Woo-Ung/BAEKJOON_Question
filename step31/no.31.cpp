@@ -1,6 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
+#include <queue>
 
 //1.
 
@@ -513,73 +514,133 @@
 
 //10.
 
-int N{}, W{}, count{};
-int dp[1001][1001]{};
-int dp2[1001][1001]{};
+//int N{}, W{}, count{};
+//int dp[1001][1001]{};
+//int dp2[1001][1001]{};
+//
+//std::vector<std::pair<int, int>> V;
+//
+//int solution(int a, int b)
+//{
+//	if (a == W + 1 || b == W + 1)
+//	{
+//		return 0;
+//	}
+//
+//	if (dp[a][b] != 0)
+//	{
+//		return dp[a][b];
+//	}
+//
+//	int next = std::max(a, b) + 1;
+//
+//	int c = solution(a, next) + abs(V[b].first - V[next].first) + abs(V[b].second - V[next].second);
+//	int d = solution(next, b) + abs(V[a].first - V[next].first) + abs(V[a].second - V[next].second);
+//
+//	if (c < d)
+//	{
+//		dp2[a][b] = 2;
+//	}
+//	else
+//	{
+//		dp2[a][b] = 1;
+//	}
+//	dp[a][b] = std::min(c, d);
+//
+//	return dp[a][b];
+//}
+//
+//int main()
+//{
+//	std::cin >> N >> W;
+//
+//	V.push_back({ 1,1 });
+//	V.push_back({ N,N });
+//
+//	
+//	for (int i = 0; i < W;i++)
+//	{
+//		int x{}, y{};
+//		std::cin >> x >> y;
+//
+//		V.push_back({ x,y });
+//	}
+//
+//	std::cout << solution(0, 1) << '\n';
+//
+//	int a{0}, b{1};
+//
+//	for (int i = 2;i < W + 2;i++)
+//	{
+//		if (dp2[a][b] == 1)
+//		{
+//			std::cout << 1 << '\n';
+//			a = i;
+//		}
+//		else
+//		{
+//			std::cout << 2 << '\n';
+//			b = i;
+//		}
+//	}
+//}
 
-std::vector<std::pair<int, int>> V;
+//11.
 
-int solution(int a, int b)
+int N{}, K{};
+
+int visited[100001]{};
+int dp[100001]{};
+
+std::vector<int> ans;
+
+void bfs(int a)
 {
-	if (a == W + 1 || b == W + 1)
+	std::queue<int> q;
+	q.push(a);
+	visited[a] = 1;	
+
+	while (!q.empty())
 	{
-		return 0;
+		int x = q.front();
+		q.pop();
+
+		for (int nx : {2 * x, x + 1, x - 1})
+		{
+			if (nx >= 0 && nx < 100001)
+			{
+				if (!visited[nx])
+				{
+					q.push(nx);
+					visited[nx] = visited[x] + 1;
+					dp[nx] = x;					
+				}
+			}
+		}
 	}
-
-	if (dp[a][b] != 0)
-	{
-		return dp[a][b];
-	}
-
-	int next = std::max(a, b) + 1;
-
-	int c = solution(a, next) + abs(V[b].first - V[next].first) + abs(V[b].second - V[next].second);
-	int d = solution(next, b) + abs(V[a].first - V[next].first) + abs(V[a].second - V[next].second);
-
-	if (c < d)
-	{
-		dp2[a][b] = 2;
-	}
-	else
-	{
-		dp2[a][b] = 1;
-	}
-	dp[a][b] = std::min(c, d);
-
-	return dp[a][b];
 }
 
 int main()
 {
-	std::cin >> N >> W;
+	std::cin >> N >> K;
 
-	V.push_back({ 1,1 });
-	V.push_back({ N,N });
+	bfs(N);
 
-	
-	for (int i = 0; i < W;i++)
+	int x = K;
+
+	while (x != N)
 	{
-		int x{}, y{};
-		std::cin >> x >> y;
-
-		V.push_back({ x,y });
+		ans.push_back(x);
+		x = dp[x];
 	}
+	ans.push_back(N);
 
-	std::cout << solution(0, 1) << '\n';
+	std::cout << visited[K] - 1 << '\n';
 
-	int a{0}, b{1};
-
-	for (int i = 2;i < W + 2;i++)
+	int y = ans.size();
+	for (int i = 0; i < y;i++)
 	{
-		if (dp2[a][b] == 1)
-		{
-			std::cout << 1 << '\n';
-			a = i;
-		}
-		else
-		{
-			std::cout << 2 << '\n';
-			b = i;
-		}
+		std::cout << ans.back() << " ";
+		ans.pop_back();
 	}
 }
