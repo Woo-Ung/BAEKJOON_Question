@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <vector>
 #include <queue>
+#include <cstring>
 
 //1.
 
@@ -587,60 +588,132 @@
 
 //11.
 
-int N{}, K{};
+//int N{}, K{};
+//
+//int visited[100001]{};
+//int dp[100001]{};
+//
+//std::vector<int> ans;
+//
+//void bfs(int a)
+//{
+//	std::queue<int> q;
+//	q.push(a);
+//	visited[a] = 1;	
+//
+//	while (!q.empty())
+//	{
+//		int x = q.front();
+//		q.pop();
+//
+//		for (int nx : {2 * x, x + 1, x - 1})
+//		{
+//			if (nx >= 0 && nx < 100001)
+//			{
+//				if (!visited[nx])
+//				{
+//					q.push(nx);
+//					visited[nx] = visited[x] + 1;
+//					dp[nx] = x;					
+//				}
+//			}
+//		}
+//	}
+//}
+//
+//int main()
+//{
+//	std::cin >> N >> K;
+//
+//	bfs(N);
+//
+//	int x = K;
+//
+//	while (x != N)
+//	{
+//		ans.push_back(x);
+//		x = dp[x];
+//	}
+//	ans.push_back(N);
+//
+//	std::cout << visited[K] - 1 << '\n';
+//
+//	int y = ans.size();
+//	for (int i = 0; i < y;i++)
+//	{
+//		std::cout << ans.back() << " ";
+//		ans.pop_back();
+//	}
+//}
 
+//12.
+
+int T{}, n{}, m{};
 int visited[100001]{};
-int dp[100001]{};
-
-std::vector<int> ans;
 
 void bfs(int a)
 {
-	std::queue<int> q;
-	q.push(a);
-	visited[a] = 1;	
+	std::queue<std::pair<int, std::string>> q;
+	q.push({ a,"" });
+	visited[a] = 1;
 
 	while (!q.empty())
 	{
-		int x = q.front();
+		int x = q.front().first;
+		std::string y = q.front().second;
 		q.pop();
 
-		for (int nx : {2 * x, x + 1, x - 1})
+		if (x == m)
 		{
-			if (nx >= 0 && nx < 100001)
-			{
-				if (!visited[nx])
-				{
-					q.push(nx);
-					visited[nx] = visited[x] + 1;
-					dp[nx] = x;					
-				}
-			}
+			std::cout << y << '\n';
+			return;
+		}
+				
+		int D = (x * 2) % 10000;
+		if (!visited[D])
+		{
+			visited[D] = 1;
+			q.push({ D,y + 'D' });
+		}
+
+		int S = x - 1;
+		if (S == -1)
+		{
+			S = 9999;
+		}
+		if (!visited[S])
+		{
+			visited[S] = 1;
+			q.push({ S,y + 'S' });
+		}
+
+		int L = (x * 10) % 10000 + x / 1000;
+		if (!visited[L])
+		{
+			visited[L] = 1;
+			q.push({ L,y + 'L' });
+		}
+
+		int R = x / 10 + (x % 10) * 1000;
+		if (!visited[R])
+		{
+			visited[R] = 1;
+			q.push({ R,y + 'R' });
 		}
 	}
 }
 
+
 int main()
 {
-	std::cin >> N >> K;
+	std::cin >> T;
 
-	bfs(N);
-
-	int x = K;
-
-	while (x != N)
+	for (int i = 0; i < T; i++)
 	{
-		ans.push_back(x);
-		x = dp[x];
-	}
-	ans.push_back(N);
+		std::cin >> n >> m;
 
-	std::cout << visited[K] - 1 << '\n';
+		bfs(n);
 
-	int y = ans.size();
-	for (int i = 0; i < y;i++)
-	{
-		std::cout << ans.back() << " ";
-		ans.pop_back();
+		std::memset(visited, 0, sizeof(visited));
 	}
 }
