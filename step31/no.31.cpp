@@ -648,72 +648,162 @@
 
 //12.
 
-int T{}, n{}, m{};
-int visited[100001]{};
+//int T{}, n{}, m{};
+//int visited[100001]{};
+//
+//void bfs(int a)
+//{
+//	std::queue<std::pair<int, std::string>> q;
+//	q.push({ a,"" });
+//	visited[a] = 1;
+//
+//	while (!q.empty())
+//	{
+//		int x = q.front().first;
+//		std::string y = q.front().second;
+//		q.pop();
+//
+//		if (x == m)
+//		{
+//			std::cout << y << '\n';
+//			return;
+//		}
+//				
+//		int D = (x * 2) % 10000;
+//		if (!visited[D])
+//		{
+//			visited[D] = 1;
+//			q.push({ D,y + 'D' });
+//		}
+//
+//		int S = x - 1;
+//		if (S == -1)
+//		{
+//			S = 9999;
+//		}
+//		if (!visited[S])
+//		{
+//			visited[S] = 1;
+//			q.push({ S,y + 'S' });
+//		}
+//
+//		int L = (x * 10) % 10000 + x / 1000;
+//		if (!visited[L])
+//		{
+//			visited[L] = 1;
+//			q.push({ L,y + 'L' });
+//		}
+//
+//		int R = x / 10 + (x % 10) * 1000;
+//		if (!visited[R])
+//		{
+//			visited[R] = 1;
+//			q.push({ R,y + 'R' });
+//		}
+//	}
+//}
+//
+//
+//int main()
+//{
+//	std::cin >> T;
+//
+//	for (int i = 0; i < T; i++)
+//	{
+//		std::cin >> n >> m;
+//
+//		bfs(n);
+//
+//		std::memset(visited, 0, sizeof(visited));
+//	}
+//}
 
-void bfs(int a)
+//13.
+#define INF 987654321
+
+int n{}, m{}, start{}, end{};
+
+int dist[1001]{};
+int route[1001]{};
+
+std::vector<std::pair<int, int>> graph[1001];
+std::vector<int> ans;
+
+void solution()
 {
-	std::queue<std::pair<int, std::string>> q;
-	q.push({ a,"" });
-	visited[a] = 1;
+	std::priority_queue<std::pair<int, int>> pq;
+	pq.push({ 0,start });
+	dist[start] = 0;
 
-	while (!q.empty())
+	while (!pq.empty())
 	{
-		int x = q.front().first;
-		std::string y = q.front().second;
-		q.pop();
+		int cost = -pq.top().first;
+		int cur = pq.top().second;
+		pq.pop();
 
-		if (x == m)
+		if (cost > dist[cur])
 		{
-			std::cout << y << '\n';
-			return;
-		}
-				
-		int D = (x * 2) % 10000;
-		if (!visited[D])
-		{
-			visited[D] = 1;
-			q.push({ D,y + 'D' });
+			continue;
 		}
 
-		int S = x - 1;
-		if (S == -1)
+		for (int i = 0; i < graph[cur].size();i++)
 		{
-			S = 9999;
-		}
-		if (!visited[S])
-		{
-			visited[S] = 1;
-			q.push({ S,y + 'S' });
+			int x = graph[cur][i].first;
+			int ncost = graph[cur][i].second;
+
+			if (dist[x] > cost + ncost)
+			{
+				route[x] = cur;
+				dist[x] = cost + ncost;
+				pq.push({ -dist[x],x });
+			}
 		}
 
-		int L = (x * 10) % 10000 + x / 1000;
-		if (!visited[L])
-		{
-			visited[L] = 1;
-			q.push({ L,y + 'L' });
-		}
-
-		int R = x / 10 + (x % 10) * 1000;
-		if (!visited[R])
-		{
-			visited[R] = 1;
-			q.push({ R,y + 'R' });
-		}
 	}
-}
 
+
+}
 
 int main()
 {
-	std::cin >> T;
+	std::ios_base::sync_with_stdio(false);
+	std::cout.tie(NULL);
+	std::cin.tie(NULL);
 
-	for (int i = 0; i < T; i++)
+	std::cin >> n >> m;
+
+	for (int i = 1; i <= n;i++)
 	{
-		std::cin >> n >> m;
-
-		bfs(n);
-
-		std::memset(visited, 0, sizeof(visited));
+		dist[i] = INF;
 	}
+
+	for (int i = 0; i < m;i++)
+	{
+		int x{}, y{}, z{};
+
+		std::cin >> x >> y >> z;
+
+		graph[x].push_back({ y,z });
+	}
+	
+	std::cin >> start >> end;
+
+	solution();
+
+	std::cout << dist[end] << '\n';
+
+	int temp = end;
+
+	while (temp)
+	{
+		ans.push_back(temp);
+		temp = route[temp];
+	}
+
+	std::cout << ans.size() << '\n';
+
+	for (int i = ans.size() - 1; i >= 0;i--)
+	{
+		std::cout << ans[i] << " ";
+	}std::cout << '\n';
 }
