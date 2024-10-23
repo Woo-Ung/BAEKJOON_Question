@@ -719,62 +719,151 @@
 //}
 
 //13.
+//#define INF 987654321
+//
+//int n{}, m{}, start{}, end{};
+//
+//int dist[1001]{};
+//int route[1001]{};
+//
+//std::vector<std::pair<int, int>> graph[1001];
+//std::vector<int> ans;
+//
+//void solution()
+//{
+//	std::priority_queue<std::pair<int, int>> pq;
+//	pq.push({ 0,start });
+//	dist[start] = 0;
+//
+//	while (!pq.empty())
+//	{
+//		int cost = -pq.top().first;
+//		int cur = pq.top().second;
+//		pq.pop();
+//
+//		if (cost > dist[cur])
+//		{
+//			continue;
+//		}
+//
+//		for (int i = 0; i < graph[cur].size();i++)
+//		{
+//			int x = graph[cur][i].first;
+//			int ncost = graph[cur][i].second;
+//
+//			if (dist[x] > cost + ncost)
+//			{
+//				route[x] = cur;
+//				dist[x] = cost + ncost;
+//				pq.push({ -dist[x],x });
+//			}
+//		}
+//
+//	}
+//
+//
+//}
+//
+//int main()
+//{
+//	std::ios_base::sync_with_stdio(false);
+//	std::cout.tie(NULL);
+//	std::cin.tie(NULL);
+//
+//	std::cin >> n >> m;
+//
+//	for (int i = 1; i <= n;i++)
+//	{
+//		dist[i] = INF;
+//	}
+//
+//	for (int i = 0; i < m;i++)
+//	{
+//		int x{}, y{}, z{};
+//
+//		std::cin >> x >> y >> z;
+//
+//		graph[x].push_back({ y,z });
+//	}
+//	
+//	std::cin >> start >> end;
+//
+//	solution();
+//
+//	std::cout << dist[end] << '\n';
+//
+//	int temp = end;
+//
+//	while (temp)
+//	{
+//		ans.push_back(temp);
+//		temp = route[temp];
+//	}
+//
+//	std::cout << ans.size() << '\n';
+//
+//	for (int i = ans.size() - 1; i >= 0;i--)
+//	{
+//		std::cout << ans[i] << " ";
+//	}std::cout << '\n';
+//}
+
+//14.
 #define INF 987654321
 
-int n{}, m{}, start{}, end{};
+int n{}, m{};
 
-int dist[1001]{};
-int route[1001]{};
+int cost[101][101]{};
+int route[101][101]{};
 
-std::vector<std::pair<int, int>> graph[1001];
 std::vector<int> ans;
 
-void solution()
+void Floyd()
 {
-	std::priority_queue<std::pair<int, int>> pq;
-	pq.push({ 0,start });
-	dist[start] = 0;
-
-	while (!pq.empty())
+	for (int k = 1; k <= n;k++)
 	{
-		int cost = -pq.top().first;
-		int cur = pq.top().second;
-		pq.pop();
-
-		if (cost > dist[cur])
+		for (int i = 1; i <= n;i++)
 		{
-			continue;
-		}
-
-		for (int i = 0; i < graph[cur].size();i++)
-		{
-			int x = graph[cur][i].first;
-			int ncost = graph[cur][i].second;
-
-			if (dist[x] > cost + ncost)
+			for (int j = 1; j <= n;j++)
 			{
-				route[x] = cur;
-				dist[x] = cost + ncost;
-				pq.push({ -dist[x],x });
+				if (i == j)
+				{
+					continue;
+				}
+				if (cost[i][j] > cost[i][k] + cost[k][j])
+				{
+					cost[i][j] = cost[i][k] + cost[k][j];
+					route[i][j] = k;
+				}
 			}
 		}
+	}
+}
 
+void R_solution(int a, int b)
+{
+	if (route[a][b] == 0)
+	{
+		ans.push_back(a);
+		ans.push_back(b);
+		return;
 	}
 
-
+	R_solution(a, route[a][b]);
+	ans.pop_back();
+	R_solution(route[a][b], b);
 }
 
 int main()
 {
-	std::ios_base::sync_with_stdio(false);
-	std::cout.tie(NULL);
-	std::cin.tie(NULL);
-
 	std::cin >> n >> m;
 
 	for (int i = 1; i <= n;i++)
 	{
-		dist[i] = INF;
+		for(int j = 1; j <=n;j++)
+		{
+			cost[i][j] = INF;	
+		}
 	}
 
 	for (int i = 0; i < m;i++)
@@ -782,28 +871,47 @@ int main()
 		int x{}, y{}, z{};
 
 		std::cin >> x >> y >> z;
-
-		graph[x].push_back({ y,z });
-	}
-	
-	std::cin >> start >> end;
-
-	solution();
-
-	std::cout << dist[end] << '\n';
-
-	int temp = end;
-
-	while (temp)
-	{
-		ans.push_back(temp);
-		temp = route[temp];
+		cost[x][y] = std::min(cost[x][y], z);
 	}
 
-	std::cout << ans.size() << '\n';
+	Floyd();
 
-	for (int i = ans.size() - 1; i >= 0;i--)
+	for (int i = 1; i <= n;i++)
 	{
-		std::cout << ans[i] << " ";
-	}std::cout << '\n';
+		for (int j = 1; j <= n;j++)
+		{
+			if (cost[i][j] == INF)
+			{
+				std::cout << 0 << " ";
+			}
+			else
+			{
+				std::cout << cost[i][j] << " ";
+			}
+		}std::cout << '\n';
+	}
+
+	for (int i = 1; i <= n;i++)
+	{
+		for (int j = 1; j <= n;j++)
+		{
+			if (cost[i][j] == INF)
+			{
+				std::cout << 0;
+			}
+
+			else
+			{
+				ans.clear();
+
+				R_solution(i, j);
+				std::cout << ans.size() << " ";
+				for (int k = 0; k < ans.size();k++)
+				{
+					std::cout << ans[k] << " ";
+				}
+			}
+			std::cout << '\n';
+		}
+	}
 }
