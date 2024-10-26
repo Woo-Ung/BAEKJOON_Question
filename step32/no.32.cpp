@@ -60,10 +60,72 @@
 
 //2.
 
-int N{}, max{}, maxP{};
-int visited[100001]{};
+//int N{}, max{}, maxP{};
+//int visited[100001]{};
+//
+//std::vector<std::pair<int, int>> v[100001];
+//
+//void dfs(int a, int b)
+//{
+//	if (visited[a])
+//	{
+//		return;
+//	}
+//	if (max < b)
+//	{
+//		max = b;
+//		maxP = a;
+//	}
+//	visited[a] = 1;
+//
+//	for (int i = 0; i < v[a].size();i++)
+//	{
+//		int na = v[a][i].first;
+//		int nb = v[a][i].second;
+//		dfs(na, nb + b);
+//	}
+//}
+//
+//int main()
+//{
+//	std::cin >> N;
+//
+//	for (int i = 0; i < N;i++)
+//	{
+//		int x{}, y{}, z{};
+//
+//		std::cin >> x;
+//
+//		while (true)
+//		{
+//			std::cin >> y;
+//			if (y == -1)
+//			{
+//				break;
+//			}
+//			std::cin >> z;
+//
+//			v[x].push_back({ y,z });
+//			v[y].push_back({ x,z });
+//		}
+//	}
+//
+//	dfs(1,0);
+//
+//	memset(visited, 0, sizeof(visited));
+//	max = 0;
+//
+//	dfs(maxP, 0);
+//
+//	std::cout << max << '\n';
+//}
 
-std::vector<std::pair<int, int>> v[100001];
+//3.
+
+int N{}, max{}, maxP{};
+int visited[10001]{};
+
+std::vector<std::pair<int, int>> v[10001];
 
 void dfs(int a, int b)
 {
@@ -76,46 +138,39 @@ void dfs(int a, int b)
 		max = b;
 		maxP = a;
 	}
+
 	visited[a] = 1;
 
 	for (int i = 0; i < v[a].size();i++)
 	{
 		int na = v[a][i].first;
 		int nb = v[a][i].second;
-		dfs(na, nb + b);
+
+		dfs(na, b + nb);
 	}
+
 }
 
 int main()
 {
 	std::cin >> N;
 
-	for (int i = 0; i < N;i++)
+	for (int i = 0;i < N-1;i++)
 	{
 		int x{}, y{}, z{};
 
-		std::cin >> x;
+		std::cin >> x >> y >> z;
 
-		while (true)
-		{
-			std::cin >> y;
-			if (y == -1)
-			{
-				break;
-			}
-			std::cin >> z;
-
-			v[x].push_back({ y,z });
-			v[y].push_back({ x,z });
-		}
+		v[x].push_back({ y,z });
+		v[y].push_back({ x,z });
 	}
 
+	
 	dfs(1,0);
-
 	memset(visited, 0, sizeof(visited));
 	max = 0;
 
 	dfs(maxP, 0);
 
-	std::cout << max << '\n';
+	std::cout << max << '\n';	
 }
