@@ -122,55 +122,118 @@
 
 //3.
 
-int N{}, max{}, maxP{};
-int visited[10001]{};
+//int N{}, max{}, maxP{};
+//int visited[10001]{};
+//
+//std::vector<std::pair<int, int>> v[10001];
+//
+//void dfs(int a, int b)
+//{
+//	if (visited[a])
+//	{
+//		return;
+//	}
+//	if (max < b)
+//	{
+//		max = b;
+//		maxP = a;
+//	}
+//
+//	visited[a] = 1;
+//
+//	for (int i = 0; i < v[a].size();i++)
+//	{
+//		int na = v[a][i].first;
+//		int nb = v[a][i].second;
+//
+//		dfs(na, b + nb);
+//	}
+//
+//}
+//
+//int main()
+//{
+//	std::cin >> N;
+//
+//	for (int i = 0;i < N-1;i++)
+//	{
+//		int x{}, y{}, z{};
+//
+//		std::cin >> x >> y >> z;
+//
+//		v[x].push_back({ y,z });
+//		v[y].push_back({ x,z });
+//	}
+//
+//	
+//	dfs(1,0);
+//	memset(visited, 0, sizeof(visited));
+//	max = 0;
+//
+//	dfs(maxP, 0);
+//
+//	std::cout << max << '\n';	
+//}
 
-std::vector<std::pair<int, int>> v[10001];
+//4.
 
-void dfs(int a, int b)
+int N{};
+
+std::vector<std::pair<char,char>> v[27];
+
+void preorder(char a)
 {
-	if (visited[a])
+	if (a == '.')
 	{
 		return;
 	}
-	if (max < b)
+
+	std::cout << a;
+	preorder(v[a - 'A'].front().first);
+	preorder(v[a - 'A'].front().second);
+}
+
+void inorder(char a)
+{
+	if (a == '.')
 	{
-		max = b;
-		maxP = a;
+		return;
 	}
 
-	visited[a] = 1;
+	inorder(v[a - 'A'].front().first);
+	std::cout << a;
+	inorder(v[a - 'A'].front().second);
+}
 
-	for (int i = 0; i < v[a].size();i++)
+void postorder(char a)
+{
+	if (a == '.')
 	{
-		int na = v[a][i].first;
-		int nb = v[a][i].second;
-
-		dfs(na, b + nb);
+		return;
 	}
 
+	postorder(v[a - 'A'].front().first);
+	postorder(v[a - 'A'].front().second);
+	std::cout << a;
 }
 
 int main()
 {
 	std::cin >> N;
 
-	for (int i = 0;i < N-1;i++)
+	for (int i = 0;i < N;i++)
 	{
-		int x{}, y{}, z{};
+		char x{}, y{}, z{};
 
 		std::cin >> x >> y >> z;
-
-		v[x].push_back({ y,z });
-		v[y].push_back({ x,z });
+		
+		v[x-'A'].push_back({y,z});
 	}
 
-	
-	dfs(1,0);
-	memset(visited, 0, sizeof(visited));
-	max = 0;
-
-	dfs(maxP, 0);
-
-	std::cout << max << '\n';	
+	preorder('A');
+	std::cout << '\n';
+	inorder('A');
+	std::cout << '\n';
+	postorder('A');
+	std::cout << '\n';
 }
