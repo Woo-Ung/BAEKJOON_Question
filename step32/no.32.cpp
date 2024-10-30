@@ -177,63 +177,105 @@
 
 //4.
 
+//int N{};
+//
+//std::vector<std::pair<char,char>> v[27];
+//
+//void preorder(char a)
+//{
+//	if (a == '.')
+//	{
+//		return;
+//	}
+//
+//	std::cout << a;
+//	preorder(v[a - 'A'].front().first);
+//	preorder(v[a - 'A'].front().second);
+//}
+//
+//void inorder(char a)
+//{
+//	if (a == '.')
+//	{
+//		return;
+//	}
+//
+//	inorder(v[a - 'A'].front().first);
+//	std::cout << a;
+//	inorder(v[a - 'A'].front().second);
+//}
+//
+//void postorder(char a)
+//{
+//	if (a == '.')
+//	{
+//		return;
+//	}
+//
+//	postorder(v[a - 'A'].front().first);
+//	postorder(v[a - 'A'].front().second);
+//	std::cout << a;
+//}
+//
+//int main()
+//{
+//	std::cin >> N;
+//
+//	for (int i = 0;i < N;i++)
+//	{
+//		char x{}, y{}, z{};
+//
+//		std::cin >> x >> y >> z;
+//		
+//		v[x-'A'].push_back({y,z});
+//	}
+//
+//	preorder('A');
+//	std::cout << '\n';
+//	inorder('A');
+//	std::cout << '\n';
+//	postorder('A');
+//	std::cout << '\n';
+//}
+
+//5.
+
 int N{};
 
-std::vector<std::pair<char,char>> v[27];
+int index[100001] {};
+int inorder[100001] {};
+int postorder[100001] {};
 
-void preorder(char a)
+void preorder(int inS, int inE, int postS, int postE)
 {
-	if (a == '.')
+	if (inS > inE || postS > postE)
 	{
 		return;
 	}
 
-	std::cout << a;
-	preorder(v[a - 'A'].front().first);
-	preorder(v[a - 'A'].front().second);
-}
+	int root = index[postorder[postE]];
+	int l = root - inS;
+	int r = inE - root;
+	std::cout << inorder[root] << " ";
 
-void inorder(char a)
-{
-	if (a == '.')
-	{
-		return;
-	}
-
-	inorder(v[a - 'A'].front().first);
-	std::cout << a;
-	inorder(v[a - 'A'].front().second);
-}
-
-void postorder(char a)
-{
-	if (a == '.')
-	{
-		return;
-	}
-
-	postorder(v[a - 'A'].front().first);
-	postorder(v[a - 'A'].front().second);
-	std::cout << a;
+	preorder(inS, root - 1, postS, postS + l - 1);
+	preorder(root + 1, inE, postS + l, postE - 1);
 }
 
 int main()
 {
 	std::cin >> N;
 
-	for (int i = 0;i < N;i++)
+	for (int i = 1;i <= N;i++)
 	{
-		char x{}, y{}, z{};
+		std::cin >> inorder[i];
 
-		std::cin >> x >> y >> z;
-		
-		v[x-'A'].push_back({y,z});
+		index[inorder[i]] = i;
+	}
+	for (int i = 1; i <= N;i++)
+	{
+		std::cin >> postorder[i];
 	}
 
-	preorder('A');
-	std::cout << '\n';
-	inorder('A');
-	std::cout << '\n';
-	postorder('A');
-	std::cout << '\n';
+	preorder(1, N, 1, N);
 }
