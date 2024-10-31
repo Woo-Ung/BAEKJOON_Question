@@ -240,42 +240,88 @@
 
 //5.
 
-int N{};
+//int N{};
+//
+//int index[100001] {};
+//int inorder[100001] {};
+//int postorder[100001] {};
+//
+//void preorder(int inS, int inE, int postS, int postE)
+//{
+//	if (inS > inE || postS > postE)
+//	{
+//		return;
+//	}
+//
+//	int root = index[postorder[postE]];
+//	int l = root - inS;
+//	int r = inE - root;
+//	std::cout << inorder[root] << " ";
+//
+//	preorder(inS, root - 1, postS, postS + l - 1);
+//	preorder(root + 1, inE, postS + l, postE - 1);
+//}
+//
+//int main()
+//{
+//	std::cin >> N;
+//
+//	for (int i = 1;i <= N;i++)
+//	{
+//		std::cin >> inorder[i];
+//
+//		index[inorder[i]] = i;
+//	}
+//	for (int i = 1; i <= N;i++)
+//	{
+//		std::cin >> postorder[i];
+//	}
+//
+//	preorder(1, N, 1, N);
+//}
 
-int index[100001] {};
-int inorder[100001] {};
-int postorder[100001] {};
+//6.
 
-void preorder(int inS, int inE, int postS, int postE)
+int preorder[10001]{};
+
+void postorder(int start, int end)
 {
-	if (inS > inE || postS > postE)
+	if (start >= end)
 	{
 		return;
 	}
 
-	int root = index[postorder[postE]];
-	int l = root - inS;
-	int r = inE - root;
-	std::cout << inorder[root] << " ";
+	if (start == end - 1)
+	{
+		std::cout << preorder[start] << '\n';
+		return;
+	}
 
-	preorder(inS, root - 1, postS, postS + l - 1);
-	preorder(root + 1, inE, postS + l, postE - 1);
+	int m = start + 1;
+
+	while (m < end)
+	{
+		if (preorder[start] < preorder[m])
+		{
+			break;
+		}
+		m++;
+	}
+
+	postorder(start + 1, m);
+	postorder(m, end);
+
+	std::cout << preorder[start] << '\n';
 }
+
 
 int main()
 {
-	std::cin >> N;
-
-	for (int i = 1;i <= N;i++)
-	{
-		std::cin >> inorder[i];
-
-		index[inorder[i]] = i;
-	}
-	for (int i = 1; i <= N;i++)
-	{
-		std::cin >> postorder[i];
+	int x{}, count{0};
+	while (std::cin >> x)
+	{		
+		preorder[count++] = x;
 	}
 
-	preorder(1, N, 1, N);
+	postorder(0, count);
 }
