@@ -282,46 +282,137 @@
 
 //6.
 
-int preorder[10001]{};
+//int preorder[10001]{};
+//
+//void postorder(int start, int end)
+//{
+//	if (start >= end)
+//	{
+//		return;
+//	}
+//
+//	if (start == end - 1)
+//	{
+//		std::cout << preorder[start] << '\n';
+//		return;
+//	}
+//
+//	int m = start + 1;
+//
+//	while (m < end)
+//	{
+//		if (preorder[start] < preorder[m])
+//		{
+//			break;
+//		}
+//		m++;
+//	}
+//
+//	postorder(start + 1, m);
+//	postorder(m, end);
+//
+//	std::cout << preorder[start] << '\n';
+//}
+//
+//
+//int main()
+//{
+//	int x{}, count{0};
+//	while (std::cin >> x)
+//	{		
+//		preorder[count++] = x;
+//	}
+//
+//	postorder(0, count);
+//}
 
-void postorder(int start, int end)
-{
-	if (start >= end)
+//7.
+
+int N{}, M{}, num{1};
+int visited[501]{};
+
+bool isTree{ true };
+
+std::vector<int> tree[501];
+
+void dfs(int a, int b)
+{	
+	visited[a] = 1;
+
+	for (int i = 0;i < tree[a].size();i++)
 	{
-		return;
-	}
-
-	if (start == end - 1)
-	{
-		std::cout << preorder[start] << '\n';
-		return;
-	}
-
-	int m = start + 1;
-
-	while (m < end)
-	{
-		if (preorder[start] < preorder[m])
+		if (tree[a][i] == b)
 		{
-			break;
+			continue;
 		}
-		m++;
+		if (visited[tree[a][i]])
+		{
+			isTree = false;
+			return;
+		}
+		
+		dfs(tree[a][i], a);
 	}
-
-	postorder(start + 1, m);
-	postorder(m, end);
-
-	std::cout << preorder[start] << '\n';
 }
-
 
 int main()
 {
-	int x{}, count{0};
-	while (std::cin >> x)
-	{		
-		preorder[count++] = x;
-	}
+	while (true)
+	{
+		std::cin >> N >> M;
 
-	postorder(0, count);
+		if (N == 0 && M == 0)
+		{
+			break;
+		}
+				
+		memset(visited, 0, sizeof(visited));
+		for (int i = 0; i <= N;i++)
+		{
+			tree[i].clear();
+		}		
+
+		while (M--)
+		{
+			int x{}, y{};
+
+			std::cin >> x >> y;
+
+			tree[x].push_back(y);
+			tree[y].push_back(x);
+		}
+
+		int count{0};
+		for (int i = 1;i <= N;i++)
+		{
+			if (!visited[i])
+			{
+				isTree = true;
+
+				dfs(i,0);
+
+				if (isTree)
+				{
+					count++;
+				}
+			}
+		}
+
+		
+		std::cout << "Case " << num++ << ": ";
+
+		if (count == 0)
+		{
+			std::cout << "No trees." << '\n';
+		}
+		else if(count == 1)
+		{
+			std::cout << "There is one tree." << '\n';
+		}
+		else if (count > 1)
+		{
+			std::cout << "A forest of " << count << " trees." << '\n';
+		}
+
+	}
 }
