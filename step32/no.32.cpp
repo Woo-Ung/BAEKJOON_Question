@@ -328,91 +328,100 @@
 
 //7.
 
-int N{}, M{}, num{1};
-int visited[501]{};
+//int N{}, M{}, num{1};
+//int visited[501]{};
+//
+//bool isTree{ true };
+//
+//std::vector<int> tree[501];
+//
+//void dfs(int a, int b)
+//{	
+//	visited[a] = 1;
+//
+//	for (int i = 0;i < tree[a].size();i++)
+//	{
+//		if (tree[a][i] == b)
+//		{
+//			continue;
+//		}
+//		if (visited[tree[a][i]])
+//		{
+//			isTree = false;
+//			return;
+//		}
+//		
+//		dfs(tree[a][i], a);
+//	}
+//}
+//
+//int main()
+//{
+//	while (true)
+//	{
+//		std::cin >> N >> M;
+//
+//		if (N == 0 && M == 0)
+//		{
+//			break;
+//		}
+//				
+//		memset(visited, 0, sizeof(visited));
+//		for (int i = 0; i <= N;i++)
+//		{
+//			tree[i].clear();
+//		}		
+//
+//		while (M--)
+//		{
+//			int x{}, y{};
+//
+//			std::cin >> x >> y;
+//
+//			tree[x].push_back(y);
+//			tree[y].push_back(x);
+//		}
+//
+//		int count{0};
+//		for (int i = 1;i <= N;i++)
+//		{
+//			if (!visited[i])
+//			{
+//				isTree = true;
+//
+//				dfs(i,0);
+//
+//				if (isTree)
+//				{
+//					count++;
+//				}
+//			}
+//		}
+//
+//		
+//		std::cout << "Case " << num++ << ": ";
+//
+//		if (count == 0)
+//		{
+//			std::cout << "No trees." << '\n';
+//		}
+//		else if(count == 1)
+//		{
+//			std::cout << "There is one tree." << '\n';
+//		}
+//		else if (count > 1)
+//		{
+//			std::cout << "A forest of " << count << " trees." << '\n';
+//		}
+//
+//	}
+//}
 
-bool isTree{ true };
-
-std::vector<int> tree[501];
-
-void dfs(int a, int b)
-{	
-	visited[a] = 1;
-
-	for (int i = 0;i < tree[a].size();i++)
-	{
-		if (tree[a][i] == b)
-		{
-			continue;
-		}
-		if (visited[tree[a][i]])
-		{
-			isTree = false;
-			return;
-		}
-		
-		dfs(tree[a][i], a);
-	}
-}
+//8.
 
 int main()
 {
-	while (true)
-	{
-		std::cin >> N >> M;
 
-		if (N == 0 && M == 0)
-		{
-			break;
-		}
-				
-		memset(visited, 0, sizeof(visited));
-		for (int i = 0; i <= N;i++)
-		{
-			tree[i].clear();
-		}		
 
-		while (M--)
-		{
-			int x{}, y{};
 
-			std::cin >> x >> y;
-
-			tree[x].push_back(y);
-			tree[y].push_back(x);
-		}
-
-		int count{0};
-		for (int i = 1;i <= N;i++)
-		{
-			if (!visited[i])
-			{
-				isTree = true;
-
-				dfs(i,0);
-
-				if (isTree)
-				{
-					count++;
-				}
-			}
-		}
-
-		
-		std::cout << "Case " << num++ << ": ";
-
-		if (count == 0)
-		{
-			std::cout << "No trees." << '\n';
-		}
-		else if(count == 1)
-		{
-			std::cout << "There is one tree." << '\n';
-		}
-		else if (count > 1)
-		{
-			std::cout << "A forest of " << count << " trees." << '\n';
-		}
-
-	}
 }
