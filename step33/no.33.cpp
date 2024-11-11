@@ -1,4 +1,6 @@
 #include <iostream>
+#include <vector>
+#include <map>
 
 //1.
 
@@ -74,85 +76,178 @@
 
 //2.
 
-int N{}, M{};
+//int N{}, M{};
+//
+//int parent[201]{};
+//int arr[1001]{};
+//
+//bool can{ true };
+//
+//int getP(int a)
+//{
+//	if (parent[a] == a)
+//	{
+//		return a;
+//	}
+//	return parent[a] = getP(parent[a]);
+//}
+//
+//void unionP(int a, int b)
+//{
+//	a = getP(a);
+//	b = getP(b);
+//	if (a > b)
+//	{
+//		parent[a] = b;
+//	}
+//	else
+//	{
+//		parent[b] = a;
+//	}
+//}
+//
+//void findP(int a, int b)
+//{
+//	a = getP(a);
+//	b = getP(b);
+//	if (a != b)
+//	{
+//		can = false;
+//	}
+//}
+//
+//int main()
+//{
+//	std::cin >> N >> M;
+//
+//	for (int i = 1; i <= N;i++)
+//	{
+//		parent[i] = i;
+//	}
+//
+//	for (int i = 1; i <= N; i++)
+//	{
+//		for (int j = 1; j <= N;j++)
+//		{
+//			int x{};
+//
+//			std::cin >> x;
+//			if (x)
+//			{
+//				unionP(i, j);
+//			}
+//		}
+//	}
+//
+//	for (int i = 0; i < M;i++)
+//	{
+//		std::cin >> arr[i];
+//	}
+//
+//	for (int i = 0; i < M - 1;i++)
+//	{
+//		findP(arr[i], arr[i + 1]);
+//	}
+//
+//	if (can)
+//	{
+//		std::cout << "YES" << '\n';
+//	}
+//	else
+//	{
+//		std::cout << "NO" << '\n';
+//	}
+//}
 
-int parent[201]{};
-int arr[1001]{};
+//3.
 
-bool can{ true };
+int N{}, F{}, count{};
+int parent[200001]{};
+int num[200001]{};
 
-int getP(int a)
+std::map<std::string, int> m;
+
+int findP(int a)
 {
 	if (parent[a] == a)
 	{
 		return a;
 	}
-	return parent[a] = getP(parent[a]);
+	return parent[a] = findP(parent[a]);
 }
 
 void unionP(int a, int b)
 {
-	a = getP(a);
-	b = getP(b);
+	a = findP(a);
+	b = findP(b);
+
 	if (a > b)
 	{
 		parent[a] = b;
+		num[b] += num[a];
 	}
-	else
+
+	else if(a < b)
 	{
 		parent[b] = a;
-	}
-}
-
-void findP(int a, int b)
-{
-	a = getP(a);
-	b = getP(b);
-	if (a != b)
-	{
-		can = false;
+		num[a] += num[b];
 	}
 }
 
 int main()
 {
-	std::cin >> N >> M;
+	std::ios::sync_with_stdio(false);
+	std::cin.tie(NULL);
+	std::cout.tie(NULL);
 
-	for (int i = 1; i <= N;i++)
-	{
-		parent[i] = i;
-	}
+	std::cin >> N;
 
-	for (int i = 1; i <= N; i++)
+	std::map<std::string, int> ::iterator it;
+
+	while (N--)
 	{
-		for (int j = 1; j <= N;j++)
+		m.clear();
+		count = 0;
+
+		for (int i = 0; i < 200001;i++)
 		{
-			int x{};
-
-			std::cin >> x;
-			if (x)
-			{
-				unionP(i, j);
-			}
+			parent[i] = i;
+			num[i] = 1;
 		}
-	}
 
-	for (int i = 0; i < M;i++)
-	{
-		std::cin >> arr[i];
-	}
+		std::cin >> F;
 
-	for (int i = 0; i < M - 1;i++)
-	{
-		findP(arr[i], arr[i + 1]);
-	}
+		for (int i = 0;i < F;i++)
+		{
+			int a{}, b{};
+			std::string x, y;
+			std::cin >> x >> y;
 
-	if (can)
-	{
-		std::cout << "YES" << '\n';
-	}
-	else
-	{
-		std::cout << "NO" << '\n';
+			it = m.find(x);
+			if (it == m.end())
+			{
+				m[x] = ++count;
+				a = count;
+			}
+			
+			else
+			{
+				a = it->second;
+			}
+
+			it = m.find(y);
+			if (it == m.end())
+			{
+				m[y] = ++count;
+				b = count;
+			}
+			else
+			{
+				b = it->second;
+			}
+			unionP(a, b);
+			int root = findP(a);
+			std::cout << num[root] << '\n';
+		}
 	}
 }
