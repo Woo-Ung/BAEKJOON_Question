@@ -161,11 +161,101 @@
 
 //3.
 
-int N{}, F{}, count{};
-int parent[200001]{};
-int num[200001]{};
+//int N{}, F{}, count{};
+//int parent[200001]{};
+//int num[200001]{};
+//
+//std::map<std::string, int> m;
+//
+//int findP(int a)
+//{
+//	if (parent[a] == a)
+//	{
+//		return a;
+//	}
+//	return parent[a] = findP(parent[a]);
+//}
+//
+//void unionP(int a, int b)
+//{
+//	a = findP(a);
+//	b = findP(b);
+//
+//	if (a > b)
+//	{
+//		parent[a] = b;
+//		num[b] += num[a];
+//	}
+//
+//	else if(a < b)
+//	{
+//		parent[b] = a;
+//		num[a] += num[b];
+//	}
+//}
+//
+//int main()
+//{
+//	std::ios::sync_with_stdio(false);
+//	std::cin.tie(NULL);
+//	std::cout.tie(NULL);
+//
+//	std::cin >> N;
+//
+//	std::map<std::string, int> ::iterator it;
+//
+//	while (N--)
+//	{
+//		m.clear();
+//		count = 0;
+//
+//		for (int i = 0; i < 200001;i++)
+//		{
+//			parent[i] = i;
+//			num[i] = 1;
+//		}
+//
+//		std::cin >> F;
+//
+//		for (int i = 0;i < F;i++)
+//		{
+//			int a{}, b{};
+//			std::string x, y;
+//			std::cin >> x >> y;
+//
+//			it = m.find(x);
+//			if (it == m.end())
+//			{
+//				m[x] = ++count;
+//				a = count;
+//			}
+//			
+//			else
+//			{
+//				a = it->second;
+//			}
+//
+//			it = m.find(y);
+//			if (it == m.end())
+//			{
+//				m[y] = ++count;
+//				b = count;
+//			}
+//			else
+//			{
+//				b = it->second;
+//			}
+//			unionP(a, b);
+//			int root = findP(a);
+//			std::cout << num[root] << '\n';
+//		}
+//	}
+//}
 
-std::map<std::string, int> m;
+//4.
+
+int N{}, M{};
+int parent[1000001]{};
 
 int findP(int a)
 {
@@ -178,76 +268,63 @@ int findP(int a)
 
 void unionP(int a, int b)
 {
-	a = findP(a);
-	b = findP(b);
+	a = findP(parent[a]);
+	b = findP(parent[b]);
 
 	if (a > b)
 	{
 		parent[a] = b;
-		num[b] += num[a];
 	}
 
-	else if(a < b)
+	else if (b > a)
 	{
 		parent[b] = a;
-		num[a] += num[b];
+	}
+}
+
+bool isP(int a, int b)
+{
+	a = findP(a);
+	b = findP(b);
+
+	if (a == b)
+	{
+		return true;
+	}
+
+	else
+	{
+		return false;
 	}
 }
 
 int main()
 {
-	std::ios::sync_with_stdio(false);
-	std::cin.tie(NULL);
-	std::cout.tie(NULL);
+	std::cin >> N >> M;
 
-	std::cin >> N;
-
-	std::map<std::string, int> ::iterator it;
-
-	while (N--)
+	for (int i = 0; i < N;i++)
 	{
-		m.clear();
-		count = 0;
+		parent[i] = i;
+	}
 
-		for (int i = 0; i < 200001;i++)
+	int x{}, y{};
+	bool ans{};
+
+	for (int i = 1; i <= M;i++)
+	{
+		std::cin >> x >> y;
+		if (isP(x, y))
 		{
-			parent[i] = i;
-			num[i] = 1;
+			std::cout << i << '\n';
+			ans = true;
+			break;
 		}
 
-		std::cin >> F;
+		unionP(x, y);
+	}
 
-		for (int i = 0;i < F;i++)
-		{
-			int a{}, b{};
-			std::string x, y;
-			std::cin >> x >> y;
-
-			it = m.find(x);
-			if (it == m.end())
-			{
-				m[x] = ++count;
-				a = count;
-			}
-			
-			else
-			{
-				a = it->second;
-			}
-
-			it = m.find(y);
-			if (it == m.end())
-			{
-				m[y] = ++count;
-				b = count;
-			}
-			else
-			{
-				b = it->second;
-			}
-			unionP(a, b);
-			int root = findP(a);
-			std::cout << num[root] << '\n';
-		}
+	if (!ans)
+	{
+		std::cout << 0 << '\n';
 	}
 }
