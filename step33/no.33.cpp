@@ -254,77 +254,100 @@
 
 //4.
 
-int N{}, M{};
-int parent[1000001]{};
+//int N{}, M{};
+//int parent[1000001]{};
+//
+//int findP(int a)
+//{
+//	if (parent[a] == a)
+//	{
+//		return a;
+//	}
+//	return parent[a] = findP(parent[a]);
+//}
+//
+//void unionP(int a, int b)
+//{
+//	a = findP(parent[a]);
+//	b = findP(parent[b]);
+//
+//	if (a > b)
+//	{
+//		parent[a] = b;
+//	}
+//
+//	else if (b > a)
+//	{
+//		parent[b] = a;
+//	}
+//}
+//
+//bool isP(int a, int b)
+//{
+//	a = findP(a);
+//	b = findP(b);
+//
+//	if (a == b)
+//	{
+//		return true;
+//	}
+//
+//	else
+//	{
+//		return false;
+//	}
+//}
+//
+//int main()
+//{
+//	std::cin >> N >> M;
+//
+//	for (int i = 0; i < N;i++)
+//	{
+//		parent[i] = i;
+//	}
+//
+//	int x{}, y{};
+//	bool ans{};
+//
+//	for (int i = 1; i <= M;i++)
+//	{
+//		std::cin >> x >> y;
+//		if (isP(x, y))
+//		{
+//			std::cout << i << '\n';
+//			ans = true;
+//			break;
+//		}
+//
+//		unionP(x, y);
+//	}
+//
+//	if (!ans)
+//	{
+//		std::cout << 0 << '\n';
+//	}
+//}
 
-int findP(int a)
-{
-	if (parent[a] == a)
-	{
-		return a;
-	}
-	return parent[a] = findP(parent[a]);
-}
+//5.
 
-void unionP(int a, int b)
-{
-	a = findP(parent[a]);
-	b = findP(parent[b]);
-
-	if (a > b)
-	{
-		parent[a] = b;
-	}
-
-	else if (b > a)
-	{
-		parent[b] = a;
-	}
-}
-
-bool isP(int a, int b)
-{
-	a = findP(a);
-	b = findP(b);
-
-	if (a == b)
-	{
-		return true;
-	}
-
-	else
-	{
-		return false;
-	}
-}
+int T{}, N{}, M{};
 
 int main()
 {
-	std::cin >> N >> M;
+	std::cin >> T;
 
-	for (int i = 0; i < N;i++)
+	for (int i = 0; i < T;i++)
 	{
-		parent[i] = i;
-	}
+		std::cin >> N >> M;
 
-	int x{}, y{};
-	bool ans{};
-
-	for (int i = 1; i <= M;i++)
-	{
-		std::cin >> x >> y;
-		if (isP(x, y))
+		for (int i = 0; i < M;i++)
 		{
-			std::cout << i << '\n';
-			ans = true;
-			break;
+			int a{}, b{};
+
+			std::cin >> a >> b;
 		}
 
-		unionP(x, y);
-	}
-
-	if (!ans)
-	{
-		std::cout << 0 << '\n';
+		std::cout << N - 1 << '\n';
 	}
 }
