@@ -328,26 +328,3 @@
 //		std::cout << 0 << '\n';
 //	}
 //}
-
-//5.
-
-int T{}, N{}, M{};
-
-int main()
-{
-	std::cin >> T;
-
-	for (int i = 0; i < T;i++)
-	{
-		std::cin >> N >> M;
-
-		for (int i = 0; i < M;i++)
-		{
-			int a{}, b{};
-
-			std::cin >> a >> b;
-		}
-
-		std::cout << N - 1 << '\n';
-	}
-}
