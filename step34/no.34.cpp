@@ -86,18 +86,89 @@
 
 //3.
 
-int N{};
-int parent[101]{};
+//int N{};
+//int parent[101]{};
+//
+//double answer{};
+//
+//std::vector<std::pair<double, double>> v;
+//std::vector<std::pair<double, std::pair<int, int>>> edge;
+//
+//double distance(double a1, double a2, double b1, double b2)
+//{
+//	return std::sqrt(std::pow(b1 - a1, 2) + std::pow(b2 - a2, 2));
+//}
+//
+//int findP(int a)
+//{
+//	if (a == parent[a])
+//	{
+//		return a;
+//	}
+//
+//	return parent[a] = findP(parent[a]);
+//}
+//
+//int main()
+//{
+//	std::cin >> N;
+//
+//	for (int i = 0; i < N; i++)
+//	{
+//		double a{}, b{};
+//
+//		std::cin >> a >> b;
+//
+//		v.push_back({ a,b });
+//	}
+//
+//	for (int i = 0; i < v.size();i++)
+//	{
+//		for (int j = i + 1;j < v.size();j++)
+//		{
+//			double x = distance(v[i].first, v[i].second, v[j].first, v[j].second);			
+//			edge.push_back({ x,{i,j} });
+//		}
+//	}
+//
+//	for (int i = 0; i <= N;i++)
+//	{
+//		parent[i] = i;
+//	}
+//
+//	std::sort(edge.begin(), edge.end());
+//
+//	for (int i = 0; i < edge.size();i++)
+//	{
+//		double cost = edge[i].first;
+//
+//		int x = edge[i].second.first;
+//		int y = edge[i].second.second;
+//
+//		int a = findP(x);
+//		int b = findP(y);
+//
+//		if (a != b)
+//		{
+//			parent[a] = b;
+//			answer += cost;
+//		}		
+//	}
+//
+//	std::cout.precision(3);
+//	std::cout << answer << '\n';
+//}
+
+//4.
+
+int N{}, M{};
+int parent[1001]{};
 
 double answer{};
 
-std::vector<std::pair<double, double>> v;
+std::vector<std::pair<int, int>> point;
+std::vector<std::pair<int, int>> v;
 std::vector<std::pair<double, std::pair<int, int>>> edge;
-
-double distance(double a1, double a2, double b1, double b2)
-{
-	return std::sqrt(std::pow(b1 - a1, 2) + std::pow(b2 - a2, 2));
-}
 
 int findP(int a)
 {
@@ -109,52 +180,105 @@ int findP(int a)
 	return parent[a] = findP(parent[a]);
 }
 
+bool sameP(int a, int b)
+{
+	a = findP(a);
+	b = findP(b);
+
+	if (a == b)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+void unionP(int a, int b)
+{
+	a = findP(a);
+	b = findP(b);
+
+	parent[b] = a;
+}
+
+double distance(int a, int b, int na, int nb)
+{
+	long long x = pow(a - na, 2);
+	long long y = pow(b - nb, 2);
+	
+	return sqrt(x + y);
+}
+
 int main()
 {
-	std::cin >> N;
+	std::cin >> N >> M;
 
-	for (int i = 0; i < N; i++)
+	for (int i = 0;i <= N;i++)
 	{
-		double a{}, b{};
+		parent[i] = i;
+	}
+
+	for (int i = 0; i < N;i++)
+	{
+		int a{}, b{};
+
+		std::cin >> a >> b;
+
+		point.push_back({ a,b });
+	}
+
+	for (int i = 0; i < M; i++)
+	{
+		int a{}, b{};
 
 		std::cin >> a >> b;
 
 		v.push_back({ a,b });
 	}
 
-	for (int i = 0; i < v.size();i++)
+	for (int i = 0; i < M;i++)
 	{
-		for (int j = i + 1;j < v.size();j++)
+		int x = v[i].first;
+		int y = v[i].second;
+
+		if (!sameP(x, y))
 		{
-			double x = distance(v[i].first, v[i].second, v[j].first, v[j].second);			
-			edge.push_back({ x,{i,j} });
+			unionP(x, y);
 		}
 	}
 
-	for (int i = 0; i <= N;i++)
+	for (int i = 0; i < N;i++)
 	{
-		parent[i] = i;
+		int x = point[i].first;
+		int y = point[i].second;
+
+		for (int j = i + 1;j < N;j++)
+		{
+			int nx = point[j].first;
+			int ny = point[j].second;
+
+			double d = distance(x, y, nx, ny);
+			edge.push_back({ d,{i + 1,j + 1} });
+		}
 	}
 
 	std::sort(edge.begin(), edge.end());
 
 	for (int i = 0; i < edge.size();i++)
 	{
-		double cost = edge[i].first;
-
 		int x = edge[i].second.first;
 		int y = edge[i].second.second;
 
-		int a = findP(x);
-		int b = findP(y);
+		double d = edge[i].first;
 
-		if (a != b)
+		if (!sameP(x,y))
 		{
-			parent[a] = b;
-			answer += cost;
-		}		
+			unionP(x, y);
+			answer += d;
+		}
 	}
 
-	std::cout.precision(3);
+	std::cout << std::fixed;
+	std::cout.precision(2);
 	std::cout << answer << '\n';
 }
