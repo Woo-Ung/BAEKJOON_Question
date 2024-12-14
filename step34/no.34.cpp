@@ -161,14 +161,136 @@
 
 //4.
 
-int N{}, M{};
-int parent[1001]{};
+//int N{}, M{};
+//int parent[1001]{};
+//
+//double answer{};
+//
+//std::vector<std::pair<int, int>> point;
+//std::vector<std::pair<int, int>> v;
+//std::vector<std::pair<double, std::pair<int, int>>> edge;
+//
+//int findP(int a)
+//{
+//	if (a == parent[a])
+//	{
+//		return a;
+//	}
+//
+//	return parent[a] = findP(parent[a]);
+//}
+//
+//bool sameP(int a, int b)
+//{
+//	a = findP(a);
+//	b = findP(b);
+//
+//	if (a == b)
+//	{
+//		return true;
+//	}
+//
+//	return false;
+//}
+//
+//void unionP(int a, int b)
+//{
+//	a = findP(a);
+//	b = findP(b);
+//
+//	parent[b] = a;
+//}
+//
+//double distance(int a, int b, int na, int nb)
+//{
+//	long long x = pow(a - na, 2);
+//	long long y = pow(b - nb, 2);
+//	
+//	return sqrt(x + y);
+//}
+//
+//int main()
+//{
+//	std::cin >> N >> M;
+//
+//	for (int i = 0;i <= N;i++)
+//	{
+//		parent[i] = i;
+//	}
+//
+//	for (int i = 0; i < N;i++)
+//	{
+//		int a{}, b{};
+//
+//		std::cin >> a >> b;
+//
+//		point.push_back({ a,b });
+//	}
+//
+//	for (int i = 0; i < M; i++)
+//	{
+//		int a{}, b{};
+//
+//		std::cin >> a >> b;
+//
+//		v.push_back({ a,b });
+//	}
+//
+//	for (int i = 0; i < M;i++)
+//	{
+//		int x = v[i].first;
+//		int y = v[i].second;
+//
+//		if (!sameP(x, y))
+//		{
+//			unionP(x, y);
+//		}
+//	}
+//
+//	for (int i = 0; i < N;i++)
+//	{
+//		int x = point[i].first;
+//		int y = point[i].second;
+//
+//		for (int j = i + 1;j < N;j++)
+//		{
+//			int nx = point[j].first;
+//			int ny = point[j].second;
+//
+//			double d = distance(x, y, nx, ny);
+//			edge.push_back({ d,{i + 1,j + 1} });
+//		}
+//	}
+//
+//	std::sort(edge.begin(), edge.end());
+//
+//	for (int i = 0; i < edge.size();i++)
+//	{
+//		int x = edge[i].second.first;
+//		int y = edge[i].second.second;
+//
+//		double d = edge[i].first;
+//
+//		if (!sameP(x,y))
+//		{
+//			unionP(x, y);
+//			answer += d;
+//		}
+//	}
+//
+//	std::cout << std::fixed;
+//	std::cout.precision(2);
+//	std::cout << answer << '\n';
+//}
 
-double answer{};
+//5.
 
-std::vector<std::pair<int, int>> point;
-std::vector<std::pair<int, int>> v;
-std::vector<std::pair<double, std::pair<int, int>>> edge;
+int n{}, m{}, answer{};
+int parent[200001]{};
+
+bool flag;
+
+std::vector<std::pair<int, std::pair<int, int>>> v;
 
 int findP(int a)
 {
@@ -176,109 +298,65 @@ int findP(int a)
 	{
 		return a;
 	}
-
 	return parent[a] = findP(parent[a]);
 }
 
-bool sameP(int a, int b)
+void unionP(int a, int b)
 {
+	flag = false;
+
 	a = findP(a);
 	b = findP(b);
 
 	if (a == b)
 	{
-		return true;
+		return;
 	}
 
-	return false;
-}
-
-void unionP(int a, int b)
-{
-	a = findP(a);
-	b = findP(b);
-
-	parent[b] = a;
-}
-
-double distance(int a, int b, int na, int nb)
-{
-	long long x = pow(a - na, 2);
-	long long y = pow(b - nb, 2);
-	
-	return sqrt(x + y);
+	flag = true;
+	parent[a] = b;
 }
 
 int main()
 {
-	std::cin >> N >> M;
-
-	for (int i = 0;i <= N;i++)
+	while (true)
 	{
-		parent[i] = i;
-	}
+		answer = 0;
+		v.clear();
 
-	for (int i = 0; i < N;i++)
-	{
-		int a{}, b{};
-
-		std::cin >> a >> b;
-
-		point.push_back({ a,b });
-	}
-
-	for (int i = 0; i < M; i++)
-	{
-		int a{}, b{};
-
-		std::cin >> a >> b;
-
-		v.push_back({ a,b });
-	}
-
-	for (int i = 0; i < M;i++)
-	{
-		int x = v[i].first;
-		int y = v[i].second;
-
-		if (!sameP(x, y))
+		std::cin >> m >> n;
+		if (!m && !n)
 		{
-			unionP(x, y);
+			break;
 		}
-	}
 
-	for (int i = 0; i < N;i++)
-	{
-		int x = point[i].first;
-		int y = point[i].second;
-
-		for (int j = i + 1;j < N;j++)
+		for (int i = 0; i < m;i++)
 		{
-			int nx = point[j].first;
-			int ny = point[j].second;
-
-			double d = distance(x, y, nx, ny);
-			edge.push_back({ d,{i + 1,j + 1} });
+			parent[i] = i;
 		}
-	}
 
-	std::sort(edge.begin(), edge.end());
-
-	for (int i = 0; i < edge.size();i++)
-	{
-		int x = edge[i].second.first;
-		int y = edge[i].second.second;
-
-		double d = edge[i].first;
-
-		if (!sameP(x,y))
+		for (int i = 0; i < n; i++)
 		{
-			unionP(x, y);
-			answer += d;
-		}
-	}
+			int a{}, b{}, c{};
 
-	std::cout << std::fixed;
-	std::cout.precision(2);
-	std::cout << answer << '\n';
+			std::cin >> a >> b >> c;
+
+			v.push_back({ c,{a,b} });
+			answer += c;
+		}
+
+		std::sort(v.begin(), v.end());
+
+		for (int i = 0; i < n;i++)
+		{
+			unionP(v[i].second.first, v[i].second.second);
+
+			if (flag)
+			{
+				answer -= v[i].first;
+			}
+		}
+
+		std::cout << answer << '\n';
+	}		
 }
