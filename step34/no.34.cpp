@@ -285,78 +285,268 @@
 
 //5.
 
-int n{}, m{}, answer{};
-int parent[200001]{};
+//int n{}, m{}, answer{};
+//int parent[200001]{};
+//
+//bool flag;
+//
+//std::vector<std::pair<int, std::pair<int, int>>> v;
+//
+//int findP(int a)
+//{
+//	if (a == parent[a])
+//	{
+//		return a;
+//	}
+//	return parent[a] = findP(parent[a]);
+//}
+//
+//void unionP(int a, int b)
+//{
+//	flag = false;
+//
+//	a = findP(a);
+//	b = findP(b);
+//
+//	if (a == b)
+//	{
+//		return;
+//	}
+//
+//	flag = true;
+//	parent[a] = b;
+//}
+//
+//int main()
+//{
+//	while (true)
+//	{
+//		answer = 0;
+//		v.clear();
+//
+//		std::cin >> m >> n;
+//		if (!m && !n)
+//		{
+//			break;
+//		}
+//
+//		for (int i = 0; i < m;i++)
+//		{
+//			parent[i] = i;
+//		}
+//
+//		for (int i = 0; i < n; i++)
+//		{
+//			int a{}, b{}, c{};
+//
+//			std::cin >> a >> b >> c;
+//
+//			v.push_back({ c,{a,b} });
+//			answer += c;
+//		}
+//
+//		std::sort(v.begin(), v.end());
+//
+//		for (int i = 0; i < n;i++)
+//		{
+//			unionP(v[i].second.first, v[i].second.second);
+//
+//			if (flag)
+//			{
+//				answer -= v[i].first;
+//			}
+//		}
+//
+//		std::cout << answer << '\n';
+//	}		
+//}
 
-bool flag;
+//6.
 
-std::vector<std::pair<int, std::pair<int, int>>> v;
+int N{}, M{}, answer{}, Inum{};
+
+int parent[7]{};
+
+int map[10][10]{};
+int visited[10][10]{};
+int island[10][10]{};
+
+int dx[]{ 0,0,1,-1 };
+int dy[]{ 1,-1,0,0 };
+
+bool can{true};
+
+std::vector<std::pair<int, int>> v;
+std::vector < std::pair<int, std::pair<int, int>>> bridge;
 
 int findP(int a)
 {
-	if (a == parent[a])
+	if (parent[a] == a)
 	{
 		return a;
 	}
+
 	return parent[a] = findP(parent[a]);
 }
 
 void unionP(int a, int b)
 {
-	flag = false;
-
 	a = findP(a);
 	b = findP(b);
 
-	if (a == b)
+	if (a != b)
 	{
-		return;
+		if (a < b)
+			parent[b] = a;
+		else
+			parent[a] = b;
+	}
+}
+
+bool sameP(int a, int b)
+{
+	a = findP(a);
+	b = findP(b);
+
+	if (a != b)
+	{
+		return false;
+	}
+	return true;
+}
+
+void unionI()
+{
+	std::queue < std::pair<int, int>> q;
+
+	for (int i = 0; i < v.size();i++)
+	{
+		if (visited[v[i].first][v[i].second])
+		{
+			continue;
+		}
+
+		q.push({ v[i].first,v[i].second });
+		visited[q.front().first][q.front().second] = 1;
+		island[q.front().first][q.front().second] = ++Inum;
+
+		while (!q.empty())
+		{
+			int a = q.front().first;
+			int b = q.front().second;
+			q.pop();
+
+			for (int j = 0; j < 4;j++)
+			{
+				int na = a + dx[j];
+				int nb = b + dy[j];
+				if (na >= 0 && nb >= 0 && na < N && nb < M && !visited[na][nb] && map[na][nb])
+				{
+					q.push({ na,nb });
+					visited[na][nb] = 1;
+					island[na][nb] = Inum;
+				}
+			}
+		}
+
 	}
 
-	flag = true;
-	parent[a] = b;
+}
+
+void makeB(int a, int b, int c)
+{
+	int count{};
+	int start = island[a][b];
+
+	while (true)
+	{
+		int na = a + dx[c];
+		int nb = b + dy[c];
+
+		if (na >= 0 && nb >= 0 && na < N && nb < M)
+		{
+			if (!map[na][nb])
+			{
+				a = na;
+				b = nb;
+				count += 1;
+			}
+
+			else if (map[na][nb] && count >= 2 && start != island[na][nb])
+			{
+				bridge.push_back({ count,{start,island[na][nb]} });
+				break;
+			}
+
+			else
+			{
+				break;
+			}
+		}
+		else
+		{
+			break;
+		}
+	}
 }
 
 int main()
 {
-	while (true)
+	std::cin >> N >> M;
+
+	for (int i = 0; i < N;i++)
 	{
-		answer = 0;
-		v.clear();
-
-		std::cin >> m >> n;
-		if (!m && !n)
-		{
-			break;
-		}
-
-		for (int i = 0; i < m;i++)
-		{
-			parent[i] = i;
-		}
-
-		for (int i = 0; i < n; i++)
-		{
-			int a{}, b{}, c{};
-
-			std::cin >> a >> b >> c;
-
-			v.push_back({ c,{a,b} });
-			answer += c;
-		}
-
-		std::sort(v.begin(), v.end());
-
-		for (int i = 0; i < n;i++)
-		{
-			unionP(v[i].second.first, v[i].second.second);
-
-			if (flag)
+		for (int j = 0;j < M;j++)
+		{			
+			std::cin >> map[i][j];
+			if (map[i][j])
 			{
-				answer -= v[i].first;
+				v.push_back({ i,j });
 			}
 		}
+	}
 
+	unionI();
+
+	for (int i = 0; i < v.size();i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			makeB(v[i].first, v[i].second, j);
+		}
+	}
+
+	std::sort(bridge.begin(), bridge.end());
+
+	for (int i = 1; i <= Inum;i++)
+	{
+		parent[i] = i;
+	}
+
+	for (int i = 0; i < bridge.size(); i++)
+	{
+		if (!sameP(bridge[i].second.first, bridge[i].second.second))
+		{
+			unionP(bridge[i].second.first, bridge[i].second.second);
+			answer += bridge[i].first;
+		}
+	}
+
+	for (int i = 1; i <= Inum;i++)
+	{
+		if (findP(i) != 1)
+		{
+			can = false;
+			break;
+		}
+	}
+
+	if (can)
+	{
 		std::cout << answer << '\n';
-	}		
+	}
+	else
+	{
+		std::cout << -1 << '\n';
+	}
 }
