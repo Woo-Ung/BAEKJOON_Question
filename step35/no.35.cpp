@@ -148,27 +148,76 @@
 
 //3.
 
+//int N{};
+//
+//int vistited[1000001]{};
+//int dp[1000001][2]{};
+//
+//std::vector<int> v[1000001];
+//
+//void solve(int a)
+//{
+//	vistited[a] = 1;
+//
+//	dp[a][0] = 1;
+//
+//	for (int i = 0; i < v[a].size();i++)
+//	{
+//		int n = v[a][i];
+//		if (!vistited[n])
+//		{
+//			solve(n);
+//			dp[a][1] += dp[n][0];
+//			dp[a][0] += std::min(dp[n][1], dp[n][0]);
+//		}
+//	}
+//}
+//
+//int main()
+//{
+//	std::cin >> N;
+//
+//	for (int i = 0; i < N-1; i++)
+//	{
+//		int a{}, b{};
+//		std::cin >> a >> b;
+//
+//		v[a].push_back(b);
+//		v[b].push_back(a);
+//	}
+//
+//	solve(1);
+//
+//	std::cout << std::min(dp[1][0], dp[1][1]);
+//}
+
+//4.
+
 int N{};
 
-int vistited[1000001]{};
-int dp[1000001][2]{};
+int people[10001]{};
+int visited[10001]{};
+int dp[10001][2]{};
 
-std::vector<int> v[1000001];
+std::vector<int> v[10001];
 
 void solve(int a)
 {
-	vistited[a] = 1;
+	visited[a] = 1;
 
-	dp[a][0] = 1;
+	dp[a][0] = 0;
+	dp[a][1] = people[a];
 
-	for (int i = 0; i < v[a].size();i++)
+	for (int i = 0; i < v[a].size(); i++)
 	{
 		int n = v[a][i];
-		if (!vistited[n])
+
+		if (!visited[n])
 		{
 			solve(n);
-			dp[a][1] += dp[n][0];
-			dp[a][0] += std::min(dp[n][1], dp[n][0]);
+
+			dp[a][0] += std::max(dp[n][0], dp[n][1]);
+			dp[a][1] += dp[n][0];			
 		}
 	}
 }
@@ -177,9 +226,15 @@ int main()
 {
 	std::cin >> N;
 
-	for (int i = 0; i < N-1; i++)
+	for (int i = 1; i <= N;i++)
+	{
+		std::cin >> people[i];
+	}
+
+	for (int i = 1; i < N;i++)
 	{
 		int a{}, b{};
+
 		std::cin >> a >> b;
 
 		v[a].push_back(b);
@@ -188,5 +243,5 @@ int main()
 
 	solve(1);
 
-	std::cout << std::min(dp[1][0], dp[1][1]);
+	std::cout << std::max(dp[1][0], dp[1][1]);
 }
