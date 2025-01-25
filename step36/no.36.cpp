@@ -45,38 +45,96 @@
 
 //2.
 
+//int ans{};
+//
+//std::vector<int> x;
+//std::vector<int> y;
+//
+//int CCW()
+//{
+//	ans = (x[0] * y[1] + x[1] * y[2] + x[2] * y[0]) - (x[1] * y[0] + x[2] * y[1] + x[0] * y[2]);
+//	if (ans > 0)
+//	{
+//		return 1;
+//	}
+//	else if (ans == 0)
+//	{
+//		return 0;
+//	}
+//	else
+//	{
+//		return -1;
+//	}
+//}
+//
+//int main()
+//{
+//	for (int i = 0; i < 3;i++)
+//	{
+//		int a{}, b{};
+//		std::cin >> a >> b;
+//
+//		x.push_back(a);
+//		y.push_back(b);
+//	}
+//
+//	std::cout << CCW() << '\n';
+//}
+
+//3.
+
 int ans{};
+int visited[8]{};
 
-std::vector<int> x;
-std::vector<int> y;
+std::vector<long long > arry(8);
+std::vector<long long> v(8);
 
-int CCW()
+bool check()
 {
-	ans = (x[0] * y[1] + x[1] * y[2] + x[2] * y[0]) - (x[1] * y[0] + x[2] * y[1] + x[0] * y[2]);
-	if (ans > 0)
+	for (int i = 0; i < 8;i++)
 	{
-		return 1;
+		int a = i;
+		int b = (i + 1) % 8;
+		int c = (i + 2) % 8;
+
+		if (v[a] * v[c] * sqrt(2) > v[b] * (v[a] + v[c]))
+		{
+			return false;
+		}
 	}
-	else if (ans == 0)
+
+	return true;		
+}
+
+void solve(int a)
+{
+	if (a == 8)
 	{
-		return 0;
+		ans += check();
+		return;
 	}
-	else
+
+	for (int i = 0; i < 8;i++)
 	{
-		return -1;
+		if (visited[i])
+		{
+			continue;
+		}
+		visited[i] = 1;
+		v[a] = arry[i];
+		solve(a + 1);
+		visited[i] = 0;		
 	}
 }
 
 int main()
 {
-	for (int i = 0; i < 3;i++)
-	{
-		int a{}, b{};
-		std::cin >> a >> b;
-
-		x.push_back(a);
-		y.push_back(b);
+	for (int i = 0;i < 8;i++)
+	{	
+		std::cin >> arry[i];
 	}
 
-	std::cout << CCW() << '\n';
+	solve(0);
+
+	std::cout << ans << '\n';
 }
