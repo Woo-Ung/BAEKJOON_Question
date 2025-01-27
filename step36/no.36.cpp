@@ -83,58 +83,107 @@
 
 //3.
 
-int ans{};
-int visited[8]{};
+//int ans{};
+//int visited[8]{};
+//
+//std::vector<long long > arry(8);
+//std::vector<long long> v(8);
+//
+//bool check()
+//{
+//	for (int i = 0; i < 8;i++)
+//	{
+//		int a = i;
+//		int b = (i + 1) % 8;
+//		int c = (i + 2) % 8;
+//
+//		if (v[a] * v[c] * sqrt(2) > v[b] * (v[a] + v[c]))
+//		{
+//			return false;
+//		}
+//	}
+//
+//	return true;		
+//}
+//
+//void solve(int a)
+//{
+//	if (a == 8)
+//	{
+//		ans += check();
+//		return;
+//	}
+//
+//	for (int i = 0; i < 8;i++)
+//	{
+//		if (visited[i])
+//		{
+//			continue;
+//		}
+//		visited[i] = 1;
+//		v[a] = arry[i];
+//		solve(a + 1);
+//		visited[i] = 0;		
+//	}
+//}
+//
+//int main()
+//{
+//	for (int i = 0;i < 8;i++)
+//	{	
+//		std::cin >> arry[i];
+//	}
+//
+//	solve(0);
+//
+//	std::cout << ans << '\n';
+//}
 
-std::vector<long long > arry(8);
-std::vector<long long> v(8);
+//4.
 
-bool check()
+int check1{};
+int check2{};
+
+std::vector<std::pair<long long, long long>> point(4);
+
+int CCW(std::pair<long long, long long> a, std::pair<long long, long long> b, std::pair<long long, long long> c)
 {
-	for (int i = 0; i < 8;i++)
-	{
-		int a = i;
-		int b = (i + 1) % 8;
-		int c = (i + 2) % 8;
+	long long temp{};
+	temp = a.first * b.second + b.first * c.second + c.first * a.second;
+	temp -= b.first * a.second + c.first * b.second + a.first * c.second;
 
-		if (v[a] * v[c] * sqrt(2) > v[b] * (v[a] + v[c]))
-		{
-			return false;
-		}
+	if (temp > 0)
+	{
+		return 1;
 	}
 
-	return true;		
-}
-
-void solve(int a)
-{
-	if (a == 8)
+	else if (temp == 0)
 	{
-		ans += check();
-		return;
+		return 0;
 	}
 
-	for (int i = 0; i < 8;i++)
+	else
 	{
-		if (visited[i])
-		{
-			continue;
-		}
-		visited[i] = 1;
-		v[a] = arry[i];
-		solve(a + 1);
-		visited[i] = 0;		
+		return -1;
 	}
 }
 
 int main()
 {
-	for (int i = 0;i < 8;i++)
-	{	
-		std::cin >> arry[i];
+	for (int i = 0;i < 4;i++)
+	{
+		std::cin >> point[i].first >> point[i].second;
 	}
 
-	solve(0);
+	check1 = CCW(point[0], point[1], point[2]) * CCW(point[0], point[1], point[3]);
+	check2 = CCW(point[2], point[3], point[0]) * CCW(point[2], point[3], point[1]);
 
-	std::cout << ans << '\n';
+	if (check1 < 0 && check2 < 0)
+	{
+		std::cout << 1 << '\n';
+	}
+	else
+	{
+		std::cout << 0 << '\n';
+	}
 }
