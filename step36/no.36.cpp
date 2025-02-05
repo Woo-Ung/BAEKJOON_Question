@@ -141,6 +141,55 @@
 
 //4.
 
+//int check1{};
+//int check2{};
+//
+//std::vector<std::pair<long long, long long>> point(4);
+//
+//int CCW(std::pair<long long, long long> a, std::pair<long long, long long> b, std::pair<long long, long long> c)
+//{
+//	long long temp{};
+//	temp = a.first * b.second + b.first * c.second + c.first * a.second;
+//	temp -= b.first * a.second + c.first * b.second + a.first * c.second;
+//
+//	if (temp > 0)
+//	{
+//		return 1;
+//	}
+//
+//	else if (temp == 0)
+//	{
+//		return 0;
+//	}
+//
+//	else
+//	{
+//		return -1;
+//	}
+//}
+//
+//int main()
+//{
+//	for (int i = 0;i < 4;i++)
+//	{
+//		std::cin >> point[i].first >> point[i].second;
+//	}
+//
+//	check1 = CCW(point[0], point[1], point[2]) * CCW(point[0], point[1], point[3]);
+//	check2 = CCW(point[2], point[3], point[0]) * CCW(point[2], point[3], point[1]);
+//
+//	if (check1 < 0 && check2 < 0)
+//	{
+//		std::cout << 1 << '\n';
+//	}
+//	else
+//	{
+//		std::cout << 0 << '\n';
+//	}
+//}
+
+//5.
+
 int check1{};
 int check2{};
 
@@ -152,19 +201,52 @@ int CCW(std::pair<long long, long long> a, std::pair<long long, long long> b, st
 	temp = a.first * b.second + b.first * c.second + c.first * a.second;
 	temp -= b.first * a.second + c.first * b.second + a.first * c.second;
 
-	if (temp > 0)
+	if(temp >0)
 	{
 		return 1;
 	}
-
 	else if (temp == 0)
 	{
 		return 0;
 	}
-
 	else
 	{
 		return -1;
+	}
+}
+
+bool solve (std::pair<long long, long long> a, std::pair<long long, long long> b, std::pair<long long, long long> c, std::pair<long long, long long> d)
+{
+	check1 = CCW(point[0], point[1], point[2]) * CCW(point[0], point[1], point[3]);
+	check2 = CCW(point[2], point[3], point[0]) * CCW(point[2], point[3], point[1]);
+
+	if (check1 == 0 && check2 == 0)
+	{
+		if (a > b)
+		{
+			swap(a, b);
+		}
+		if (c > d)
+		{
+			swap(c, d);
+		}
+
+		if (a <= d && b >= c)
+		{
+			return true;
+		}
+		return false;
+	}
+	else
+	{
+		if (check1 <= 0 && check2 <= 0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 }
 
@@ -175,15 +257,5 @@ int main()
 		std::cin >> point[i].first >> point[i].second;
 	}
 
-	check1 = CCW(point[0], point[1], point[2]) * CCW(point[0], point[1], point[3]);
-	check2 = CCW(point[2], point[3], point[0]) * CCW(point[2], point[3], point[1]);
-
-	if (check1 < 0 && check2 < 0)
-	{
-		std::cout << 1 << '\n';
-	}
-	else
-	{
-		std::cout << 0 << '\n';
-	}
+	std::cout << solve(point[0],point[1],point[2],point[3]) << '\n';
 }
