@@ -2,6 +2,7 @@
 #include<vector>
 #include<algorithm>
 #include <math.h>
+#include <queue>
 
 //1.
 
@@ -262,66 +263,157 @@
 
 //6.
 
-int check1{};
-int check2{};
+//int check1{};
+//int check2{};
+//
+//std::vector<std::pair<long long, long long>> point(4);
+//
+//int CCW(std::pair<long long, long long> a, std::pair<long long, long long> b, std::pair<long long, long long> c)
+//{
+//	long long temp{};
+//	temp = a.first * b.second + b.first * c.second + c.first * a.second;
+//	temp -= b.first * a.second + c.first * b.second + a.first * c.second;
+//
+//	if (temp > 0)
+//	{
+//		return 1;
+//	}
+//	else if (temp == 0)
+//	{
+//		return 0;
+//	}
+//	else
+//	{
+//		return -1;
+//	}
+//}
+//
+//void crossPoint(std::pair<long long, long long> a, std::pair<long long, long long> b, std::pair<long long, long long> c, std::pair<long long, long long> d)
+//{
+//	double tx = (a.first * b.second - a.second * b.first) * (c.first - d.first) - (a.first - b.first) * (c.first * d.second - c.second * d.first);
+//	double ty = (a.first * b.second - a.second * b.first) * (c.second - d.second) - (a.second - b.second) * (c.first * d.second - c.second * d.first);
+//	double temp = (a.first - b.first) * (c.second - d.second) - (a.second - b.second) * (c.first - d.first);
+//
+//	if (temp == 0)
+//	{
+//		if (b == c && a <= c)
+//		{
+//			std::cout << b.first << " " << b.second << '\n';
+//		}
+//		else if (a == d && c <= a)
+//		{
+//			std::cout << a.first << " " << a.second << '\n';
+//		}
+//	}
+//
+//	else
+//	{
+//		double x = tx / temp;
+//		double y = ty / temp;
+//
+//		std::cout << std::fixed;
+//		std::cout.precision(9);
+//		std::cout << x << " " << y;
+//	}
+//}
+//
+//void solve(std::pair<long long, long long> a, std::pair<long long, long long> b, std::pair<long long, long long> c, std::pair<long long, long long> d)
+//{
+//	check1 = CCW(point[0], point[1], point[2]) * CCW(point[0], point[1], point[3]);
+//	check2 = CCW(point[2], point[3], point[0]) * CCW(point[2], point[3], point[1]);
+//
+//	if (check1 == 0 && check2 == 0)
+//	{
+//		if (a > b)
+//		{
+//			swap(a, b);
+//		}
+//		if (c > d)
+//		{
+//			swap(c, d);
+//		}
+//
+//		if (a <= d && b >= c)
+//		{
+//			std::cout << 1 << '\n';
+//			crossPoint(a, b, c, d);
+//		}
+//		else
+//		{
+//			std::cout << 0 << '\n';
+//		}
+//	}
+//
+//	else
+//	{
+//		if (check1 <= 0 && check2 <= 0)
+//		{
+//			std::cout << 1 << '\n';
+//			crossPoint(a, b, c, d);
+//		}
+//		else
+//		{
+//			std::cout << 0 << '\n';		
+//		}
+//	}
+//}
+//
+//int main()
+//{
+//	for (int i = 0;i < 4;i++)
+//	{
+//		std::cin >> point[i].first >> point[i].second;
+//	}
+//
+//	solve(point[0], point[1], point[2], point[3]);
+//}
 
-std::vector<std::pair<long long, long long>> point(4);
+//7.
+int N{}, max{}, group{};
+int visited[3001]{};
+int parent[3001]{};
 
-int CCW(std::pair<long long, long long> a, std::pair<long long, long long> b, std::pair<long long, long long> c)
+std::queue<int> q;
+std::vector<int> graph[3001];
+std::vector<std::pair<int, int>> point[3001];
+
+int findP(int a)
 {
-	long long temp{};
-	temp = a.first * b.second + b.first * c.second + c.first * a.second;
+	if (a == parent[a])
+	{
+		return a;
+	}
+
+	return parent[a] = findP(parent[a]);
+}
+
+int CCW(std::pair<int, int> a, std::pair<int, int> b, std::pair<int, int> c)
+{
+	int temp = a.first * b.second + b.first * c.second + c.first * a.second;
 	temp -= b.first * a.second + c.first * b.second + a.first * c.second;
 
 	if (temp > 0)
 	{
 		return 1;
 	}
+
 	else if (temp == 0)
 	{
 		return 0;
 	}
+
 	else
 	{
 		return -1;
 	}
 }
 
-void crossPoint(std::pair<long long, long long> a, std::pair<long long, long long> b, std::pair<long long, long long> c, std::pair<long long, long long> d)
+bool check(std::pair<int, int> a, std::pair<int, int> b, std::pair<int, int> c, std::pair<int, int> d)
 {
-	double tx = (a.first * b.second - a.second * b.first) * (c.first - d.first) - (a.first - b.first) * (c.first * d.second - c.second * d.first);
-	double ty = (a.first * b.second - a.second * b.first) * (c.second - d.second) - (a.second - b.second) * (c.first * d.second - c.second * d.first);
-	double temp = (a.first - b.first) * (c.second - d.second) - (a.second - b.second) * (c.first - d.first);
+	int temp1 = CCW(a, b, c) * CCW(a, b, d);
+	int temp2 = CCW(c, d, a) * CCW(c, d, b);
 
-	if (temp == 0)
-	{
-		if (b == c && a <= c)
-		{
-			std::cout << b.first << " " << b.second << '\n';
-		}
-		else if (a == d && c <= a)
-		{
-			std::cout << a.first << " " << a.second << '\n';
-		}
-	}
-
-	else
-	{
-		double x = tx / temp;
-		double y = ty / temp;
-
-		std::cout << std::fixed;
-		std::cout.precision(9);
-		std::cout << x << " " << y;
-	}
-}
-
-void solve(std::pair<long long, long long> a, std::pair<long long, long long> b, std::pair<long long, long long> c, std::pair<long long, long long> d)
-{
-	check1 = CCW(point[0], point[1], point[2]) * CCW(point[0], point[1], point[3]);
-	check2 = CCW(point[2], point[3], point[0]) * CCW(point[2], point[3], point[1]);
-
-	if (check1 == 0 && check2 == 0)
+	if (temp1 == 0 && temp2 == 0)
 	{
 		if (a > b)
 		{
@@ -334,35 +426,116 @@ void solve(std::pair<long long, long long> a, std::pair<long long, long long> b,
 
 		if (a <= d && b >= c)
 		{
-			std::cout << 1 << '\n';
-			crossPoint(a, b, c, d);
+			return true;
 		}
+
 		else
 		{
-			std::cout << 0 << '\n';
+			return false;
 		}
 	}
 
 	else
 	{
-		if (check1 <= 0 && check2 <= 0)
+		if (temp1 <= 0 && temp2 <= 0)
 		{
-			std::cout << 1 << '\n';
-			crossPoint(a, b, c, d);
+			return true;
 		}
 		else
 		{
-			std::cout << 0 << '\n';		
+			return false;
 		}
 	}
 }
 
-int main()
+bool unionP(int a, int b)
 {
-	for (int i = 0;i < 4;i++)
+	a = findP(a);
+	b = findP(b);
+
+	if (a == b)
 	{
-		std::cin >> point[i].first >> point[i].second;
+		return false;
 	}
 
-	solve(point[0], point[1], point[2], point[3]);
+	else
+	{
+		parent[a] = b;
+
+		graph[a].push_back(b);
+		graph[b].push_back(a);
+
+		return true;
+	}
+
+}
+
+void bfs(int a)
+{
+	int x = 1;
+	q.push(a);
+
+	while (!q.empty())
+	{
+		int temp = q.front();
+		q.pop();
+
+		visited[temp] = 1;
+
+		for (int i = 0; i < graph[temp].size();i++)
+		{
+			int nx = graph[temp][i];
+
+			if(!visited[nx])
+			{
+				x++;
+				q.push(nx);
+			}
+		}
+	}
+
+	max = std::max(max, x);
+}
+
+int main()
+{
+	std::cin >> N;
+
+	for (int i = 1;i <= N;i++)
+	{
+		int a{}, b{}, c{}, d{};
+		std::cin >> a >> b >> c >> d;
+		point[i].push_back({ a,b });
+		point[i].push_back({ c,d });
+	}
+	
+	for (int i = 0;i <= N;i++)
+	{
+		parent[i] = i;
+	}
+
+	for (int i = 1; i <= N;i++)
+	{
+		for (int j = i + 1;j <= N;j++)
+		{
+			bool isCross = check(point[i][0], point[i][1], point[j][0], point[j][1]);
+
+			if (isCross)
+			{
+				unionP(i, j);
+			}
+		}
+	}
+
+	for (int i = 1;i <= N;i++)
+	{
+		if (!visited[i])
+		{
+			group++;
+			bfs(i);
+		}
+	}
+
+	std::cout << group << '\n';
+	std::cout << max << '\n';
 }
